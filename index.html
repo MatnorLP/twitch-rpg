@@ -112,7 +112,25 @@
         .price {
             color: var(--accent-color);
             font-weight: bold;
-        }
+        
+        /* Spezielles Design für die Top 3 im Leaderboard */
+/* Platz 1: Gold */
+tr:nth-child(1) {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.05));
+    border-left: 4px solid #ffd700;
+}
+
+/* Platz 2: Silber */
+tr:nth-child(2) {
+    background: linear-gradient(135deg, rgba(192, 192, 192, 0.2), rgba(192, 192, 192, 0.05));
+    border-left: 4px solid #c0c0c0;
+}
+
+/* Platz 3: Bronze */
+tr:nth-child(3) {
+    background: linear-gradient(135deg, rgba(205, 127, 50, 0.2), rgba(205, 127, 50, 0.05));
+    border-left: 4px solid #cd7f32;
+}}
     </style>
 </head>
 <body>
