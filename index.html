@@ -254,16 +254,29 @@ table tbody tr:nth-child(3) {
             return;
         }
 
-        playerArray.forEach((player, index) => {
-            let row = document.createElement("tr");
-            row.innerHTML = `
-                <td><strong>#${index + 1}</strong></td>
-                <td>${player.name}</td>
-                <td>Lvl ${player.level || 1}</td>
-                <td>⚔️ ${player.kills || 0}</td>
-            `;
-            tbody.appendChild(row);
-        });
+playerArray.forEach((player, index) => {
+        let row = document.createElement("tr");
+
+        // Spezielles Design für die Top 3 Plätze (Index 0 = Platz 1, Index 1 = Platz 2, Index 2 = Platz 3)
+        if (index === 0) {
+            row.style.background = "linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 215, 0, 0.08))";
+            row.style.borderLeft = "5px solid #ffd700";
+        } else if (index === 1) {
+            row.style.background = "linear-gradient(135deg, rgba(192, 192, 192, 0.3), rgba(192, 192, 192, 0.08))";
+            row.style.borderLeft = "5px solid #c0c0c0";
+        } else if (index === 2) {
+            row.style.background = "linear-gradient(135deg, rgba(205, 127, 50, 0.3), rgba(205, 127, 50, 0.08))";
+            row.style.borderLeft = "5px solid #cd7f32";
+        }
+
+        row.innerHTML = `
+            <td><strong>#${index + 1}</strong></td>
+            <td>${player.name}</td>
+            <td>Lvl ${player.level || 1}</td>
+            <td>⚔️ ${player.kills || 0}</td>
+        `;
+        tbody.appendChild(row);
+    });
     }
 
     function searchCharacter() {
