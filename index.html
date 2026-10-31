@@ -199,6 +199,7 @@
 </div>
 
 <script>
+    // Tab-Wechsel-Funktion
     function switchTab(tabId) {
         document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -206,6 +207,93 @@
         document.getElementById(tabId).classList.add('active');
         event.currentTarget.classList.add('active');
     }
+
+    // Lädt die Daten direkt aus der leaderboard.json im selben GitHub-Ordner
+    async function loadLeaderboardData() {
+        try {
+            // Verhindert Browser-Caching durch Zeitstempel
+            const response = await fetch('leaderboard.json?v=' + new Date().getTime());
+            if (!response.ok) return;
+            
+            const players = await response.json();
+            window.rpgPlayers = players;
+            
+            updateLeaderboardTable(players);
+        } catch (e) {
+            console.log("Noch keine leaderboard.json vorhanden. Zeige Standardwerte.");
+        }
+    }
+
+    function updateLeaderboardTable(players) {
+        const tbody = document.getElementById("leaderboard-body");
+        tbody.innerHTML = "";
+
+        // Sortieren nach Level, danach Kills
+        let playerArray = Object.values(players);
+        playerArray.sort((a, b) => (b.level - a.level) || (b.kills - a.kills));
+
+        if (playerArray.length === 0) {
+            tbody.innerHTML = "<tr><td colspan='4'>Noch keine Helden eingetragen!</td></tr>";
+            return;
+        }
+
+        playerArray.forEach((player, index) => {
+            let row = document.createElement("tr");
+            row.innerHTML = `
+                <td><strong>#${index + 1}</strong></td>
+                <td>${player.name}</td>
+                <td>Lvl ${player.level || 1}</td>
+                <td>⚔️ ${player.kills || 0}</td>
+            `;
+            tbody.appendChild(row);
+        });
+    }
+
+    function searchCharacter() {
+        let input = document.getElementById("char-search").value.trim().toLowerCase();
+        let displayArea = document.getElementById("char-result");
+        
+        if (!displayArea) {
+            displayArea = document.createElement("div");
+            displayArea.id = "char-result";
+            displayArea.style.marginTop = "20px";
+            document.getElementById("character").appendChild(displayArea);
+        }
+
+        if (!input) {
+            displayArea.innerHTML = "<p style='color: var(--accent-color);'>Bitte gib einen Namen ein.</p>";
+            return;
+        }
+
+        let foundPlayer = null;
+        if (window.rpgPlayers) {
+            Object.values(window.rpgPlayers).forEach(p => {
+                if (p.name.toLowerCase() === input) {
+                    foundPlayer = p;
+                }
+            });
+        }
+
+        if (foundPlayer) {
+            displayArea.innerHTML = `
+                <div style="background: var(--bg-color); border: 1px solid var(--accent-color); padding: 15px; border-radius: 8px;">
+                    <h3 style="margin-top:0; color: var(--accent-color);">🛡️ Held: ${foundPlayer.name}</h3>
+                    <p><strong>Level:</strong> ${foundPlayer.level || 1}</p>
+                    <p><strong>Kills:</strong> ⚔️ ${foundPlayer.kills || 0}</p>
+                    <p><strong>Gold:</strong> 🪙 ${foundPlayer.gold || 0}</p>
+                    <p><strong>Ausrüstung:</strong> Helm: ${foundPlayer.helm || 'Keiner'}, Rüstung: ${foundPlayer.ruestung || 'Keine'}, Waffe: ${foundPlayer.waffe || 'Standard'}</p>
+                </div>
+            `;
+        } else {
+            displayArea.innerHTML = `<p style='color: #e74c3c;'>Kein Held mit dem Namen "${input}" gefunden.</p>`;
+        }
+    }
+
+    // Beim Laden der Seite Daten abrufen und alle 30 Sek. aktualisieren
+    window.onload = function() {
+        loadLeaderboardData();
+        setInterval(loadLeaderboardData, 30000);
+    };
 </script>
 
 </body>
