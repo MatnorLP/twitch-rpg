@@ -1,8 +1,20 @@
 {
-  "matnor": {
-    "id": "matnor",
+  "474125863": {
+    "id": "474125863",
+    "name": "474125863",
+    "level": 1,
+    "kills": 0
+  },
+  "479058025": {
+    "id": "479058025",
+    "name": "479058025",
+    "level": 4,
+    "kills": 10
+  },
+  "MatnorLP": {
+    "id": "MatnorLP",
     "name": "MatnorLP",
-    "level": 10,
-    "kills": 42
+    "level": 0,
+    "kills": 3
   }
 }
