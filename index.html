@@ -345,6 +345,7 @@ let allShopItems = [];
         return "#e91e63";
     }
 
+// Hilfsfunktion zum Erstellen einer einzelnen Item-Karte inklusive Chat-Befehl
     function appendItemCard(container, item) {
         const card = document.createElement('div');
         card.className = 'shop-item';
@@ -355,6 +356,10 @@ let allShopItems = [];
 
         const imageSrc = item.image || 'https://via.placeholder.com/80?text=Item';
 
+        // Bestimme den passenden Chat-Befehl basierend auf dem Slot
+        let buyCommand = `!kaufen ${item.slot}`;
+        if (item.slot === 'armor') buyCommand = `!kaufen ruestung`; // Falls der Bot 'ruestung' erwartet
+
         card.innerHTML = `
             <img src="${imageSrc}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/80?text=Item'" style="width: 80px; height: 80px; object-fit: contain; margin-bottom: 10px;">
             <h4 style="color: ${tierColor}; margin: 5px 0; font-size: 16px;">${item.name}</h4>
@@ -364,6 +369,7 @@ let allShopItems = [];
                 ${item.def > 0 ? `<strong>DEF:</strong> +${item.def}` : ''}
             </p>
             <p class="price" style="color: #ffd700; font-weight: bold; margin-top: 8px;">💰 ${item.price} Gold</p>
+            <p style="background: rgba(243, 156, 18, 0.1); border: 1px solid #f39c12; color: #f39c12; padding: 5px; border-radius: 4px; font-family: monospace; font-size: 12px; margin-top: 10px;">${buyCommand}</p>
         `;
         
         container.appendChild(card);
