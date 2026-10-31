@@ -171,37 +171,25 @@ table tbody tr:nth-child(3) {
         </table>
     </div>
 
-    <!-- SHOP -->
-    <div id="shop" class="section">
-        <h2>Ausrüstungs-Shop</h2>
-        <p>Verbessere deine Werte mit mächtiger Ausrüstung! Tippe den jeweiligen Befehl einfach in den Twitch-Chat:</p>
-        <div class="shop-grid">
-            <div class="shop-item">
-                <h3>🗡️ Stahl-Großschwert</h3>
-                <p>Waffe (Slot)</p>
-                <p class="price">3.500 Gold</p>
-                <p style="background: rgba(243, 156, 18, 0.1); border: 1px solid #f39c12; color: #f39c12; padding: 5px; border-radius: 4px; font-family: monospace; font-size: 13px; margin-top: 10px;">!kaufen waffe</p>
-            </div>
-            <div class="shop-item">
-                <h3>🛡️ Eisen-Helm</h3>
-                <p>Kopf (Slot)</p>
-                <p class="price">1.200 Gold</p>
-                <p style="background: rgba(243, 156, 18, 0.1); border: 1px solid #f39c12; color: #f39c12; padding: 5px; border-radius: 4px; font-family: monospace; font-size: 13px; margin-top: 10px;">!kaufen helm</p>
-            </div>
-            <div class="shop-item">
-                <h3>🛡️ Kupfer-Brustschutz</h3>
-                <p>Rüstung (Slot)</p>
-                <p class="price">150 Gold</p>
-                <p style="background: rgba(243, 156, 18, 0.1); border: 1px solid #f39c12; color: #f39c12; padding: 5px; border-radius: 4px; font-family: monospace; font-size: 13px; margin-top: 10px;">!kaufen ruestung</p>
-            </div>
-            <div class="shop-item">
-                <h3>🛡️ Kupfer-Beinschiene</h3>
-                <p>Hose (Slot)</p>
-                <p class="price">150 Gold</p>
-                <p style="background: rgba(243, 156, 18, 0.1); border: 1px solid #f39c12; color: #f39c12; padding: 5px; border-radius: 4px; font-family: monospace; font-size: 13px; margin-top: 10px;">!kaufen hose</p>
-            </div>
-        </div>
+<!-- ITEM SHOP -->
+<div id="shop" class="section">
+    <h2>Ausrüstungsshop</h2>
+    <p>Hier kannst du dich mit neuer Ausrüstung für deine nächsten Kämpfe eindecken!</p>
+    
+    <!-- Slot-Filter Buttons -->
+    <div style="margin: 20px 0; display: flex; gap: 10px; flex-wrap: wrap;">
+        <button class="shop-filter-btn active" onclick="filterShop('all', this)">Alle</button>
+        <button class="shop-filter-btn" onclick="filterShop('helm', this)">🪖 Helme</button>
+        <button class="shop-filter-btn" onclick="filterShop('armor', this)">🛡️ Rüstungen</button>
+        <button class="shop-filter-btn" onclick="filterShop('pants', this)">👖 Hosen</button>
+        <button class="shop-filter-btn" onclick="filterShop('weapon', this)">⚔️ Waffen</button>
     </div>
+
+    <!-- Container für die dynamischen Shop-Cards -->
+    <div id="shop-grid" class="shop-grid">
+        <p>Lade Shop-Angebote...</p>
+    </div>
+</div>
 
     <!-- CHARAKTER -->
     <div id="character" class="section">
