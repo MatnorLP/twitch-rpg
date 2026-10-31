@@ -307,12 +307,85 @@ playerArray.forEach((player, index) => {
         }
     }
 
-    // Beim Laden der Seite Daten abrufen und alle 30 Sek. aktualisieren
+let allShopItems = [];
+
+    // Lädt die Shop-Daten aus der shop.json
+    async function loadShopData() {
+        try {
+            const response = await fetch('shop.json?v=' + new Date().getTime());
+            if (!response.ok) return;
+            
+            allShopItems = await response.json();
+            renderShopItems('all');
+        } catch (e) {
+            console.log("Fehler beim Laden der shop.json", e);
+        }
+    }
+
+    // Gibt die passende Rahmenfarbe für das jeweilige Tier zurück (zukunftssicher skaliert)
+    function getTierColor(tier) {
+        if (tier <= 1) return "#9e9e9e"; // Grau / Standard
+        if (tier === 2) return "#4caf50"; // Grün / Einsteiger
+        if (tier === 3) return "#2196f3"; // Blau / Fortgeschritten
+        if (tier === 4) return "#9c27b0"; // Violett / Meister
+        if (tier === 5) return "#ffd700"; // Gold / Elite (Eisen)
+        if (tier <= 8) return "#ff5722";  // Orange / Episch (Zukunft)
+        return "#e91e63";                // Mythic / Neon (Zukunft)
+    }
+
+    // Rendert die Items im Shop-Grid
+    function renderShopItems(filterSlot) {
+        const grid = document.getElementById('shop-grid');
+        if (!grid) return;
+        
+        grid.innerHTML = "";
+
+        const filtered = filterSlot === 'all' 
+            ? allShopItems 
+            : allShopItems.filter(item => item.slot === filterSlot);
+
+        if (filtered.length === 0) {
+            grid.innerHTML = "<p>Keine Gegenstände in dieser Kategorie gefunden.</p>";
+            return;
+        }
+
+        filtered.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'shop-item';
+            
+            const tierColor = getTierColor(item.tier);
+            card.style.border = `2px solid ${tierColor}`;
+            card.style.boxShadow = `0 0 8px ${tierColor}33`;
+
+            const imageSrc = item.image || 'https://via.placeholder.com/80?text=Item';
+
+            card.innerHTML = `
+                <img src="${imageSrc}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/80?text=Item'" style="width: 80px; height: 80px; object-fit: contain; margin-bottom: 10px;">
+                <h3 style="color: ${tierColor}; margin: 5px 0;">${item.name}</h3>
+                <p style="font-size: 12px; color: #888; margin-bottom: 5px;">Tier ${item.tier} Gegenstand</p>
+                <p style="margin: 5px 0;">
+                    ${item.atk > 0 ? `<strong>ATK:</strong> +${item.atk} ` : ''}
+                    ${item.def > 0 ? `<strong>DEF:</strong> +${item.def}` : ''}
+                </p>
+                <p class="price" style="color: #ffd700; font-weight: bold; margin-top: 8px;">💰 ${item.price} Gold</p>
+            `;
+            
+            grid.appendChild(card);
+        });
+    }
+
+    // Filter-Funktion für die Kategorie-Buttons
+    function filterShop(slot, btnElement) {
+        document.querySelectorAll('.shop-filter-btn').forEach(b => b.classList.remove('active'));
+        if (btnElement) btnElement.classList.add('active');
+        renderShopItems(slot);
+    }
+
     window.onload = function() {
         loadLeaderboardData();
+        loadShopData(); 
         setInterval(loadLeaderboardData, 30000);
     };
 </script>
-
 </body>
 </html>
