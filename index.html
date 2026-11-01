@@ -324,8 +324,11 @@
             const card = document.createElement('div');
             card.className = 'shop-item';
 
-            let buyCommand = `!kaufen ${item.slot}`;
-            if (item.slot === 'armor') buyCommand = `!kaufen ruestung`;
+let buyCommand = `!kaufen ${item.slot}`;
+        if (item.slot === 'weapon') buyCommand = `!kaufen waffe`;
+        if (item.slot === 'helm') buyCommand = `!kaufen helm`;       // Falls der Befehl im Chat "helm" heißt
+        if (item.slot === 'armor') buyCommand = `!kaufen ruestung`;
+        if (item.slot === 'pants') buyCommand = `!kaufen beine`;
 
             const tierColor = getTierColor(item.tier);
             const tierName = getTierName(item.tier);
