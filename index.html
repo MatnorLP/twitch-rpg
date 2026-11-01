@@ -382,6 +382,10 @@ function appendItemCard(container, item) {
     const card = document.createElement('div');
     card.className = 'shop-item';
 
+    // Bestimme den passenden Chat-Befehl basierend auf dem Slot
+    let buyCommand = `!kaufen ${item.slot}`;
+    if (item.slot === 'armor') buyCommand = `!kaufen ruestung`; // Falls der Bot 'ruestung' erwartet
+
     const tierColor = getTierColor(item.tier);
     card.style.border = `2px solid ${tierColor}`;
     card.style.boxShadow = `0 0 8px ${tierColor}33`;
