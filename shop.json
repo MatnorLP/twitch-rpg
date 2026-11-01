@@ -1,5 +1,5 @@
 [
-  { "id": "helm_1", "name": "Leder-Helm", "slot": "helm", "tier": 1, "atk": 0, "def": 2, "price": 50, "image": "" },
+  { "id": "helm_1", "name": "Leder-Helm", "slot": "helm", "tier": 1, "atk": 0, "def": 2, "price": 50, "image": "images/Leder_Helm_klein.png" },
   { "id": "helm_2", "name": "Kupfer-Helm", "slot": "helm", "tier": 2, "atk": 0, "def": 3, "price": 150, "image": "" },
   { "id": "helm_3", "name": "Bronze-Helm", "slot": "helm", "tier": 3, "atk": 0, "def": 4, "price": 450, "image": "" },
   { "id": "helm_4", "name": "Eisen-Helm", "slot": "helm", "tier": 4, "atk": 0, "def": 6, "price": 1200, "image": "" },
