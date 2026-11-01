@@ -203,11 +203,11 @@
             
             <!-- Filter-Buttons -->
             <div class="nav-buttons">
-                <button class="shop-filter-btn active" onclick="filterShop('all', this)">Alle</button>
-                <button class="shop-filter-btn" onclick="filterShop('helm', this)">🪖 Helme</button>
-                <button class="shop-filter-btn" onclick="filterShop('armor', this)">🛡️ Rüstungen</button>
-                <button class="shop-filter-btn" onclick="filterShop('pants', this)">👖 Hosen</button>
-                <button class="shop-filter-btn" onclick="filterShop('weapon', this)">⚔️ Waffen</button>
+  <button class="shop-filter-btn active" onclick="filterShop('all', this)">✨ Alle</button>
+<button class="shop-filter-btn" onclick="filterShop('weapon', this)">🗡️ Waffen</button>
+<button class="shop-filter-btn" onclick="filterShop('helm', this)">👑 Helme</button>
+<button class="shop-filter-btn" onclick="filterShop('armor', this)">🛡️ Rüstungen</button>
+<button class="shop-filter-btn" onclick="filterShop('pants', this)">🦿 Beine</button>
             </div>
 
             <!-- Shop Grid -->
@@ -358,10 +358,10 @@
             grid.innerHTML = "";
 
             const slotOrder = [
-                { key: 'helm', title: '🪖 Helme' },
+                { key: 'helm', title: '👑 Helme' },
                 { key: 'armor', title: '🛡️ Rüstungen' },
-                { key: 'pants', title: '👖 Hosen' },
-                { key: 'weapon', title: '⚔️ Waffen' }
+                { key: 'pants', title: '🦿 Hosen' },
+                { key: 'weapon', title: '🗡️ Waffen' }
             ];
 
             if (filterSlot === 'all') {
