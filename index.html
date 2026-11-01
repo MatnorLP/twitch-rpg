@@ -353,132 +353,114 @@ playerArray.forEach((player, index) => {
 
 let allShopItems = [];
 
-    async function loadShopData() {
-        try {
-            const response = await fetch('shop.json?v=' + new Date().getTime());
-            if (!response.ok) return;
-            
-            allShopItems = await response.json();
-            renderShopItems('all');
-        } catch (e) {
-            console.log("Fehler beim Laden der shop.json", e);
-        }
+// Lädt die Shop-Daten aus der shop.json
+async function loadShopData() {
+    try {
+        const response = await fetch('shop.json?v=' + new Date().getTime());
+        if (!response.ok) return;
+
+        allShopItems = await response.json();
+        renderShopItems('all');
+    } catch (e) {
+        console.log("Fehler beim Laden der shop.json", e);
     }
+}
 
-    // Berechnet die Hauptfarb-Gruppe und den Unter-Rang (1 bis 3) basierend auf dem Tier
-    function getItemClasses(tier) {
-        let colorClass = 'tier-color-grey';
-        if (tier >= 4 && tier <= 6) colorClass = 'tier-color-green';
-        else if (tier >= 7 && tier <= 9) colorClass = 'tier-color-blue';
-        else if (tier >= 10 && tier <= 12) colorClass = 'tier-color-purple';
-        else if (tier >= 13) colorClass = 'tier-color-gold';
+// Gibt die passende Rahmenfarbe für das jeweilige Tier zurück
+function getTierColor(tier) {
+    if (tier <= 1) return "#9e9e9e"; // Grau / Standard
+    if (tier === 2) return "#4caf50"; // Grün / Einsteiger
+    if (tier === 3) return "#2196f3"; // Blau / Fortgeschritten
+    if (tier === 4) return "#9c27b0"; // Violett / Meister
+    if (tier === 5) return "#ffd700"; // Gold / Elite (Eisen)
+    if (tier <= 8) return "#ff5722"; // Orange / Episch (Zukunft)
+    return "#e91e63";               // Mythic / Neon (Zukunft)
+}
 
-        let rank = (tier - 1) % 3 + 1; // Ergibt immer 1, 2 oder 3
-        let rankClass = `rank-${rank}`;
+// Hilfsfunktion zum Erstellen einer einzelnen Item-Karte
+function appendItemCard(container, item) {
+    const card = document.createElement('div');
+    card.className = 'shop-item';
 
-        return { colorClass, rankClass };
-    }
+    const tierColor = getTierColor(item.tier);
+    card.style.border = `2px solid ${tierColor}`;
+    card.style.boxShadow = `0 0 8px ${tierColor}33`;
 
-    // Hilfsfunktion zum Erstellen einer einzelnen Item-Karte inklusive Chat-Befehl
-    function appendItemCard(container, item) {
-        const card = document.createElement('div');
-        
-        // Klassen für das neue Farb- und Rang-System setzen
-        const { colorClass, rankClass } = getItemClasses(item.tier);
-        card.className = `shop-item ${colorClass} ${rankClass}`;
+    const imgSrc = item.image || 'https://via.placeholder.com/80?text=Item';
 
-        const imageSrc = item.image || 'https://via.placeholder.com/80?text=Item';
+    card.innerHTML = `
+        <img src="${imgSrc}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/80?text=Item'" style="width: 80px; height: 80px; object-fit: contain; margin-bottom: 10px;">
+        <h4 style="color: ${tierColor}; margin: 5px 0; font-size: 16px;">${item.name}</h4>
+        <p style="font-size: 12px; color: #888; margin-bottom: 5px;">Tier ${item.tier}</p>
+        <p style="margin: 5px 0;">
+            ${item.atk > 0 ? `<strong>ATK:</strong> +${item.atk} ` : ''}
+            ${item.def > 0 ? `<strong>DEF:</strong> +${item.def} ` : ''}
+        </p>
+        <p class="price" style="color: #ffd700; font-weight: bold; margin-top: 8px;">💰 ${item.price} Gold</p>
+        <p style="background: rgba(243, 156, 18, 0.1); border: 1px solid #f39c12; color: #f39c12; padding: 5px; border-radius: 4px; font-family: monospace; font-size: 12px; margin-top: 8px;">>${buyCommand}</p>
+    `;
 
-        // Bestimme den passenden Chat-Befehl basierend auf dem Slot
-        let buyCommand = `!kaufen ${item.slot}`;
-        if (item.slot === 'armor') buyCommand = `!kaufen ruestung`; // Falls der Bot 'ruestung' erwartet
+    container.appendChild(card);
+}
 
-        card.innerHTML = `
-            <img src="${imageSrc}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/80?text=Item'" style="width: 80px; height: 80px; object-fit: contain; margin-bottom: 10px;">
-<h4 style="color: var(--tier-color); margin: 5px 0; font-size: 16px;">${item.name}</h4>
-            <p style="font-size: 12px; color: #888; margin-bottom: 5px;">Tier ${item.tier} Gegenstand</p>
-            <p style="margin: 5px 0;">
-                ${item.atk > 0 ? `<strong>ATK:</strong> +${item.atk} ` : ''}
-                ${item.def > 0 ? `<strong>DEF:</strong> +${item.def}` : ''}
-            </p>
-            <p class="price" style="color: #ffd700; font-weight: bold; margin-top: 8px;">💰 ${item.price} Gold</p>
-            <p style="background: rgba(243, 156, 18, 0.1); border: 1px solid #f39c12; color: #f39c12; padding: 5px; border-radius: 4px; font-family: monospace; font-size: 12px; margin-top: 10px;">${buyCommand}</p>
-        `;
-        
-        container.appendChild(card);
-    }
+// Rendert die Items im Shop-Grid als übersichtlichen Katalog mit Kategorien
+function renderShopItems(filterslot) {
+    const grid = document.getElementById('shop-grid');
+    if (!grid) return;
 
-    function renderShopItems(filterSlot) {
-        const grid = document.getElementById('shop-grid');
-        if (!grid) return;
-        
-        grid.innerHTML = "";
+    grid.innerHTML = "";
 
-        // Spezifische Ritterhelm- & Beinrüstungs-Silhouetten
-        const slotOrder = [
-            { 
-                key: 'helm', 
-                title: 'Helme', 
-                // Ritterhelm mit Visier
-                icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px;"><path d="M12 2a8 8 0 0 0-8 8v5a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-5a8 8 0 0 0-8-8z"/><path d="M4 11h16"/><path d="M12 11v7"/><path d="M8 15h8"/></svg>` 
-            },
-            { 
-                key: 'armor', 
-                title: 'Rüstungen', 
-                // Brustpanzer / Schild
-                icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px;"><path d="M12 3l8 4v5c0 5.5-3.8 10.7-8 12-4.2-1.3-8-6.5-8-12V7l8-4z"/></svg>` 
-            },
-            { 
-                key: 'pants', 
-                title: 'Hosen & Beinschienen', 
-                // Gepanzerter Beinschutz / Kettenhose
-                icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px;"><path d="M6 3h12l1 7-3 11h-3l-1-7-1 7H9L6 10l1-7z"/><path d="M6 10h12"/><path d="M7 15h4"/><path d="M13 15h4"/></svg>` 
-            },
-            { 
-                key: 'weapon', 
-                title: 'Waffen', 
-                // Schwerter
-                icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px;"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/></svg>` 
-            }
-        ];
+    // Feste Reihenfolge für die Katalog-Gruppierung
+    const slotOrder = [
+        { key: 'helm', title: '🪖 Helme' },
+        { key: 'armor', title: '🛡️ Rüstungen' },
+        { key: 'pants', title: '👖 Hosen' },
+        { key: 'weapon', title: '⚔️ Waffen' }
+    ];
 
-        if (filterSlot === 'all') {
-            slotOrder.forEach(category => {
-                const categoryItems = allShopItems.filter(item => item.slot === category.key);
-                if (categoryItems.length === 0) return;
+    if (filterSlot === 'all') {
+        // Katalog-Ansicht mit Kategorien unterteilen
+        slotOrder.forEach(category => {
+            const categoryItems = allShopItems.filter(item => item.slot === category.key);
+            if (categoryItems.length === 0) return;
 
-                const heading = document.createElement('h3');
-                heading.innerHTML = category.icon + category.title;
-                heading.style.cssText = "color: var(--accent-color); margin: 30px 0 15px 0; border-bottom: 2px solid var(--border-color); padding-bottom: 5px; width: 100%; grid-column: 1 / -1; font-size: 20px; display: flex; align-items: center;";
-                grid.appendChild(heading);
+            // Überschrift als optische Trennung für die Kategorie
+            const heading = document.createElement('h3');
+            heading.innerText = category.title;
+            heading.style.cssText = "color: var(--accent-color); margin: 30px 0 15px 0;";
+            grid.appendChild(heading);
 
-                categoryItems.forEach(item => {
-                    appendItemCard(grid, item);
-                });
-            });
-        } else {
-            const filtered = allShopItems.filter(item => item.slot === filterSlot);
-            if (filtered.length === 0) {
-                grid.innerHTML = "<p>Keine Gegenstände in dieser Kategorie gefunden.</p>";
-                return;
-            }
-            filtered.forEach(item => {
+            // Items dieser Kategorie einfügen
+            categoryItems.forEach(item => {
                 appendItemCard(grid, item);
             });
+        });
+    } else {
+        // Nur die gefilterte Kategorie anzeigen
+        const filtered = allShopItems.filter(item => item.slot === filterSlot);
+        if (filtered.length === 0) {
+            grid.innerHTML = "<p>Keine Gegenstände in dieser Kategorie gefunden.</p>";
+            return;
         }
+        filtered.forEach(item => {
+            appendItemCard(grid, item);
+        });
     }
+}
 
-    function filterShop(slot, btnElement) {
-        document.querySelectorAll('.shop-filter-btn').forEach(b => b.classList.remove('active'));
-        if (btnElement) btnElement.classList.add('active');
-        renderShopItems(slot);
-    }
+// Filter-Funktion für die Kategorie-Buttons
+function filterShop(slot, btnElement) {
+    document.querySelectorAll('.shop-filter-btn').forEach(b => b.classList.remove('active'));
+    if (btnElement) btnElement.classList.add('active');
+    renderShopItems(slot);
+}
 
-    window.onload = function() {
-        loadLeaderboardData();
-        loadShopData(); 
-        setInterval(loadLeaderboardData, 30000);
-    };
+// Beim Laden der Seite Daten abrufen
+window.onload = function() {
+    loadLeaderboardData();
+    loadShopData();
+    setInterval(loadLeaderboardData, 30000);
+};
 </script>
 </body>
 </html>
