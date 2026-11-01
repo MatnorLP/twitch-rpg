@@ -380,17 +380,17 @@ let buyCommand = `!kaufen ${item.slot}`;
 
             const imgSrc = item.image || 'https://via.placeholder.com/80?text=Item';
 
-            card.innerHTML = `
-                <img src="${imgSrc}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/80?text=Item'" style="width: 80px; height: 80px; object-fit: contain; margin-bottom: 10px;">
-                <h4 style="color: ${tierColor}; margin: 5px 0; font-size: 16px;">${item.name}</h4>
-                <p style="font-size: 12px; color: ${tierColor}; font-weight: bold; margin-bottom: 5px;">${tierName}</p>
-                <p style="margin: 5px 0; font-size: 13px;">
-                    ${item.atk > 0 ? `<strong>⚔️ ATK: +${item.atk}</strong> ` : ''}
-                    ${item.def > 0 ? `<strong>🛡️ DEF: +${item.def}</strong> ` : ''}
-                </p>
-                <p class="price" style="margin-top: 8px;">💰 ${item.price} Gold</p>
-                <p style="background: rgba(243, 156, 18, 0.1); border: 1px solid #f39c12; color: #f39c12; padding: 4px 8px; border-radius: 4px; font-family: monospace; font-size: 12px; margin-top: 8px;">>${buyCommand}</p>
-            `;
+   card.innerHTML = `
+        <img src="${imgSrc}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/80?text=Item'" style="width: 80px; height: 80px; object-fit: contain; margin-bottom: 10px;">
+        <h4 style="color: ${tierColor}; margin: 0 0 6px 0; font-size: 17px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;">${item.name}</h4>
+        <p style="margin: 0 0 10px 0; font-size: 13px; font-weight: 600; color: ${tierColor}; opacity: 0.9;">${tierName}</p>
+        <p style="margin: 0 0 10px 0; font-size: 14px; font-weight: bold;">
+            ${item.atk > 0 ? `⚔️ ATK: +${item.atk}` : ''}
+            ${item.def > 0 ? `🛡️ DEF: +${item.def}` : ''}
+        </p>
+        <p class="price" style="margin-top: 4px; font-size: 16px;">💰 ${item.price} Gold</p>
+        <p style="background: rgba(243, 156, 18, 0.1); border: 1px solid #f39c12; color: #f39c12; padding: 4px 8px; border-radius: 4px; font-family: monospace; font-size: 12px; margin-top: 8px;">${buyCommand}</p>
+    `;
 
             container.appendChild(card);
         }
