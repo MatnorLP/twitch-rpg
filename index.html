@@ -129,23 +129,34 @@ table tbody tr:nth-child(3) {
     background: linear-gradient(135deg, rgba(205, 127, 50, 0.3), rgba(205, 127, 50, 0.08)) !important;
     border-left: 5px solid #cd7f32 !important;
 }
-            
-/* --- SHOP-ELEMENT FARBEN NACH RANG --- */
-    .shop-item.rank-1 { border: 2px solid #9d9d9d !important; }
-    .shop-item.rank-1 h4 { color: #9d9d9d !important; }
+/* --- ERWEITERTES TIER- & RANG-SYSTEM (OPTION B) --- */
+    .tier-color-grey  { --tier-color: #9d9d9d; }
+    .tier-color-green { --tier-color: #2ecc71; }
+    .tier-color-blue  { --tier-color: #3498db; }
+    .tier-color-purple{ --tier-color: #9b59b6; }
+    .tier-color-gold  { --tier-color: #f1c40f; }
 
-    .shop-item.rank-2 { border: 2px solid #2ecc71 !important; }
-    .shop-item.rank-2 h4 { color: #2ecc71 !important; }
-
-    .shop-item.rank-3 { border: 2px solid #3498db !important; }
-    .shop-item.rank-3 h4 { color: #3498db !important; }
-
-    .shop-item.rank-4 { border: 2px solid #9b59b6 !important; }
-    .shop-item.rank-4 h4 { color: #9b59b6 !important; }
-
-    .shop-item.rank-5 { border: 2px solid #f1c40f !important; }
-    .shop-item.rank-5 h4 { color: #f1c40f !important; }
-            
+    .rank-1 {
+        border: 1px solid var(--tier-color) !important;
+    }
+    .rank-2 {
+        border: 2px solid var(--tier-color) !important;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.4), inset 0 0 5px var(--tier-color);
+    }
+    .rank-3 {
+        border: 2px double var(--tier-color) !important;
+        box-shadow: 0 0 14px var(--tier-color);
+        position: relative;
+    }
+    .rank-3::after {
+        content: "★";
+        position: absolute;
+        top: 5px;
+        right: 8px;
+        color: var(--tier-color);
+        font-size: 14px;
+    }
+        }
     </style>
 </head>
 <body>
@@ -153,7 +164,7 @@ table tbody tr:nth-child(3) {
 <div class="container">
     <header>
         <h1>⚔️ MatnorLP Community RPG</h1>
-<p>TEST-SHOP 123</p>
+        <p>Willkommen in der Ruhmeshalle und im Ausrüstungsshop!</p>
     </header>
 
     <div class="tabs">
@@ -383,7 +394,8 @@ let allShopItems = [];
         if (item.slot === 'armor') buyCommand = `!kaufen ruestung`; // Falls der Bot 'ruestung' erwartet
 
         card.innerHTML = `
-            <h4 style="margin: 5px 0; font-size: 16px;">${item.name}</h4>
+            <img src="${imageSrc}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/80?text=Item'" style="width: 80px; height: 80px; object-fit: contain; margin-bottom: 10px;">
+            <h4 style="color: ${tierColor}; margin: 5px 0; font-size: 16px;">${item.name}</h4>
             <p style="font-size: 12px; color: #888; margin-bottom: 5px;">Tier ${item.tier} Gegenstand</p>
             <p style="margin: 5px 0;">
                 ${item.atk > 0 ? `<strong>ATK:</strong> +${item.atk} ` : ''}
