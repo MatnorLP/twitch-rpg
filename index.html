@@ -129,36 +129,37 @@ table tbody tr:nth-child(3) {
     background: linear-gradient(135deg, rgba(205, 127, 50, 0.3), rgba(205, 127, 50, 0.08)) !important;
     border-left: 5px solid #cd7f32 !important;
 }
-/* --- ROBUSTES TIER- & RANG-SYSTEM --- */
-    .tier-color-grey   { --active-color: #9d9d9d; }
-    .tier-color-green  { --active-color: #2ecc71; }
-    .tier-color-blue   { --active-color: #3498db; }
-    .tier-color-purple { --active-color: #9b59b6; }
-    .tier-color-gold   { --active-color: #f1c40f; }
+            /* --- DIREKTES TIER- & RANG-SYSTEM --- */
+    .shop-item.tier-color-grey.rank-1  { border: 1px solid #9d9d9d !important; }
+    .shop-item.tier-color-grey.rank-2  { border: 2px solid #9d9d9d !important; box-shadow: 0 0 8px rgba(0,0,0,0.4), inset 0 0 5px #9d9d9d; }
+    .shop-item.tier-color-grey.rank-3  { border: 2px double #9d9d9d !important; box-shadow: 0 0 14px #9d9d9d; position: relative; }
+    .shop-item.tier-color-grey.rank-3::after { content: "★"; position: absolute; top: 5px; right: 8px; color: #9d9d9d; font-size: 14px; }
+    .shop-item.tier-color-grey h4     { color: #9d9d9d !important; }
 
-    .shop-item.rank-1 { 
-        border: 1px solid var(--active-color) !important; 
-    }
-    .shop-item.rank-2 { 
-        border: 2px solid var(--active-color) !important; 
-        box-shadow: 0 0 8px rgba(0,0,0,0.4), inset 0 0 5px var(--active-color); 
-    }
-    .shop-item.rank-3 { 
-        border: 2px double var(--active-color) !important; 
-        box-shadow: 0 0 14px var(--active-color); 
-        position: relative; 
-    }
-    .shop-item.rank-3::after { 
-        content: "★"; 
-        position: absolute; 
-        top: 5px; 
-        right: 8px; 
-        color: var(--active-color); 
-        font-size: 14px; 
-    }
-    .shop-item h4 { 
-        color: var(--active-color) !important; 
-    }
+    .shop-item.tier-color-green.rank-1 { border: 1px solid #2ecc71 !important; }
+    .shop-item.tier-color-green.rank-2 { border: 2px solid #2ecc71 !important; box-shadow: 0 0 8px rgba(0,0,0,0.4), inset 0 0 5px #2ecc71; }
+    .shop-item.tier-color-green.rank-3 { border: 2px double #2ecc71 !important; box-shadow: 0 0 14px #2ecc71; position: relative; }
+    .shop-item.tier-color-green.rank-3::after { content: "★"; position: absolute; top: 5px; right: 8px; color: #2ecc71; font-size: 14px; }
+    .shop-item.tier-color-green h4    { color: #2ecc71 !important; }
+
+    .shop-item.tier-color-blue.rank-1  { border: 1px solid #3498db !important; }
+    .shop-item.tier-color-blue.rank-2  { border: 2px solid #3498db !important; box-shadow: 0 0 8px rgba(0,0,0,0.4), inset 0 0 5px #3498db; }
+    .shop-item.tier-color-blue.rank-3  { border: 2px double #3498db !important; box-shadow: 0 0 14px #3498db; position: relative; }
+    .shop-item.tier-color-blue.rank-3::after { content: "★"; position: absolute; top: 5px; right: 8px; color: #3498db; font-size: 14px; }
+    .shop-item.tier-color-blue h4     { color: #3498db !important; }
+
+    .shop-item.tier-color-purple.rank-1 { border: 1px solid #9b59b6 !important; }
+    .shop-item.tier-color-purple.rank-2 { border: 2px solid #9b59b6 !important; box-shadow: 0 0 8px rgba(0,0,0,0.4), inset 0 0 5px #9b59b6; }
+    .shop-item.tier-color-purple.rank-3 { border: 2px double #9b59b6 !important; box-shadow: 0 0 14px #9b59b6; position: relative; }
+    .shop-item.tier-color-purple.rank-3::after { content: "★"; position: absolute; top: 5px; right: 8px; color: #9b59b6; font-size: 14px; }
+    .shop-item.tier-color-purple h4 { color: #9b59b6 !important; }
+
+    .shop-item.tier-color-gold.rank-1  { border: 1px solid #f1c40f !important; }
+    .shop-item.tier-color-gold.rank-2  { border: 2px solid #f1c40f !important; box-shadow: 0 0 8px rgba(0,0,0,0.4), inset 0 0 5px #f1c40f; }
+    .shop-item.tier-color-gold.rank-3  { border: 2px double #f1c40f !important; box-shadow: 0 0 14px #f1c40f; position: relative; }
+    .shop-item.tier-color-gold.rank-3::after { content: "★"; position: absolute; top: 5px; right: 8px; color: #f1c40f; font-size: 14px; }
+    .shop-item.tier-color-gold h4     { color: #f1c40f !important; }
+
     </style>
 </head>
 <body>
