@@ -3,449 +3,492 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MatnorLP - Twitch RPG Ruhmeshalle & Shop</title>
+    <title>MatnorLP Community RPG</title>
     <style>
         :root {
-            --bg-color: #0f1115;
-            --panel-bg: #181b22;
-            --accent-color: #f39c12;
-            --accent-hover: #e67e22;
-            --text-main: #f5f6fa;
-            --text-muted: #a4b0be;
-            --border-color: #2f3640;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f8fafc;
+            --accent-color: #f59e0b;
+            --muted-color: #94a3b8;
         }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-main);
+            color: var(--text-color);
             margin: 0;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        header h1 {
+
+.container {
+    width: 100%;
+    max-width: 1000px;
+    background: 
+        /* Feines Gitter-Muster für die Struktur */
+        linear-gradient(90deg, rgba(0,0,0,0.4) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(0,0,0,0.4) 1px, transparent 1px),
+        /* Der dunkle Holz-/Stein-Farbverlauf dahinter */
+        linear-gradient(135deg, #1c1714 0%, #0d0b0a 100%);
+    background-size: 20px 20px, 20px 20px, 100% 100%;
+    border: 2px solid #3d2f21;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 40px rgba(0, 0, 0, 0.7);
+    padding: 30px;
+}
+/* Entfernt den Standard-Hintergrund der Sektionen, damit der neue Container-Hintergrund greift */
+.section {
+    display: none;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+.section.active {
+    display: block;
+}
+header {
+    text-align: center;
+    margin-bottom: 25px;
+    background: linear-gradient(135deg, rgba(35, 26, 18, 0.9) 0%, rgba(20, 15, 10, 0.95) 100%);
+    border: 2px solid #d4ac0d; /* Ändert den Rand komplett auf Gold */
+    border-radius: 6px;
+    padding: 25px 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(212, 172, 13, 0.1);
+}
+
+        h1 {
             color: var(--accent-color);
             margin-bottom: 5px;
         }
-        header p {
-            color: var(--text-muted);
-        }
-        .tabs {
+
+        /* Haupt-Tabs oben (Leaderboard / Shop / Info) */
+        .main-tabs {
             display: flex;
             justify-content: center;
-            gap: 15px;
-            margin-bottom: 25px;
+            gap: 10px;
+            margin-bottom: 30px;
         }
-        .tab-btn {
-            background-color: var(--panel-bg);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
+
+        .main-tab-btn {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--muted-color);
             padding: 10px 20px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 16px;
-            border-radius: 5px;
-            transition: 0.2s;
+            font-weight: bold;
+            transition: all 0.2s;
         }
-        .tab-btn.active, .tab-btn:hover {
+
+        .main-tab-btn.active, .main-tab-btn:hover {
             background-color: var(--accent-color);
             color: #000;
-            font-weight: bold;
             border-color: var(--accent-color);
         }
-        .section {
-            display: none;
-            background-color: var(--panel-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 20px;
+
+        /* Navigation / Shop Filter Buttons */
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
         }
-        .section.active {
-            display: block;
+
+        .shop-filter-btn {
+            background-color: #0f172a;
+            color: var(--text-color);
+            border: 1px solid var(--muted-color);
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
         }
-        h2 {
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 10px;
-            margin-top: 0;
-            color: var(--accent-color);
+
+        .shop-filter-btn:hover, .shop-filter-btn.active {
+            background-color: var(--accent-color);
+            color: #000;
+            border-color: var(--accent-color);
         }
+
+        /* Shop Grid Layout */
+        #shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+.shop-item {
+    background: linear-gradient(180deg, #1e1b18 0%, #12100e 100%);
+    border: 1px solid #2e2620;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+        .shop-item:hover {
+            transform: translateY(-3px);
+        }
+
+        .price {
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        /* Leaderboard Tabelle */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
+            margin-top: 10px;
         }
+
         th, td {
             padding: 12px;
             text-align: left;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid #334155;
         }
+
         th {
             color: var(--accent-color);
         }
-        .shop-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
+
+        /* Top 3 Leaderboard Highlights */
+        table tbody tr:nth-child(1) {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 215, 0, 0.08));
+            border-left: 5px solid #ffd700;
         }
-        .shop-item {
-            background-color: var(--bg-color);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 15px;
-            text-align: center;
+
+        table tbody tr:nth-child(2) {
+            background: linear-gradient(135deg, rgba(192, 192, 192, 0.3), rgba(192, 192, 192, 0.08));
+            border-left: 5px solid #c0c0c0;
         }
-        .shop-item h3 {
-            margin: 10px 0 5px 0;
-            font-size: 18px;
+
+        table tbody tr:nth-child(3) {
+            background: linear-gradient(135deg, rgba(205, 127, 50, 0.3), rgba(205, 127, 50, 0.08));
+            border-left: 5px solid #cd7f32;
         }
-        .shop-item p {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin: 5px 0;
-        }
-        .price {
-            color: var(--accent-color);
-            font-weight: bold;
-        
-/* Spezielles Design für die Top 3 im Leaderboard */
-/* Spezielles Design für die Top 3 im Leaderboard */
-table tbody tr:nth-child(1) {
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 215, 0, 0.08)) !important;
-    border-left: 5px solid #ffd700 !important;
+/* Waffenkammer-Nischen Layout (Metall & Holz-Vibe) */
+.shop-category-wrapper {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, rgba(26, 22, 18, 0.85) 0%, rgba(15, 13, 11, 0.95) 100%);
+    border: 2px solid #3d3124; /* Rustikaler Holz-/Eisen-Rand */
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 25px;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8), 0 6px 15px rgba(0, 0, 0, 0.5);
 }
 
-table tbody tr:nth-child(2) {
-    background: linear-gradient(135deg, rgba(192, 192, 192, 0.3), rgba(192, 192, 192, 0.08)) !important;
-    border-left: 5px solid #c0c0c0 !important;
+.shop-category-wrapper .shop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
 }
 
-table tbody tr:nth-child(3) {
-    background: linear-gradient(135deg, rgba(205, 127, 50, 0.3), rgba(205, 127, 50, 0.08)) !important;
-    border-left: 5px solid #cd7f32 !important;
+/* Holzschild-Look für die Überschriften (zentriert & größer) */
+.shop-category-title {
+    background: linear-gradient(90deg, #2b1d11 0%, #3a2618 50%, #2b1d11 100%),
+                repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 2px, transparent 2px, transparent 4px);
+    color: #e6b865; /* Helleres, edleres Gold */
+    padding: 12px 18px;
+    border-radius: 4px;
+    border: 2px solid #4a331f; /* Dunkler Holzrand */
+    border-left: 6px solid #d4ac0d; /* Goldener Akzent */
+    border-right: 6px solid #d4ac0d; /* Symmetrischer Gold-Akzent auf der rechten Seite */
+    font-size: 20px; /* Etwas größer für bessere Lesbarkeit */
+    font-weight: bold;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Zentriert den Inhalt waagerecht */
+    gap: 12px;
+    box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.05), 0 4px 8px rgba(0, 0, 0, 0.6);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
 }
+        /* Der obere Kasten für Ausrüstungsshop, Hinweis & Filter */
+.shop-header-box {
+    background: linear-gradient(135deg, rgba(26, 22, 18, 0.9) 0%, rgba(15, 13, 11, 0.95) 100%);
+    border: 2px solid #3d3124;
+    border-top: 3px solid #d4ac0d; /* Gold-Akzent an der Oberkante */
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.7), 0 4px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
 }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <h1>⚔️ MatnorLP Community RPG</h1>
-        <p>Willkommen in der Ruhmeshalle und im Ausrüstungsshop!</p>
-    </header>
+    <div class="container">
+        <header>
+            <h1>⚔️ MatnorLP Community RPG</h1>
+            <p>Willkommen in der Ruhmeshalle und im Ausrüstungsshop!</p>
+        </header>
 
-    <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab('leaderboard')">🏆 Leaderboard</button>
-        <button class="tab-btn" onclick="switchTab('shop')">🛒 Item-Shop</button>
-        <button class="tab-btn" onclick="switchTab('character')">🛡️ Charakter-Info</button>
-    </div>
+        <!-- Haupt-Navigation (Tabs) -->
+        <div class="main-tabs">
+            <button class="main-tab-btn" onclick="switchTab('leaderboard', this)">🏆 Leaderboard</button>
+            <button class="main-tab-btn active" onclick="switchTab('shop', this)">🛒 Item-Shop</button>
+        </div>
 
-    <!-- LEADERBOARD -->
-    <div id="leaderboard" class="section active">
-        <h2>Bestenliste der Helden</h2>
-        <p>Hier siehst du die mächtigsten Krieger des Kanals, sortiert nach Level und Kills.</p>
-        <table>
-            <thead>
-                <tr>
-                    <th>Rang</th>
-                    <th>Held</th>
-                    <th>Level</th>
-                    <th>Kills</th>
-                </tr>
-            </thead>
-            <tbody id="leaderboard-body">
-                <tr>
-                    <td>1</td>
-                    <td>MatnorLP</td>
-                    <td>4</td>
-                    <td>7</td>
-                </tr>
-                <!-- Hier werden später dynamisch die Spieler geladen -->
-            </tbody>
-        </table>
-    </div>
+<!-- LEADERBOARD SEKTION -->
+        <div id="leaderboard-section" class="section">
+            <h2>Ruhmeshalle</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rang</th>
+                        <th>Name</th>
+                        <th>Level</th>
+                        <th>Kills</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body">
+                    <tr><td colspan="4" style="text-align: center;">Lade Leaderboard...</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+<!-- ITEM-SHOP SEKTION -->
+<div id="shop-section" class="section active">
 
-<!-- ITEM SHOP -->
-<div id="shop" class="section">
-    <h2>Ausrüstungsshop</h2>
-    <p>Hier kannst du dich mit neuer Ausrüstung für deine nächsten Kämpfe eindecken!</p>
-    
-    <!-- Slot-Filter Buttons mit abgestimmten Vektor-Icons -->
-    <div style="margin: 20px 0; display: flex; gap: 10px; flex-wrap: wrap;">
-        <button class="shop-filter-btn active" onclick="filterShop('all', this)" style="display: inline-flex; align-items: center; gap: 6px;">
-            Alle
-        </button>
-        <button class="shop-filter-btn" onclick="filterShop('helm', this)" style="display: inline-flex; align-items: center; gap: 6px;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 0-8 8v5a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-5a8 8 0 0 0-8-8z"/><path d="M4 11h16"/><path d="M12 11v7"/><path d="M8 15h8"/></svg>
-            Helme
-        </button>
-        <button class="shop-filter-btn" onclick="filterShop('armor', this)" style="display: inline-flex; align-items: center; gap: 6px;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5.5-3.8 10.7-8 12-4.2-1.3-8-6.5-8-12V7l8-4z"/></svg>
-            Rüstungen
-        </button>
-        <button class="shop-filter-btn" onclick="filterShop('pants', this)" style="display: inline-flex; align-items: center; gap: 6px;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l1 7-3 11h-3l-1-7-1 7H9L6 10l1-7z"/><path d="M6 10h12"/><path d="M7 15h4"/><path d="M13 15h4"/></svg>
-            Hosen
-        </button>
-        <button class="shop-filter-btn" onclick="filterShop('weapon', this)" style="display: inline-flex; align-items: center; gap: 6px;">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/></svg>
-            Waffen
-        </button>
-    </div>
+    <div class="shop-header-box">
+        <h2>Ausrüstungsshop</h2>
+        <p style="color: var(--muted-color); font-size: 14px; margin-bottom: 20px;">Hier kannst du dich mit neuer Ausrüstung für deine nächsten Kämpfe eindecken!</p>
 
-    <!-- Container für die dynamischen Shop-Cards -->
-    <div id="shop-grid" class="shop-grid">
-        <p>Lade Shop-Angebote...</p>
-    </div>
-</div>
+        <div style="background: rgba(212, 172, 13, 0.08); border: 1px solid #d4ac0d; color: #e6b865; padding: 10px 15px; border-radius: 6px; font-size: 13px; margin-bottom: 20px;">
+            ℹ️ <strong>Hinweis zum Shop:</strong> Ausrüstung muss der Reihe nach gekauft werden. Der Chat-Befehl erkennt automatisch dein aktuelles Item und kauft direkt das nächste verfügbare Upgrade!
+        </div>
 
-    <!-- CHARAKTER -->
-    <div id="character" class="section">
-        <h2>Dein Held</h2>
-        <p>Suche nach deinem Charakter, um deine angelegten Items und Werte zu inspizieren.</p>
-        <div style="margin-top: 15px;">
-            <input type="text" id="char-search" placeholder="Twitch-Name eingeben..." style="padding: 8px; width: 200px; background: var(--bg-color); border: 1px solid var(--border-color); color: #fff; border-radius: 4px;">
-            <button onclick="alert('Charakter-Suche wird mit Streamer.bot verbunden!')" style="padding: 8px 15px; background: var(--accent-color); border: none; font-weight: bold; cursor: pointer; border-radius: 4px;">Suchen</button>
+        <!-- Filter-Buttons -->
+        <div class="nav-buttons">
+            <button class="shop-filter-btn active" onclick="filterShop('all', this)">✨ Alle</button>
+            <button class="shop-filter-btn" onclick="filterShop('weapon', this)">⚔️ Waffen</button>
+            <button class="shop-filter-btn" onclick="filterShop('helm', this)">👑 Helme</button>
+            <button class="shop-filter-btn" onclick="filterShop('armor', this)">🛡️ Rüstungen</button>
+            <button class="shop-filter-btn" onclick="filterShop('pants', this)">🦵 Beine</button>
         </div>
     </div>
 
+    <!-- Shop Grid -->
+    <div id="shop-grid"></div>
 </div>
 
-<script>
-    // Tab-Wechsel-Funktion
-    function switchTab(tabId) {
-        document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-        
-        document.getElementById(tabId).classList.add('active');
-        event.currentTarget.classList.add('active');
-    }
+    <script>
+        let allShopItems = [];
 
-    // Lädt die Daten direkt aus der leaderboard.json im selben GitHub-Ordner
-    async function loadLeaderboardData() {
-        try {
-            // Verhindert Browser-Caching durch Zeitstempel
-            const response = await fetch('leaderboard.json?v=' + new Date().getTime());
-            if (!response.ok) return;
-            
-            const players = await response.json();
-            window.rpgPlayers = players;
-            
-            updateLeaderboardTable(players);
-        } catch (e) {
-            console.log("Noch keine leaderboard.json vorhanden. Zeige Standardwerte.");
-        }
-    }
+        // Tab-Umschaltung zwischen Leaderboard und Shop
+        function switchTab(tabName, btnElement) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.main-tab-btn').forEach(b => b.classList.remove('active'));
 
-    function updateLeaderboardTable(players) {
-        const tbody = document.getElementById("leaderboard-body");
-        tbody.innerHTML = "";
-
-        // Sortieren nach Level, danach Kills
-        let playerArray = Object.values(players);
-        playerArray.sort((a, b) => (b.level - a.level) || (b.kills - a.kills));
-
-        if (playerArray.length === 0) {
-            tbody.innerHTML = "<tr><td colspan='4'>Noch keine Helden eingetragen!</td></tr>";
-            return;
-        }
-
-playerArray.forEach((player, index) => {
-        let row = document.createElement("tr");
-
-        // Spezielles Design für die Top 3 Plätze (Index 0 = Platz 1, Index 1 = Platz 2, Index 2 = Platz 3)
-        if (index === 0) {
-            row.style.background = "linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 215, 0, 0.08))";
-            row.style.borderLeft = "5px solid #ffd700";
-        } else if (index === 1) {
-            row.style.background = "linear-gradient(135deg, rgba(192, 192, 192, 0.3), rgba(192, 192, 192, 0.08))";
-            row.style.borderLeft = "5px solid #c0c0c0";
-        } else if (index === 2) {
-            row.style.background = "linear-gradient(135deg, rgba(205, 127, 50, 0.3), rgba(205, 127, 50, 0.08))";
-            row.style.borderLeft = "5px solid #cd7f32";
-        }
-
-        row.innerHTML = `
-            <td><strong>#${index + 1}</strong></td>
-            <td>${player.name}</td>
-            <td>Lvl ${player.level || 1}</td>
-            <td>⚔️ ${player.kills || 0}</td>
-        `;
-        tbody.appendChild(row);
-    });
-    }
-
-    function searchCharacter() {
-        let input = document.getElementById("char-search").value.trim().toLowerCase();
-        let displayArea = document.getElementById("char-result");
-        
-        if (!displayArea) {
-            displayArea = document.createElement("div");
-            displayArea.id = "char-result";
-            displayArea.style.marginTop = "20px";
-            document.getElementById("character").appendChild(displayArea);
-        }
-
-        if (!input) {
-            displayArea.innerHTML = "<p style='color: var(--accent-color);'>Bitte gib einen Namen ein.</p>";
-            return;
-        }
-
-        let foundPlayer = null;
-        if (window.rpgPlayers) {
-            Object.values(window.rpgPlayers).forEach(p => {
-                if (p.name.toLowerCase() === input) {
-                    foundPlayer = p;
-                }
-            });
-        }
-
-        if (foundPlayer) {
-            displayArea.innerHTML = `
-                <div style="background: var(--bg-color); border: 1px solid var(--accent-color); padding: 15px; border-radius: 8px;">
-                    <h3 style="margin-top:0; color: var(--accent-color);">🛡️ Held: ${foundPlayer.name}</h3>
-                    <p><strong>Level:</strong> ${foundPlayer.level || 1}</p>
-                    <p><strong>Kills:</strong> ⚔️ ${foundPlayer.kills || 0}</p>
-                    <p><strong>Gold:</strong> 🪙 ${foundPlayer.gold || 0}</p>
-                    <p><strong>Ausrüstung:</strong> Helm: ${foundPlayer.helm || 'Keiner'}, Rüstung: ${foundPlayer.ruestung || 'Keine'}, Waffe: ${foundPlayer.waffe || 'Standard'}</p>
-                </div>
-            `;
-        } else {
-            displayArea.innerHTML = `<p style='color: #e74c3c;'>Kein Held mit dem Namen "${input}" gefunden.</p>`;
-        }
-    }
-
-let allShopItems = [];
-
-    async function loadShopData() {
-        try {
-            const response = await fetch('shop.json?v=' + new Date().getTime());
-            if (!response.ok) return;
-            
-            allShopItems = await response.json();
-            renderShopItems('all');
-        } catch (e) {
-            console.log("Fehler beim Laden der shop.json", e);
-        }
-    }
-
-    function getTierColor(tier) {
-        if (tier <= 1) return "#9e9e9e";
-        if (tier === 2) return "#4caf50";
-        if (tier === 3) return "#2196f3";
-        if (tier === 4) return "#9c27b0";
-        if (tier === 5) return "#ffd700";
-        if (tier <= 8) return "#ff5722";
-        return "#e91e63";
-    }
-
-// Hilfsfunktion zum Erstellen einer einzelnen Item-Karte inklusive Chat-Befehl
-    function appendItemCard(container, item) {
-        const card = document.createElement('div');
-        card.className = 'shop-item';
-        
-        const tierColor = getTierColor(item.tier);
-        card.style.border = `2px solid ${tierColor}`;
-        card.style.boxShadow = `0 0 8px ${tierColor}33`;
-
-        const imageSrc = item.image || 'https://via.placeholder.com/80?text=Item';
-
-        // Bestimme den passenden Chat-Befehl basierend auf dem Slot
-        let buyCommand = `!kaufen ${item.slot}`;
-        if (item.slot === 'armor') buyCommand = `!kaufen ruestung`; // Falls der Bot 'ruestung' erwartet
-
-        card.innerHTML = `
-            <img src="${imageSrc}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/80?text=Item'" style="width: 80px; height: 80px; object-fit: contain; margin-bottom: 10px;">
-            <h4 style="color: ${tierColor}; margin: 5px 0; font-size: 16px;">${item.name}</h4>
-            <p style="font-size: 12px; color: #888; margin-bottom: 5px;">Tier ${item.tier} Gegenstand</p>
-            <p style="margin: 5px 0;">
-                ${item.atk > 0 ? `<strong>ATK:</strong> +${item.atk} ` : ''}
-                ${item.def > 0 ? `<strong>DEF:</strong> +${item.def}` : ''}
-            </p>
-            <p class="price" style="color: #ffd700; font-weight: bold; margin-top: 8px;">💰 ${item.price} Gold</p>
-            <p style="background: rgba(243, 156, 18, 0.1); border: 1px solid #f39c12; color: #f39c12; padding: 5px; border-radius: 4px; font-family: monospace; font-size: 12px; margin-top: 10px;">${buyCommand}</p>
-        `;
-        
-        container.appendChild(card);
-    }
-
-    function renderShopItems(filterSlot) {
-        const grid = document.getElementById('shop-grid');
-        if (!grid) return;
-        
-        grid.innerHTML = "";
-
-        // Spezifische Ritterhelm- & Beinrüstungs-Silhouetten
-        const slotOrder = [
-            { 
-                key: 'helm', 
-                title: 'Helme', 
-                // Ritterhelm mit Visier
-                icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px;"><path d="M12 2a8 8 0 0 0-8 8v5a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-5a8 8 0 0 0-8-8z"/><path d="M4 11h16"/><path d="M12 11v7"/><path d="M8 15h8"/></svg>` 
-            },
-            { 
-                key: 'armor', 
-                title: 'Rüstungen', 
-                // Brustpanzer / Schild
-                icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px;"><path d="M12 3l8 4v5c0 5.5-3.8 10.7-8 12-4.2-1.3-8-6.5-8-12V7l8-4z"/></svg>` 
-            },
-            { 
-                key: 'pants', 
-                title: 'Hosen & Beinschienen', 
-                // Gepanzerter Beinschutz / Kettenhose
-                icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px;"><path d="M6 3h12l1 7-3 11h-3l-1-7-1 7H9L6 10l1-7z"/><path d="M6 10h12"/><path d="M7 15h4"/><path d="M13 15h4"/></svg>` 
-            },
-            { 
-                key: 'weapon', 
-                title: 'Waffen', 
-                // Schwerter
-                icon: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 8px;"><path d="M14.5 17.5L3 6V3h3l11.5 11.5"/><path d="M13 19l6-6"/><path d="M16 16l4 4"/><path d="M19 21l2-2"/></svg>` 
+            if (tabName === 'leaderboard') {
+                document.getElementById('leaderboard-section').classList.add('active');
+            } else {
+                document.getElementById('shop-section').classList.add('active');
             }
+            if (btnElement) btnElement.classList.add('active');
+        }
+
+// Leaderboard Daten laden
+        async function loadLeaderboardData() {
+            try {
+                const response = await fetch('leaderboard.json?v=' + new Date().getTime());
+                if (!response.ok) return;
+                const data = await response.json();
+                
+                const tbody = document.getElementById('leaderboard-body');
+                if (!tbody) return;
+                tbody.innerHTML = "";
+
+                // Wandelt das JSON-Objekt in ein Array um und sortiert nach Level/Kills
+                const players = Object.values(data);
+                players.sort((a, b) => b.level - a.level || b.kills - a.kills);
+
+                players.forEach((player, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td><strong>#${index + 1}</strong></td>
+                        <td>${player.name}</td>
+                        <td>⭐ Level ${player.level}</td>
+                        <td>⚔️ ${player.kills} Kills</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } catch (e) {
+                console.log("Fehler beim Laden der leaderboard.json", e);
+            }
+        }
+        // Shop Daten laden
+        async function loadShopData() {
+            try {
+                const response = await fetch('shop.json?v=' + new Date().getTime());
+                if (!response.ok) return;
+
+                allShopItems = await response.json();
+                renderShopItems('all');
+            } catch (e) {
+                console.log("Fehler beim Laden der shop.json", e);
+            }
+        }
+
+// Rahmenfarben nach Farbgruppen (3 Tiers pro Farbe)
+        function getTierColor(tier) {
+            if (tier <= 3) return "#9e9e9e";  // Tier 1-3: Grau (Gewöhnlich)
+            if (tier <= 6) return "#4caf50";  // Tier 4-6: Grün (Ungewöhnlich)
+            if (tier <= 9) return "#2196f3";  // Tier 7-9: Blau (Selten)
+            if (tier <= 12) return "#00bcd4"; // Tier 10-12: Cyan / Hellblau (Magisch)
+            if (tier <= 15) return "#9c27b0"; // Tier 13-15: Lila (Episch)
+            if (tier <= 18) return "#ffd700"; // Tier 16-18: Gold (Legendär)
+            return "#e91e63";                 // Ab Tier 19: Mythisch / Pink
+        }
+
+        // Rang-Namen nach Tier
+        function getTierName(tier) {
+            // Gewöhnlich (Tier 1 - 3)
+            if (tier === 1) return "Gewöhnlich I";
+            if (tier === 2) return "Gewöhnlich II";
+            if (tier === 3) return "Gewöhnlich III";
+
+            // Ungewöhnlich (Tier 4 - 6)
+            if (tier === 4) return "Ungewöhnlich I";
+            if (tier === 5) return "Ungewöhnlich II";
+            if (tier === 6) return "Ungewöhnlich III";
+
+            // Selten (Tier 7 - 9)
+            if (tier === 7) return "Selten I";
+            if (tier === 8) return "Selten II";
+            if (tier === 9) return "Selten III";
+
+            // Magisch (Tier 10 - 12)
+            if (tier === 10) return "Magisch I";
+            if (tier === 11) return "Magisch II";
+            if (tier === 12) return "Magisch III";
+
+            // Episch (Tier 13 - 15)
+            if (tier === 13) return "Episch I";
+            if (tier === 14) return "Episch II";
+            if (tier === 15) return "Episch III";
+
+            // Legendär (Tier 16 - 18)
+            if (tier === 16) return "Legendär I";
+            if (tier === 17) return "Legendär II";
+            if (tier === 18) return "Legendär III";
+
+            return `Mythisch (Tier ${tier})`; // Falls du später noch höher gehst
+        }
+
+// Einzelne Item-Karte erstellen
+        function appendItemCard(container, item) {
+            const card = document.createElement('div');
+            card.className = 'shop-item';
+
+let buyCommand = `!kaufen ${item.slot}`;
+        if (item.slot === 'weapon') buyCommand = `!kaufen waffe`;
+        if (item.slot === 'helm') buyCommand = `!kaufen helm`;       // Falls der Befehl im Chat "helm" heißt
+        if (item.slot === 'armor') buyCommand = `!kaufen ruestung`;
+        if (item.slot === 'pants') buyCommand = `!kaufen beine`;
+
+            const tierColor = getTierColor(item.tier);
+            const tierName = getTierName(item.tier);
+
+            card.style.border = `2px solid ${tierColor}`;
+            card.style.boxShadow = `0 0 8px ${tierColor}33`;
+
+            const imgSrc = item.image || 'https://via.placeholder.com/80?text=Item';
+
+   card.innerHTML = `
+        <img src="${imgSrc}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/80?text=Item'" style="width: 80px; height: 80px; object-fit: contain; margin-bottom: 10px;">
+        <h4 style="color: ${tierColor}; margin: 0 0 6px 0; font-size: 17px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;">${item.name}</h4>
+        <p style="margin: 0 0 10px 0; font-size: 13px; font-weight: 600; color: ${tierColor}; opacity: 0.9;">${tierName}</p>
+        <p style="margin: 0 0 10px 0; font-size: 14px; font-weight: bold;">
+            ${item.atk > 0 ? `⚔️ ATK: +${item.atk}` : ''}
+            ${item.def > 0 ? `🛡️ DEF: +${item.def}` : ''}
+        </p>
+        <p class="price" style="margin-top: 4px; font-size: 16px;">💰 ${item.price} Gold</p>
+        <p style="background: rgba(243, 156, 18, 0.1); border: 1px solid #f39c12; color: #f39c12; padding: 4px 8px; border-radius: 4px; font-family: monospace; font-size: 12px; margin-top: 8px;">${buyCommand}</p>
+    `;
+
+            container.appendChild(card);
+        }
+
+        // Shop-Items rendern (mit Kategorien)
+        function renderShopItems(filterSlot) {
+            const grid = document.getElementById('shop-grid');
+            if (!grid) return;
+
+            grid.innerHTML = "";
+
+const slotOrder = [
+            { key: 'weapon', title: '🗡️ Waffen' },
+            { key: 'helm',   title: '👑 Helme' },
+            { key: 'armor',  title: '🛡️ Rüstungen' },
+            { key: 'pants',  title: '🦿 Beine' }
         ];
 
-        if (filterSlot === 'all') {
+if (filterSlot === 'all') {
             slotOrder.forEach(category => {
                 const categoryItems = allShopItems.filter(item => item.slot === category.key);
                 if (categoryItems.length === 0) return;
 
-                const heading = document.createElement('h3');
-                heading.innerHTML = category.icon + category.title;
-                heading.style.cssText = "color: var(--accent-color); margin: 30px 0 15px 0; border-bottom: 2px solid var(--border-color); padding-bottom: 5px; width: 100%; grid-column: 1 / -1; font-size: 20px; display: flex; align-items: center;";
-                grid.appendChild(heading);
+                // Erstelle die Waffenkammer-Nische für diese Kategorie
+                const wrapper = document.createElement('div');
+                wrapper.className = 'shop-category-wrapper';
+
+                // Erstelle das Schild / die Überschrift im Nischen-Look
+                const heading = document.createElement('div');
+                heading.className = 'shop-category-title';
+                heading.innerHTML = category.title;
+                wrapper.appendChild(heading);
+
+                // Erstelle das Grid für die Items in dieser Nische
+                const itemGrid = document.createElement('div');
+                itemGrid.className = 'shop-grid';
 
                 categoryItems.forEach(item => {
+                    appendItemCard(itemGrid, item);
+                });
+
+                wrapper.appendChild(itemGrid);
+                grid.appendChild(wrapper);
+            });
+        
+            } else {
+                const filtered = allShopItems.filter(item => item.slot === filterSlot);
+                if (filtered.length === 0) {
+                    grid.innerHTML = "<p style='grid-column: 1 / -1; text-align: center;'>Keine Gegenstände in dieser Kategorie gefunden.</p>";
+                    return;
+                }
+                filtered.forEach(item => {
                     appendItemCard(grid, item);
                 });
-            });
-        } else {
-            const filtered = allShopItems.filter(item => item.slot === filterSlot);
-            if (filtered.length === 0) {
-                grid.innerHTML = "<p>Keine Gegenstände in dieser Kategorie gefunden.</p>";
-                return;
             }
-            filtered.forEach(item => {
-                appendItemCard(grid, item);
-            });
         }
-    }
 
-    function filterShop(slot, btnElement) {
-        document.querySelectorAll('.shop-filter-btn').forEach(b => b.classList.remove('active'));
-        if (btnElement) btnElement.classList.add('active');
-        renderShopItems(slot);
-    }
+        // Shop Filter Buttons
+        function filterShop(slot, btnElement) {
+            document.querySelectorAll('.shop-filter-btn').forEach(b => b.classList.remove('active'));
+            if (btnElement) btnElement.classList.add('active');
+            renderShopItems(slot);
+        }
 
-    window.onload = function() {
-        loadLeaderboardData();
-        loadShopData(); 
-        setInterval(loadLeaderboardData, 30000);
-    };
-</script>
+        // Beim Laden der Seite beide Datenquellen abrufen
+        window.onload = function() {
+            loadLeaderboardData();
+            loadShopData();
+            setInterval(loadLeaderboardData, 30000); // Aktualisiert das Leaderboard alle 30 Sek.
+        };
+    </script>
 </body>
 </html>

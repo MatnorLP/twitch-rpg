@@ -1,26 +1,25 @@
 [
-  { "id": "stoff_kapuze", "name": "Stoff-Kapuze", "slot": "helm", "tier": 1, "def": 1, "atk": 0, "price": 10, "image": "images/items/stoff_kapuze.png" },
-  { "id": "leder_helm", "name": "Leder-Helm", "slot": "helm", "tier": 2, "def": 2, "atk": 0, "price": 25, "image": "images/items/leder_helm.png" },
-  { "id": "kupfer_helm", "name": "Kupfer-Helm", "slot": "helm", "tier": 3, "def": 4, "atk": 0, "price": 50, "image": "images/items/kupfer_helm.png" },
-  { "id": "bronze_helm", "name": "Bronze-Helm", "slot": "helm", "tier": 4, "def": 7, "atk": 0, "price": 100, "image": "images/items/bronze_helm.png" },
-  { "id": "eisen_helm", "name": "Eisen-Helm", "slot": "helm", "tier": 5, "def": 12, "atk": 0, "price": 200, "image": "images/items/eisen_helm.png" },
+  { "id": "helm_1", "name": "Leder-Helm", "slot": "helm", "tier": 1, "atk": 0, "def": 2, "price": 50, "image": "images/items/Leder_Helm_klein.png" },
+  { "id": "helm_2", "name": "Kupfer-Helm", "slot": "helm", "tier": 2, "atk": 0, "def": 3, "price": 150, "image": "" },
+  { "id": "helm_3", "name": "Bronze-Helm", "slot": "helm", "tier": 3, "atk": 0, "def": 4, "price": 450, "image": "" },
+  { "id": "helm_4", "name": "Eisen-Helm", "slot": "helm", "tier": 4, "atk": 0, "def": 6, "price": 1200, "image": "" },
+  { "id": "helm_5", "name": "Stahl-Helm", "slot": "helm", "tier": 5, "atk": 0, "def": 8, "price": 3500, "image": "" },
 
-  { "id": "stoff_hemd", "name": "Stoff-Hemd", "slot": "armor", "tier": 1, "def": 1, "atk": 0, "price": 10, "image": "images/items/stoff_hemd.png" },
-  { "id": "leder_ruestung", "name": "Leder-Rüstung", "slot": "armor", "tier": 2, "def": 3, "atk": 0, "price": 30, "image": "images/items/leder_ruestung.png" },
-  { "id": "kupfer_brustschutz", "name": "Kupfer-Brustschutz", "slot": "armor", "tier": 3, "def": 6, "atk": 0, "price": 60, "image": "images/items/kupfer_brustschutz.png" },
-  { "id": "bronze_brustschutz", "name": "Bronze-Brustschutz", "slot": "armor", "tier": 4, "def": 10, "atk": 0, "price": 120, "image": "images/items/bronze_brustschutz.png" },
-  { "id": "eisen_brustschutz", "name": "Eisen-Brustschutz", "slot": "armor", "tier": 5, "def": 16, "atk": 0, "price": 250, "image": "images/items/eisen_brustschutz.png" },
+  { "id": "armor_1", "name": "Leder-Rüstung", "slot": "armor", "tier": 1, "atk": 0, "def": 2, "price": 50, "image": "" },
+  { "id": "armor_2", "name": "Kupfer-Brustschutz", "slot": "armor", "tier": 2, "atk": 0, "def": 3, "price": 150, "image": "" },
+  { "id": "armor_3", "name": "Bronze-Brustschutz", "slot": "armor", "tier": 3, "atk": 0, "def": 4, "price": 450, "image": "" },
+  { "id": "armor_4", "name": "Eisen-Brustschutz", "slot": "armor", "tier": 4, "atk": 0, "def": 6, "price": 1200, "image": "" },
+  { "id": "armor_5", "name": "Stahl-Brustschutz", "slot": "armor", "tier": 5, "atk": 0, "def": 8, "price": 3500, "image": "" },
 
-  { "id": "stoff_hose", "name": "Stoff-Hose", "slot": "pants", "tier": 1, "def": 1, "atk": 0, "price": 10, "image": "images/items/stoff_hose.png" },
-  { "id": "leder_hose", "name": "Leder-Hose", "slot": "pants", "tier": 2, "def": 2, "atk": 0, "price": 25, "image": "images/items/leder_hose.png" },
-  { "id": "kupfer_beinschiene", "name": "Kupfer-Beinschiene", "slot": "pants", "tier": 3, "def": 5, "atk": 0, "price": 55, "image": "images/items/kupfer_beinschiene.png" },
+  { "id": "pants_1", "name": "Leder-Hose", "slot": "pants", "tier": 1, "atk": 0, "def": 2, "price": 50, "image": "" },
+  { "id": "pants_2", "name": "Kupfer-Beinschiene", "slot": "pants", "tier": 2, "atk": 0, "def": 3, "price": 150, "image": "" },
+  { "id": "pants_3", "name": "Bronze-Beinschiene", "slot": "pants", "tier": 3, "atk": 0, "def": 4, "price": 450, "image": "" },
+  { "id": "pants_4", "name": "Eisen-Beinschiene", "slot": "pants", "tier": 4, "atk": 0, "def": 6, "price": 1200, "image": "" },
+  { "id": "pants_5", "name": "Stahl-Beinschiene", "slot": "pants", "tier": 5, "atk": 0, "def": 8, "price": 3500, "image": "" },
 
-  { "id": "bronze_beinschiene", "name": "Bronze-Beinschiene", "slot": "pants", "tier": 4, "def": 8, "atk": 0, "price": 110, "image": "images/items/bronze_beinschiene.png" },
-  { "id": "eisen_beinschiene", "name": "Eisen-Beinschiene", "slot": "pants", "tier": 5, "def": 14, "atk": 0, "price": 220, "image": "images/items/eisen_beinschiene.png" },
-
-  { "id": "holz_messer", "name": "Holz-Messer", "slot": "weapon", "tier": 1, "def": 0, "atk": 1, "price": 10, "image": "images/items/holz_messer.png" },
-  { "id": "leder_messer", "name": "Leder-Messer", "slot": "weapon", "tier": 2, "def": 0, "atk": 3, "price": 30, "image": "images/items/leder_messer.png" },
-  { "id": "kupfer_schwert", "name": "Kupfer-Schwert", "slot": "weapon", "tier": 3, "def": 0, "atk": 6, "price": 60, "image": "images/items/kupfer_schwert.png" },
-  { "id": "bronze_schwert", "name": "Bronze-Schwert", "slot": "weapon", "tier": 4, "def": 0, "atk": 10, "price": 120, "image": "images/items/bronze_schwert.png" },
-  { "id": "eisen_schwert", "name": "Eisen-Schwert", "slot": "weapon", "tier": 5, "def": 0, "atk": 16, "price": 250, "image": "images/items/eisen_schwert.png" }
+  { "id": "weapon_1", "name": "Leder-Messer", "slot": "weapon", "tier": 1, "atk": 5, "def": 0, "price": 50, "image": "" },
+  { "id": "weapon_2", "name": "Kupfer-Schwert", "slot": "weapon", "tier": 2, "atk": 10, "def": 0, "price": 150, "image": "" },
+  { "id": "weapon_3", "name": "Bronze-Schwert", "slot": "weapon", "tier": 3, "atk": 18, "def": 0, "price": 450, "image": "" },
+  { "id": "weapon_4", "name": "Eisen-Schwert", "slot": "weapon", "tier": 4, "atk": 28, "def": 0, "price": 1200, "image": "" },
+  { "id": "weapon_5", "name": "Stahl-Großschwert", "slot": "weapon", "tier": 5, "atk": 42, "def": 0, "price": 3500, "image": "" }
 ]
