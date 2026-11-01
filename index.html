@@ -24,10 +24,21 @@
             align-items: center;
         }
 
-        .container {
-            width: 100%;
-            max-width: 1000px;
-        }
+.container {
+    width: 100%;
+    max-width: 1000px;
+    background: 
+        /* Feines Gitter-Muster für die Struktur */
+        linear-gradient(90deg, rgba(0,0,0,0.4) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(0,0,0,0.4) 1px, transparent 1px),
+        /* Der dunkle Holz-/Stein-Farbverlauf dahinter */
+        linear-gradient(135deg, #1c1714 0%, #0d0b0a 100%);
+    background-size: 20px 20px, 20px 20px, 100% 100%;
+    border: 2px solid #3d2f21;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 40px rgba(0, 0, 0, 0.7);
+    padding: 30px;
+}
 
         header {
             text-align: center;
