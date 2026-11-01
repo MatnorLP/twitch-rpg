@@ -357,12 +357,12 @@
 
             grid.innerHTML = "";
 
-            const slotOrder = [
-                { key: 'helm', title: '👑 Helme' },
-                { key: 'armor', title: '🛡️ Rüstungen' },
-                { key: 'pants', title: '🦿 Beine' },
-                { key: 'weapon', title: '🗡️ Waffen' }
-            ];
+const slotOrder = [
+            { key: 'weapon', title: '🗡️ Waffen' },
+            { key: 'helm',   title: '👑 Helme' },
+            { key: 'armor',  title: '🛡️ Rüstungen' },
+            { key: 'pants',  title: '🦿 Beine' }
+        ];
 
             if (filterSlot === 'all') {
                 slotOrder.forEach(category => {
