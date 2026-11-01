@@ -273,18 +273,53 @@
             }
         }
 
-        // Rahmenfarben nach Tier
+// Rahmenfarben nach Farbgruppen (3 Tiers pro Farbe)
         function getTierColor(tier) {
-            if (tier <= 1) return "#9e9e9e"; // Grau
-            if (tier === 2) return "#4caf50"; // Grün
-            if (tier === 3) return "#2196f3"; // Blau
-            if (tier === 4) return "#9c27b0"; // Violett
-            if (tier === 5) return "#ffd700"; // Gold
-            if (tier <= 8) return "#ff5722"; // Orange
-            return "#e91e63";               // Mythic
+            if (tier <= 3) return "#9e9e9e";  // Tier 1-3: Grau (Gewöhnlich)
+            if (tier <= 6) return "#4caf50";  // Tier 4-6: Grün (Ungewöhnlich)
+            if (tier <= 9) return "#2196f3";  // Tier 7-9: Blau (Selten)
+            if (tier <= 12) return "#00bcd4"; // Tier 10-12: Cyan / Hellblau (Magisch)
+            if (tier <= 15) return "#9c27b0"; // Tier 13-15: Lila (Episch)
+            if (tier <= 18) return "#ffd700"; // Tier 16-18: Gold (Legendär)
+            return "#e91e63";                 // Ab Tier 19: Mythisch / Pink
         }
 
-        // Einzelne Item-Karte erstellen
+        // Rang-Namen nach Tier
+        function getTierName(tier) {
+            // Gewöhnlich (Tier 1 - 3)
+            if (tier === 1) return "Gewöhnlich I";
+            if (tier === 2) return "Gewöhnlich II";
+            if (tier === 3) return "Gewöhnlich III";
+
+            // Ungewöhnlich (Tier 4 - 6)
+            if (tier === 4) return "Ungewöhnlich I";
+            if (tier === 5) return "Ungewöhnlich II";
+            if (tier === 6) return "Ungewöhnlich III";
+
+            // Selten (Tier 7 - 9)
+            if (tier === 7) return "Selten I";
+            if (tier === 8) return "Selten II";
+            if (tier === 9) return "Selten III";
+
+            // Magisch (Tier 10 - 12)
+            if (tier === 10) return "Magisch I";
+            if (tier === 11) return "Magisch II";
+            if (tier === 12) return "Magisch III";
+
+            // Episch (Tier 13 - 15)
+            if (tier === 13) return "Episch I";
+            if (tier === 14) return "Episch II";
+            if (tier === 15) return "Episch III";
+
+            // Legendär (Tier 16 - 18)
+            if (tier === 16) return "Legendär I";
+            if (tier === 17) return "Legendär II";
+            if (tier === 18) return "Legendär III";
+
+            return `Mythisch (Tier ${tier})`; // Falls du später noch höher gehst
+        }
+
+// Einzelne Item-Karte erstellen
         function appendItemCard(container, item) {
             const card = document.createElement('div');
             card.className = 'shop-item';
@@ -293,6 +328,8 @@
             if (item.slot === 'armor') buyCommand = `!kaufen ruestung`;
 
             const tierColor = getTierColor(item.tier);
+            const tierName = getTierName(item.tier); // <--- Hol den neuen Rang-Namen
+
             card.style.border = `2px solid ${tierColor}`;
             card.style.boxShadow = `0 0 8px ${tierColor}33`;
 
@@ -301,7 +338,7 @@
             card.innerHTML = `
                 <img src="${imgSrc}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/80?text=Item'" style="width: 80px; height: 80px; object-fit: contain; margin-bottom: 10px;">
                 <h4 style="color: ${tierColor}; margin: 5px 0; font-size: 16px;">${item.name}</h4>
-                <p style="font-size: 12px; color: var(--muted-color); margin-bottom: 5px;">Tier ${item.tier}</p>
+                <p style="font-size: 12px; color: ${tierColor}; font-weight: bold; margin-bottom: 5px;">${tierName}</p>
                 <p style="margin: 5px 0; font-size: 13px;">
                     ${item.atk > 0 ? `<strong>ATK:</strong> +${item.atk} ` : ''}
                     ${item.def > 0 ? `<strong>DEF:</strong> +${item.def} ` : ''}
