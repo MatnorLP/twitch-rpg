@@ -178,7 +178,7 @@
             <button class="main-tab-btn active" onclick="switchTab('shop', this)">🛒 Item-Shop</button>
         </div>
 
-        <!-- LEADERBOARD SEKTION -->
+<!-- LEADERBOARD SEKTION -->
         <div id="leaderboard-section" class="section">
             <h2>Ruhmeshalle</h2>
             <table>
@@ -186,8 +186,8 @@
                     <tr>
                         <th>Rang</th>
                         <th>Name</th>
-                        <th>Gold</th>
-                        <th>Ausrüstung</th>
+                        <th>Level</th>
+                        <th>Kills</th>
                     </tr>
                 </thead>
                 <tbody id="leaderboard-body">
@@ -195,7 +195,7 @@
                 </tbody>
             </table>
         </div>
-
+        
         <!-- ITEM-SHOP SEKTION -->
         <div id="shop-section" class="section active">
             <h2>Ausrüstungsshop</h2>
@@ -231,7 +231,7 @@
             if (btnElement) btnElement.classList.add('active');
         }
 
-        // Leaderboard Daten laden
+// Leaderboard Daten laden
         async function loadLeaderboardData() {
             try {
                 const response = await fetch('leaderboard.json?v=' + new Date().getTime());
@@ -242,13 +242,17 @@
                 if (!tbody) return;
                 tbody.innerHTML = "";
 
-                data.forEach((player, index) => {
+                // Wandelt das JSON-Objekt in ein Array um und sortiert nach Level/Kills
+                const players = Object.values(data);
+                players.sort((a, b) => b.level - a.level || b.kills - a.kills);
+
+                players.forEach((player, index) => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td><strong>#${index + 1}</strong></td>
                         <td>${player.name}</td>
-                        <td>💰 ${player.gold}</td>
-                        <td>Helm: ${player.helm || 'Keiner'}, Rüstung: ${player.ruestung || 'Keiner'}, Waffe: ${player.waffe || 'Keiner'}</td>
+                        <td>⭐ Level ${player.level}</td>
+                        <td>⚔️ ${player.kills} Kills</td>
                     `;
                     tbody.appendChild(row);
                 });
@@ -256,7 +260,6 @@
                 console.log("Fehler beim Laden der leaderboard.json", e);
             }
         }
-
         // Shop Daten laden
         async function loadShopData() {
             try {
