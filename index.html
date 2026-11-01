@@ -181,7 +181,7 @@
     gap: 20px;
 }
 
-/* Holzschild-Look für die Überschriften */
+/* Holzschild-Look für die Überschriften (zentriert & größer) */
 .shop-category-title {
     background: linear-gradient(90deg, #2b1d11 0%, #3a2618 50%, #2b1d11 100%),
                 repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 2px, transparent 2px, transparent 4px);
@@ -189,15 +189,17 @@
     padding: 12px 18px;
     border-radius: 4px;
     border: 2px solid #4a331f; /* Dunkler Holzrand */
-    border-left: 6px solid #d4ac0d; /* Stabiler goldener Akzent */
-    font-size: 16px;
+    border-left: 6px solid #d4ac0d; /* Goldener Akzent */
+    border-right: 6px solid #d4ac0d; /* Symmetrischer Gold-Akzent auf der rechten Seite */
+    font-size: 20px; /* Etwas größer für bessere Lesbarkeit */
     font-weight: bold;
     margin-bottom: 15px;
     display: flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center; /* Zentriert den Inhalt waagerecht */
+    gap: 12px;
     box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.05), 0 4px 8px rgba(0, 0, 0, 0.6);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
 }
     </style>
 </head>
