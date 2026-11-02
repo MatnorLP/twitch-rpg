@@ -206,10 +206,12 @@
             margin-bottom: 15px;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
             gap: 12px;
             box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.05), 0 4px 8px rgba(0, 0, 0, 0.6);
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+            cursor: pointer;
+user-select: none;
         }
 
         .shop-header-box {
@@ -299,6 +301,57 @@
             justify-items: center;
         }
 
+/* Stil für den Twitch-Avatar im Arsenal */
+.arsenal-avatar-container {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 15px auto;
+}
+
+.arsenal-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #d4ac0d;
+    box-shadow: 0 0 15px rgba(212, 172, 13, 0.4);
+    background-color: #1e1e1e;
+}
+
+.arsenal-avatar-badge {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid #d4ac0d;
+    box-shadow: 0 0 15px rgba(212, 172, 13, 0.4);
+    background: linear-gradient(135deg, #2b1d11 0%, #3a2618 100%);
+    color: #e6b865;
+    font-size: 28px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    text-transform: uppercase;
+}
+        
+/* Gesamt-Stats Banner */
+.arsenal-total-stats {
+    background: rgba(212, 172, 13, 0.08);
+    border: 1px solid #d4ac0d;
+    color: #e6b865;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    box-shadow: inset 0 0 10px rgba(212, 172, 13, 0.1);
+}
+        
 .slot {
   background-color: #27272a;
   border: 2px solid #3f3f46;
@@ -425,11 +478,22 @@
 
                 <!-- Die Arsenal-Karte -->
                 <div id="arsenalCard" class="arsenal-card hidden">
-                    <h2 id="arsenalName">Hero Name</h2>
-                    <div class="arsenal-stats">
-                        <span id="arsenalLevel">Lvl 1</span> | 
-                        <span id="arsenalKills">⚔️ 0 Kills</span>
-                    </div>
+                    <!-- NEU: Twitch Avatar -->
+<div class="arsenal-avatar-container">
+    <div id="arsenalAvatar" class="arsenal-avatar-badge">?</div>
+</div>
+
+    <h2 id="arsenalName">Hero Name</h2>
+    <div class="arsenal-stats">
+        <span id="arsenalLevel">Lvl 1</span> | 
+        <span id="arsenalKills">⚔️ 0 Kills</span>
+    </div>
+
+    <!-- NEU: Gesamt-Stats Box -->
+    <div class="arsenal-total-stats">
+        <span id="totalAtk">⚔️ ATK: +0</span>
+        <span id="totalDef">🛡️ DEF: +0</span>
+    </div>
 
                     <div class="arsenal-grid">
                         <!-- Ausrüstungsslots -->
@@ -495,99 +559,130 @@
 
                 allCharactersData.sort((a, b) => b.level - a.level || b.kills - a.kills);
 
-                allCharactersData.forEach((player, index) => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td><strong>#${index + 1}</strong></td>
-                        <td>${player.name}</td>
-                        <td>⭐ Level ${player.level}</td>
-                        <td>⚔️ ${player.kills} Kills</td>
-                    `;
-                    tbody.appendChild(row);
-                });
+   allCharactersData.forEach((player, index) => {
+    const row = document.createElement('tr');
+    row.style.cursor = "pointer"; // Zeigt an, dass man draufklicken kann
+    row.title = `${player.name} im Arsenal inspizieren`;
+    
+    row.innerHTML = `
+        <td><strong>#${index + 1}</strong></td>
+        <td><span style="color: #60a5fa; text-decoration: underline;">${player.name}</span></td>
+        <td>⭐ Level ${player.level}</td>
+        <td>⚔️ ${player.kills} Kills</td>
+    `;
+
+    // Klick-Event für den Wechsel ins Arsenal
+    row.onclick = () => {
+        // 1. Zum Reiter "Charakter-Info" wechseln
+        switchTab('arsenal', document.querySelectorAll('.main-tab-btn')[2]);
+        
+        // 2. Namen in das Suchfeld eintragen
+        document.getElementById('charSearchInput').value = player.name;
+        
+        // 3. Suche direkt ausführen
+        searchCharacter();
+    };
+
+    tbody.appendChild(row);
+});
             } catch (e) {
                 console.log("Fehler beim Laden der leaderboard.json", e);
             }
         }
 
-        // Charakter-Suche für das Arsenal
+// Charakter-Suche für das Arsenal
 function searchCharacter() {
-            const query = document.getElementById('charSearchInput').value.trim().toLowerCase();
-            const card = document.getElementById('arsenalCard');
-            const errorBox = document.getElementById('searchNotFound');
+    const query = document.getElementById('charSearchInput').value.trim().toLowerCase();
+    const card = document.getElementById('arsenalCard');
+    const errorBox = document.getElementById('searchNotFound');
 
-            if (!query) return;
+    if (!query) return;
 
-            // Suche nach dem Namen (case-insensitive)
-            const hero = allCharactersData.find(c => c.name && c.name.toLowerCase() === query);
+    // Suche nach dem Namen (case-insensitive)
+    const hero = allCharactersData.find(c => c.name && c.name.toLowerCase() === query);
 
-            if (hero) {
-                errorBox.classList.add('hidden');
-                card.classList.remove('hidden');
+    if (hero) {
+        errorBox.classList.add('hidden');
+        card.classList.remove('hidden');
 
-                // Grunddaten eintragen
-                document.getElementById('arsenalName').innerText = hero.name;
-                document.getElementById('arsenalLevel').innerText = `Level ${hero.level || 1}`;
-                document.getElementById('arsenalKills').innerText = `⚔️ ${hero.kills || 0} Kills`;
+        // Grunddaten eintragen
+        document.getElementById('arsenalName').innerText = hero.name;
+        document.getElementById('arsenalLevel').innerText = `Level ${hero.level || 1}`;
+        document.getElementById('arsenalKills').innerText = `⚔️ ${hero.kills || 0} Kills`;
 
-                // Ausrüstungsslots befüllen
-                const slots = ['head', 'chest', 'legs', 'weapon'];
-                const defaultLabels = { head: 'Helm', chest: 'Rüstung', legs: 'Hose', weapon: 'Waffe' };
+  // Automatisiertes RPG-Wappen mit den Initialen des Spielers
+const avatarElem = document.getElementById('arsenalAvatar');
+const initials = hero.name ? hero.name.substring(0, 2).toUpperCase() : "??";
+avatarElem.innerText = initials;
 
-                slots.forEach(slot => {
-                    const imgElem = document.getElementById(`img-${slot}`);
-                    const slotElem = imgElem.parentElement;
-                    const labelElem = slotElem.querySelector('.slot-label');
+        // Variablen für Gesamt-Stats auf 0 setzen
+        let sumAtk = 0;
+        let sumDef = 0;
+
+        // Ausrüstungsslots befüllen & Werte summieren
+        const slots = ['head', 'chest', 'legs', 'weapon'];
+        const defaultLabels = { head: 'Helm', chest: 'Rüstung', legs: 'Hose', weapon: 'Waffe' };
+
+        slots.forEach(slot => {
+            const imgElem = document.getElementById(`img-${slot}`);
+            const slotElem = imgElem.parentElement;
+            const labelElem = slotElem.querySelector('.slot-label');
+            
+            const itemName = hero[slot] || (hero.equipped ? hero.equipped[slot] : "");
+
+            if (itemName) {
+                const matchedItem = allShopItems.find(item => item.name.toLowerCase() === itemName.toLowerCase());
+
+                if (matchedItem) {
+                    imgElem.src = matchedItem.image;
+                    imgElem.style.display = 'block';
+
+                    const tierColor = getTierColor(matchedItem.tier);
+
+                    labelElem.innerText = matchedItem.name;
+                    labelElem.style.color = tierColor;
+
+                    slotElem.style.borderColor = tierColor;
+                    slotElem.style.boxShadow = `0 0 8px ${tierColor}44`;
                     
-                    // Da Streamer.bot den Item-Namen (oder das Objekt) speichert, 
-                    // prüfen wir, ob ein Name im JSON steht (z.B. hero.head, hero.chest etc.)
-                    // (Falls du die Daten direkt als hero.head, hero.armor, hero.pants, hero.weapon speicherst)
-                    const itemName = hero[slot] || (hero.equipped ? hero.equipped[slot] : "");
-
-                    if (itemName) {
-                        // Sucht das Item in den Shop-Daten anhand des Namens
-                        const matchedItem = allShopItems.find(item => item.name.toLowerCase() === itemName.toLowerCase());
-
-                        if (matchedItem) {
-                            imgElem.src = matchedItem.image;
-                            imgElem.style.display = 'block';
-
-                            const tierColor = getTierColor(matchedItem.tier);
-
-                            labelElem.innerText = matchedItem.name;
-                            labelElem.style.color = tierColor;
-
-                            slotElem.style.borderColor = tierColor;
-                            slotElem.style.boxShadow = `0 0 8px ${tierColor}44`;
-                            
-                            let statsText = `${matchedItem.name} (${getTierName(matchedItem.tier)})`;
-                            if (matchedItem.atk) statsText += `\n⚔️ ATK: +${matchedItem.atk}`;
-                            if (matchedItem.def) statsText += `\n🛡️ DEF: +${matchedItem.def}`;
-                            slotElem.title = statsText;
-                        } else {
-                            // Falls kein Shop-Item gefunden wurde, aber ein Text da ist
-                            imgElem.src = '';
-                            imgElem.style.display = 'none';
-                            labelElem.innerText = itemName;
-                            labelElem.style.color = '#fff';
-                            slotElem.style.borderColor = '#3f3f46';
-                            slotElem.style.boxShadow = 'none';
-                        }
-                    } else {
-                        imgElem.src = '';
-                        imgElem.style.display = 'none';
-                        labelElem.innerText = defaultLabels[slot];
-                        labelElem.style.color = '#a1a1aa';
-                        slotElem.style.borderColor = '#3f3f46';
-                        slotElem.style.boxShadow = 'none';
-                        slotElem.title = defaultLabels[slot];
+                    let statsText = `${matchedItem.name} (${getTierName(matchedItem.tier)})`;
+                    if (matchedItem.atk) {
+                        statsText += `\n⚔️ ATK: +${matchedItem.atk}`;
+                        sumAtk += matchedItem.atk; // ATK aufaddieren
                     }
-                });
+                    if (matchedItem.def) {
+                        statsText += `\n🛡️ DEF: +${matchedItem.def}`;
+                        sumDef += matchedItem.def; // DEF aufaddieren
+                    }
+                    slotElem.title = statsText;
+                } else {
+                    imgElem.src = '';
+                    imgElem.style.display = 'none';
+                    labelElem.innerText = itemName;
+                    labelElem.style.color = '#fff';
+                    slotElem.style.borderColor = '#3f3f46';
+                    slotElem.style.boxShadow = 'none';
+                }
             } else {
-                card.classList.add('hidden');
-                errorBox.classList.remove('hidden');
+                imgElem.src = '';
+                imgElem.style.display = 'none';
+                labelElem.innerText = defaultLabels[slot];
+                labelElem.style.color = '#a1a1aa';
+                slotElem.style.borderColor = '#3f3f46';
+                slotElem.style.boxShadow = 'none';
+                slotElem.title = defaultLabels[slot];
             }
-        }
+        });
+
+        // NEU: Gesamtsummen in das Statistik-Banner schreiben
+        document.getElementById('totalAtk').innerText = `⚔️ ATK: +${sumAtk}`;
+        document.getElementById('totalDef').innerText = `🛡️ DEF: +${sumDef}`;
+
+    } else {
+        card.classList.add('hidden');
+        errorBox.classList.remove('hidden');
+    }
+}
 
         // Shop Daten laden
         async function loadShopData() {
@@ -612,9 +707,10 @@ function searchCharacter() {
             return "#e91e63";
         }
 
-        function getTierName(tier) {
-            if (tier === 1) return "Gewöhnlich I";
-            if (tier === 2) return "Gewöhnlich II";
+function getTierName(tier) {
+    if (tier === 0) return "Startausrüstung"; // <-- Neu für unsere Start-Items (Tier 0)
+    if (tier === 1) return "Gewöhnlich I";
+    if (tier === 2) return "Gewöhnlich II";
             if (tier === 3) return "Gewöhnlich III";
             if (tier === 4) return "Ungewöhnlich I";
             if (tier === 5) return "Ungewöhnlich II";
@@ -681,28 +777,41 @@ function searchCharacter() {
             ];
 
             if (filterSlot === 'all') {
-                slotOrder.forEach(category => {
-                    const categoryItems = allShopItems.filter(item => item.slot === category.key);
-                    if (categoryItems.length === 0) return;
+  slotOrder.forEach(category => {
+    const categoryItems = allShopItems.filter(item => item.slot === category.key);
+    if (categoryItems.length === 0) return;
 
-                    const wrapper = document.createElement('div');
-                    wrapper.className = 'shop-category-wrapper';
+    const wrapper = document.createElement('div');
+    wrapper.className = 'shop-category-wrapper';
 
-                    const heading = document.createElement('div');
-                    heading.className = 'shop-category-title';
-                    heading.innerHTML = category.title;
-                    wrapper.appendChild(heading);
+    const heading = document.createElement('div');
+    heading.className = 'shop-category-title';
+    // Titel + kleiner Pfeil rechts
+    heading.innerHTML = `<span>${category.title}</span><span class="toggle-arrow" style="font-size: 14px; opacity: 0.8;">▼</span>`;
 
-                    const itemGrid = document.createElement('div');
-                    itemGrid.className = 'shop-grid';
+    const itemGrid = document.createElement('div');
+    itemGrid.className = 'shop-grid';
 
-                    categoryItems.forEach(item => {
-                        appendItemCard(itemGrid, item);
-                    });
+    // Einklapp-Logik bei Klick auf die Überschrift
+    heading.onclick = () => {
+        const arrow = heading.querySelector('.toggle-arrow');
+        if (itemGrid.style.display === 'none') {
+            itemGrid.style.display = 'grid';
+            arrow.innerText = '▼';
+        } else {
+            itemGrid.style.display = 'none';
+            arrow.innerText = '▶';
+        }
+    };
 
-                    wrapper.appendChild(itemGrid);
-                    grid.appendChild(wrapper);
-                });
+    categoryItems.forEach(item => {
+        appendItemCard(itemGrid, item);
+    });
+
+    wrapper.appendChild(heading);
+    wrapper.appendChild(itemGrid);
+    grid.appendChild(wrapper);
+});
             } else {
                 const filtered = allShopItems.filter(item => item.slot === filterSlot);
                 if (filtered.length === 0) {
