@@ -299,37 +299,41 @@
             justify-items: center;
         }
 
-        .slot {
-            background-color: #27272a;
-            border: 2px solid #3f3f46;
-            border-radius: 8px;
-            width: 100px;
-            height: 100px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            transition: border-color 0.2s;
-        }
+.slot {
+  background-color: #27272a;
+  border: 2px solid #3f3f46;
+  border-radius: 8px;
+  width: 110px;               /* Etwas breiter für den Namen */
+  min-height: 110px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: border-color 0.2s;
+  cursor: pointer;
+}
 
-        .slot:hover {
-            border-color: #71717a;
-        }
+.slot:hover {
+  border-color: #71717a;
+}
 
-        .slot-img {
-            width: 52px;
-            height: 52px;
-            object-fit: contain;
-            margin-bottom: 4px;
-        }
+.slot-img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  margin-bottom: 6px;
+}
 
-        .slot-label {
-            font-size: 11px;
-            color: #a1a1aa;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+.slot-label {
+  font-size: 11px;
+  color: #a1a1aa;
+  font-weight: 600;
+  text-align: center;
+  word-break: break-word;     /* Bricht lange Namen sauber um */
+  line-height: 1.2;
+}
 
         .hidden {
             display: none !important;
@@ -507,44 +511,68 @@
         }
 
         // Charakter-Suche für das Arsenal
-        function searchCharacter() {
-            const query = document.getElementById('charSearchInput').value.trim().toLowerCase();
-            const card = document.getElementById('arsenalCard');
-            const errorBox = document.getElementById('searchNotFound');
+function searchCharacter() {
+  const query = document.getElementById('charSearchInput').value.trim().toLowerCase();
+  const card = document.getElementById('arsenalCard');
+  const errorBox = document.getElementById('searchNotFound');
 
-            if (!query) return;
+  if (!query) return;
 
-            // Suche nach dem Namen (case-insensitive)
-            const hero = allCharactersData.find(c => c.name && c.name.toLowerCase() === query);
+  // Suche nach dem Namen (case-insensitive)
+  const hero = allCharactersData.find(c => c.name && c.name.toLowerCase() === query);
 
-            if (hero) {
-                errorBox.classList.add('hidden');
-                card.classList.remove('hidden');
+  if (hero) {
+    errorBox.classList.add('hidden');
+    card.classList.remove('hidden');
 
-                // Grunddaten eintragen
-                document.getElementById('arsenalName').innerText = hero.name;
-                document.getElementById('arsenalLevel').innerText = `Level ${hero.level || 1}`;
-                document.getElementById('arsenalKills').innerText = `⚔️ ${hero.kills || 0} Kills`;
+    // Grunddaten eintragen
+    document.getElementById('arsenalName').innerText = hero.name;
+    document.getElementById('arsenalLevel').innerText = `Level ${hero.level || 1}`;
+    document.getElementById('arsenalKills').innerText = `⚔️ ${hero.kills || 0} Kills`;
 
-                // Ausrüstungsslots befüllen (prüft, ob equipped vorhanden ist)
-                const slots = ['head', 'chest', 'legs', 'weapon'];
-                slots.forEach(slot => {
-                    const imgElem = document.getElementById(`img-${slot}`);
-                    const itemPath = hero.equipped ? hero.equipped[slot] : "";
+    // Ausrüstungsslots befüllen
+    const slots = ['head', 'chest', 'legs', 'weapon'];
+    const defaultLabels = { head: 'Helm', chest: 'Rüstung', legs: 'Hose', weapon: 'Waffe' };
 
-                    if (itemPath) {
-                        imgElem.src = itemPath;
-                        imgElem.style.display = 'block';
-                    } else {
-                        imgElem.src = '';
-                        imgElem.style.display = 'none';
-                    }
-                });
-            } else {
-                card.classList.add('hidden');
-                errorBox.classList.remove('hidden');
-            }
+    slots.forEach(slot => {
+      const imgElem = document.getElementById(`img-${slot}`);
+      const slotElem = imgElem.parentElement; // Holt das übergeordnete .slot-Div
+      const labelElem = slotElem.querySelector('.slot-label');
+      
+      const itemPath = hero.equipped ? hero.equipped[slot] : "";
+
+      if (itemPath) {
+        imgElem.src = itemPath;
+        imgElem.style.display = 'block';
+
+        // Sucht das passende Item in den Shop-Daten für Name & Stats
+        const matchedItem = allShopItems.find(item => item.image === itemPath);
+
+        if (matchedItem) {
+          // Fester Name unter dem Slot
+          labelElem.innerText = matchedItem.name;
+          
+          // Tooltip beim Drüberfahren mit den Stats
+          let statsText = matchedItem.name;
+          if (matchedItem.atk) statsText += `\n⚔️ ATK: +${matchedItem.atk}`;
+          if (matchedItem.def) statsText += `\n🛡️ DEF: +${matchedItem.def}`;
+          slotElem.title = statsText;
+        } else {
+          labelElem.innerText = defaultLabels[slot];
+          slotElem.title = defaultLabels[slot];
         }
+      } else {
+        imgElem.src = '';
+        imgElem.style.display = 'none';
+        labelElem.innerText = defaultLabels[slot];
+        slotElem.title = defaultLabels[slot];
+      }
+    });
+  } else {
+    card.classList.add('hidden');
+    errorBox.classList.remove('hidden');
+  }
+}
 
         // Shop Daten laden
         async function loadShopData() {
