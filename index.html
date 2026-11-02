@@ -612,9 +612,10 @@ function searchCharacter() {
             return "#e91e63";
         }
 
-        function getTierName(tier) {
-            if (tier === 1) return "Gewöhnlich I";
-            if (tier === 2) return "Gewöhnlich II";
+function getTierName(tier) {
+    if (tier === 0) return "Startausrüstung"; // <-- Neu für unsere Start-Items (Tier 0)
+    if (tier === 1) return "Gewöhnlich I";
+    if (tier === 2) return "Gewöhnlich II";
             if (tier === 3) return "Gewöhnlich III";
             if (tier === 4) return "Ungewöhnlich I";
             if (tier === 5) return "Ungewöhnlich II";
