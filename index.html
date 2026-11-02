@@ -495,16 +495,32 @@
 
                 allCharactersData.sort((a, b) => b.level - a.level || b.kills - a.kills);
 
-                allCharactersData.forEach((player, index) => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td><strong>#${index + 1}</strong></td>
-                        <td>${player.name}</td>
-                        <td>⭐ Level ${player.level}</td>
-                        <td>⚔️ ${player.kills} Kills</td>
-                    `;
-                    tbody.appendChild(row);
-                });
+   allCharactersData.forEach((player, index) => {
+    const row = document.createElement('tr');
+    row.style.cursor = "pointer"; // Zeigt an, dass man draufklicken kann
+    row.title = `${player.name} im Arsenal inspizieren`;
+    
+    row.innerHTML = `
+        <td><strong>#${index + 1}</strong></td>
+        <td><span style="color: #60a5fa; text-decoration: underline;">${player.name}</span></td>
+        <td>⭐ Level ${player.level}</td>
+        <td>⚔️ ${player.kills} Kills</td>
+    `;
+
+    // Klick-Event für den Wechsel ins Arsenal
+    row.onclick = () => {
+        // 1. Zum Reiter "Charakter-Info" wechseln
+        switchTab('arsenal', document.querySelectorAll('.main-tab-btn')[2]);
+        
+        // 2. Namen in das Suchfeld eintragen
+        document.getElementById('charSearchInput').value = player.name;
+        
+        // 3. Suche direkt ausführen
+        searchCharacter();
+    };
+
+    tbody.appendChild(row);
+});
             } catch (e) {
                 console.log("Fehler beim Laden der leaderboard.json", e);
             }
