@@ -1,4 +1,9 @@
 [
+  { "id": "helm_0", "name": "Stoff-Kapuze", "slot": "helm", "tier": 0, "atk": 0, "def": 1, "price": 0, "image": "images/items/Stoff_Kapuze_klein.png" },
+  { "id": "armor_0", "name": "Stoff-Hemd", "slot": "armor", "tier": 0, "atk": 0, "def": 1, "price": 0, "image": "images/items/Stoff_Hemd_klein.png" },
+  { "id": "pants_0", "name": "Stoff-Hose", "slot": "pants", "tier": 0, "atk": 0, "def": 1, "price": 0, "image": "images/items/Stoff_Hose_klein.png" },
+  { "id": "weapon_0", "name": "Holz-Messer", "slot": "weapon", "tier": 0, "atk": 2, "def": 0, "price": 0, "image": "images/items/Holz_Messer_klein.png" },
+  
   { "id": "helm_1", "name": "Leder-Helm", "slot": "helm", "tier": 1, "atk": 0, "def": 2, "price": 50, "image": "images/items/Leder_Helm_klein.png" },
   { "id": "helm_2", "name": "Kupfer-Helm", "slot": "helm", "tier": 2, "atk": 0, "def": 3, "price": 150, "image": "images/items/Kupfer_Helm_klein.png" },
   { "id": "helm_3", "name": "Bronze-Helm", "slot": "helm", "tier": 3, "atk": 0, "def": 4, "price": 450, "image": "images/items/Bronze_Helm_klein.png" },
