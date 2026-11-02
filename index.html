@@ -319,6 +319,23 @@ user-select: none;
     background-color: #1e1e1e;
 }
 
+.arsenal-avatar-badge {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 3px solid #d4ac0d;
+    box-shadow: 0 0 15px rgba(212, 172, 13, 0.4);
+    background: linear-gradient(135deg, #2b1d11 0%, #3a2618 100%);
+    color: #e6b865;
+    font-size: 28px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    text-transform: uppercase;
+}
+        
 /* Gesamt-Stats Banner */
 .arsenal-total-stats {
     background: rgba(212, 172, 13, 0.08);
@@ -462,9 +479,9 @@ user-select: none;
                 <!-- Die Arsenal-Karte -->
                 <div id="arsenalCard" class="arsenal-card hidden">
                     <!-- NEU: Twitch Avatar -->
-    <div class="arsenal-avatar-container">
-        <img id="arsenalAvatar" src="" alt="Avatar" class="arsenal-avatar" onerror="this.src='https://via.placeholder.com/90?text=Avatar'">
-    </div>
+<div class="arsenal-avatar-container">
+    <div id="arsenalAvatar" class="arsenal-avatar-badge">?</div>
+</div>
 
     <h2 id="arsenalName">Hero Name</h2>
     <div class="arsenal-stats">
@@ -593,9 +610,10 @@ function searchCharacter() {
         document.getElementById('arsenalLevel').innerText = `Level ${hero.level || 1}`;
         document.getElementById('arsenalKills').innerText = `⚔️ ${hero.kills || 0} Kills`;
 
-        // NEU: Twitch Avatar automatisch über DecAPI laden
-        const avatarImg = document.getElementById('arsenalAvatar');
-        avatarImg.src = `https://avatar.beamkit.io/twitch/${hero.name}`;
+  // Automatisiertes RPG-Wappen mit den Initialen des Spielers
+const avatarElem = document.getElementById('arsenalAvatar');
+const initials = hero.name ? hero.name.substring(0, 2).toUpperCase() : "??";
+avatarElem.innerText = initials;
 
         // Variablen für Gesamt-Stats auf 0 setzen
         let sumAtk = 0;
