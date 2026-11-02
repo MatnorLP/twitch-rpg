@@ -512,80 +512,82 @@
 
         // Charakter-Suche für das Arsenal
 function searchCharacter() {
-    const query = document.getElementById('charSearchInput').value.trim().toLowerCase();
-    const card = document.getElementById('arsenalCard');
-    const errorBox = document.getElementById('searchNotFound');
+            const query = document.getElementById('charSearchInput').value.trim().toLowerCase();
+            const card = document.getElementById('arsenalCard');
+            const errorBox = document.getElementById('searchNotFound');
 
-    if (!query) return;
+            if (!query) return;
 
-    // Suche nach dem Namen (case-insensitive)
-    const hero = allCharactersData.find(c => c.name && c.name.toLowerCase() === query);
+            // Suche nach dem Namen (case-insensitive)
+            const hero = allCharactersData.find(c => c.name && c.name.toLowerCase() === query);
 
-    if (hero) {
-        errorBox.classList.add('hidden');
-        card.classList.remove('hidden');
+            if (hero) {
+                errorBox.classList.add('hidden');
+                card.classList.remove('hidden');
 
-        // Grunddaten eintragen
-        document.getElementById('arsenalName').innerText = hero.name;
-        document.getElementById('arsenalLevel').innerText = `Level ${hero.level || 1}`;
-        document.getElementById('arsenalKills').innerText = `⚔️ ${hero.kills || 0} Kills`;
+                // Grunddaten eintragen
+                document.getElementById('arsenalName').innerText = hero.name;
+                document.getElementById('arsenalLevel').innerText = `Level ${hero.level || 1}`;
+                document.getElementById('arsenalKills').innerText = `⚔️ ${hero.kills || 0} Kills`;
 
-        // Ausrüstungsslots befüllen
-        const slots = ['head', 'chest', 'legs', 'weapon'];
-        const defaultLabels = { head: 'Helm', chest: 'Rüstung', legs: 'Hose', weapon: 'Waffe' };
+                // Ausrüstungsslots befüllen
+                const slots = ['head', 'chest', 'legs', 'weapon'];
+                const defaultLabels = { head: 'Helm', chest: 'Rüstung', legs: 'Hose', weapon: 'Waffe' };
 
-        slots.forEach(slot => {
-            const imgElem = document.getElementById(`img-${slot}`);
-            const slotElem = imgElem.parentElement; // Das .slot Div
-            const labelElem = slotElem.querySelector('.slot-label');
-            
-            const itemPath = hero.equipped ? hero.equipped[slot] : "";
-
-            if (itemPath) {
-                imgElem.src = itemPath;
-                imgElem.style.display = 'block';
-
-                // Sucht das passende Item in den Shop-Daten für Tier & Stats
-                const matchedItem = allShopItems.find(item => item.image === itemPath);
-
-                if (matchedItem) {
-                    const tierColor = getTierColor(matchedItem.tier);
-
-                    // Fester Name unter dem Slot + Seltenheitsfarbe
-                    labelElem.innerText = matchedItem.name;
-                    labelElem.style.color = tierColor;
-
-                    // Rahmen & Glow in der Stufen-Farbe
-                    slotElem.style.borderColor = tierColor;
-                    slotElem.style.boxShadow = `0 0 8px ${tierColor}44`;
+                slots.forEach(slot => {
+                    const imgElem = document.getElementById(`img-${slot}`);
+                    const slotElem = imgElem.parentElement;
+                    const labelElem = slotElem.querySelector('.slot-label');
                     
-                    // Tooltip beim Drüberfahren mit den Stats & Stufenname
-                    let statsText = `${matchedItem.name} (${getTierName(matchedItem.tier)})`;
-                    if (matchedItem.atk) statsText += `\n⚔️ ATK: +${matchedItem.atk}`;
-                    if (matchedItem.def) statsText += `\n🛡️ DEF: +${matchedItem.def}`;
-                    slotElem.title = statsText;
-                } else {
-                    labelElem.innerText = defaultLabels[slot];
-                    labelElem.style.color = '#a1a1aa';
-                    slotElem.style.borderColor = '#3f3f46';
-                    slotElem.style.boxShadow = 'none';
-                    slotElem.title = defaultLabels[slot];
-                }
+                    // Da Streamer.bot den Item-Namen (oder das Objekt) speichert, 
+                    // prüfen wir, ob ein Name im JSON steht (z.B. hero.head, hero.chest etc.)
+                    // (Falls du die Daten direkt als hero.head, hero.armor, hero.pants, hero.weapon speicherst)
+                    const itemName = hero[slot] || (hero.equipped ? hero.equipped[slot] : "");
+
+                    if (itemName) {
+                        // Sucht das Item in den Shop-Daten anhand des Namens
+                        const matchedItem = allShopItems.find(item => item.name.toLowerCase() === itemName.toLowerCase());
+
+                        if (matchedItem) {
+                            imgElem.src = matchedItem.image;
+                            imgElem.style.display = 'block';
+
+                            const tierColor = getTierColor(matchedItem.tier);
+
+                            labelElem.innerText = matchedItem.name;
+                            labelElem.style.color = tierColor;
+
+                            slotElem.style.borderColor = tierColor;
+                            slotElem.style.boxShadow = `0 0 8px ${tierColor}44`;
+                            
+                            let statsText = `${matchedItem.name} (${getTierName(matchedItem.tier)})`;
+                            if (matchedItem.atk) statsText += `\n⚔️ ATK: +${matchedItem.atk}`;
+                            if (matchedItem.def) statsText += `\n🛡️ DEF: +${matchedItem.def}`;
+                            slotElem.title = statsText;
+                        } else {
+                            // Falls kein Shop-Item gefunden wurde, aber ein Text da ist
+                            imgElem.src = '';
+                            imgElem.style.display = 'none';
+                            labelElem.innerText = itemName;
+                            labelElem.style.color = '#fff';
+                            slotElem.style.borderColor = '#3f3f46';
+                            slotElem.style.boxShadow = 'none';
+                        }
+                    } else {
+                        imgElem.src = '';
+                        imgElem.style.display = 'none';
+                        labelElem.innerText = defaultLabels[slot];
+                        labelElem.style.color = '#a1a1aa';
+                        slotElem.style.borderColor = '#3f3f46';
+                        slotElem.style.boxShadow = 'none';
+                        slotElem.title = defaultLabels[slot];
+                    }
+                });
             } else {
-                imgElem.src = '';
-                imgElem.style.display = 'none';
-                labelElem.innerText = defaultLabels[slot];
-                labelElem.style.color = '#a1a1aa';
-                slotElem.style.borderColor = '#3f3f46';
-                slotElem.style.boxShadow = 'none';
-                slotElem.title = defaultLabels[slot];
+                card.classList.add('hidden');
+                errorBox.classList.remove('hidden');
             }
-        });
-    } else {
-        card.classList.add('hidden');
-        errorBox.classList.remove('hidden');
-    }
-}
+        }
 
         // Shop Daten laden
         async function loadShopData() {
