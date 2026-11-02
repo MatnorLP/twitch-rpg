@@ -24,49 +24,48 @@
             align-items: center;
         }
 
-.container {
-    width: 100%;
-    max-width: 1000px;
-    background: 
-        /* Feines Gitter-Muster für die Struktur */
-        linear-gradient(90deg, rgba(0,0,0,0.4) 1px, transparent 1px),
-        linear-gradient(0deg, rgba(0,0,0,0.4) 1px, transparent 1px),
-        /* Der dunkle Holz-/Stein-Farbverlauf dahinter */
-        linear-gradient(135deg, #1c1714 0%, #0d0b0a 100%);
-    background-size: 20px 20px, 20px 20px, 100% 100%;
-    border: 2px solid #3d2f21;
-    border-radius: 10px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 40px rgba(0, 0, 0, 0.7);
-    padding: 30px;
-}
-/* Entfernt den Standard-Hintergrund der Sektionen, damit der neue Container-Hintergrund greift */
-.section {
-    display: none;
-    background-color: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-}
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            background: 
+                linear-gradient(90deg, rgba(0,0,0,0.4) 1px, transparent 1px),
+                linear-gradient(0deg, rgba(0,0,0,0.4) 1px, transparent 1px),
+                linear-gradient(135deg, #1c1714 0%, #0d0b0a 100%);
+            background-size: 20px 20px, 20px 20px, 100% 100%;
+            border: 2px solid #3d2f21;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), inset 0 0 40px rgba(0, 0, 0, 0.7);
+            padding: 30px;
+        }
 
-.section.active {
-    display: block;
-}
-header {
-    text-align: center;
-    margin-bottom: 25px;
-    background: linear-gradient(135deg, rgba(35, 26, 18, 0.9) 0%, rgba(20, 15, 10, 0.95) 100%);
-    border: 2px solid #d4ac0d; /* Ändert den Rand komplett auf Gold */
-    border-radius: 6px;
-    padding: 25px 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(212, 172, 13, 0.1);
-}
+        .section {
+            display: none;
+            background-color: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+            background: linear-gradient(135deg, rgba(35, 26, 18, 0.9) 0%, rgba(20, 15, 10, 0.95) 100%);
+            border: 2px solid #d4ac0d;
+            border-radius: 6px;
+            padding: 25px 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(212, 172, 13, 0.1);
+        }
 
         h1 {
             color: var(--accent-color);
             margin-bottom: 5px;
         }
 
-        /* Haupt-Tabs oben (Leaderboard / Shop / Info) */
+        /* Haupt-Tabs oben */
         .main-tabs {
             display: flex;
             justify-content: center;
@@ -117,25 +116,24 @@ header {
             border-color: var(--accent-color);
         }
 
-        /* Shop Grid Layout */
         #shop-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 20px;
         }
 
-.shop-item {
-    background: linear-gradient(180deg, #1e1b18 0%, #12100e 100%);
-    border: 1px solid #2e2620;
-    border-radius: 8px;
-    padding: 15px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.2s;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-}
+        .shop-item {
+            background: linear-gradient(180deg, #1e1b18 0%, #12100e 100%);
+            border: 1px solid #2e2620;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+        }
 
         .shop-item:hover {
             transform: translateY(-3px);
@@ -163,7 +161,6 @@ header {
             color: var(--accent-color);
         }
 
-        /* Top 3 Leaderboard Highlights */
         table tbody tr:nth-child(1) {
             background: linear-gradient(135deg, rgba(255, 215, 0, 0.3), rgba(255, 215, 0, 0.08));
             border-left: 5px solid #ffd700;
@@ -178,54 +175,174 @@ header {
             background: linear-gradient(135deg, rgba(205, 127, 50, 0.3), rgba(205, 127, 50, 0.08));
             border-left: 5px solid #cd7f32;
         }
-/* Waffenkammer-Nischen Layout (Metall & Holz-Vibe) */
-.shop-category-wrapper {
-    grid-column: 1 / -1;
-    background: linear-gradient(135deg, rgba(26, 22, 18, 0.85) 0%, rgba(15, 13, 11, 0.95) 100%);
-    border: 2px solid #3d3124; /* Rustikaler Holz-/Eisen-Rand */
-    border-radius: 6px;
-    padding: 15px;
-    margin-bottom: 25px;
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8), 0 6px 15px rgba(0, 0, 0, 0.5);
-}
 
-.shop-category-wrapper .shop-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 20px;
-}
+        .shop-category-wrapper {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, rgba(26, 22, 18, 0.85) 0%, rgba(15, 13, 11, 0.95) 100%);
+            border: 2px solid #3d3124;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 25px;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8), 0 6px 15px rgba(0, 0, 0, 0.5);
+        }
 
-/* Holzschild-Look für die Überschriften (zentriert & größer) */
-.shop-category-title {
-    background: linear-gradient(90deg, #2b1d11 0%, #3a2618 50%, #2b1d11 100%),
-                repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 2px, transparent 2px, transparent 4px);
-    color: #e6b865; /* Helleres, edleres Gold */
-    padding: 12px 18px;
-    border-radius: 4px;
-    border: 2px solid #4a331f; /* Dunkler Holzrand */
-    border-left: 6px solid #d4ac0d; /* Goldener Akzent */
-    border-right: 6px solid #d4ac0d; /* Symmetrischer Gold-Akzent auf der rechten Seite */
-    font-size: 20px; /* Etwas größer für bessere Lesbarkeit */
-    font-weight: bold;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Zentriert den Inhalt waagerecht */
-    gap: 12px;
-    box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.05), 0 4px 8px rgba(0, 0, 0, 0.6);
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
-}
-        /* Der obere Kasten für Ausrüstungsshop, Hinweis & Filter */
-.shop-header-box {
-    background: linear-gradient(135deg, rgba(26, 22, 18, 0.9) 0%, rgba(15, 13, 11, 0.95) 100%);
-    border: 2px solid #3d3124;
-    border-top: 3px solid #d4ac0d; /* Gold-Akzent an der Oberkante */
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 25px;
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.7), 0 4px 10px rgba(0, 0, 0, 0.5);
-    text-align: center;
-}
+        .shop-category-wrapper .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .shop-category-title {
+            background: linear-gradient(90deg, #2b1d11 0%, #3a2618 50%, #2b1d11 100%),
+                        repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 2px, transparent 2px, transparent 4px);
+            color: #e6b865;
+            padding: 12px 18px;
+            border-radius: 4px;
+            border: 2px solid #4a331f;
+            border-left: 6px solid #d4ac0d;
+            border-right: 6px solid #d4ac0d;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.05), 0 4px 8px rgba(0, 0, 0, 0.6);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+        }
+
+        .shop-header-box {
+            background: linear-gradient(135deg, rgba(26, 22, 18, 0.9) 0%, rgba(15, 13, 11, 0.95) 100%);
+            border: 2px solid #3d3124;
+            border-top: 3px solid #d4ac0d;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.7), 0 4px 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        /* --- ARSENAL / CHARAKTER-INFO STYLES --- */
+        .arsenal-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: #fff;
+        }
+
+        .arsenal-search {
+            margin-bottom: 25px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .arsenal-search input {
+            padding: 10px 15px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: 1px solid #444;
+            background-color: #1e1e1e;
+            color: #fff;
+            width: 250px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .arsenal-search input:focus {
+            border-color: #3b82f6;
+        }
+
+        .arsenal-search button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: none;
+            background-color: #2563eb;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        .arsenal-search button:hover {
+            background-color: #1d4ed8;
+        }
+
+        .arsenal-card {
+            background: linear-gradient(180deg, #18181b 0%, #111113 100%);
+            border: 2px solid #3f3f46;
+            border-radius: 12px;
+            padding: 30px;
+            width: 340px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+        }
+
+        .arsenal-card h2 {
+            margin: 0 0 5px 0;
+            font-size: 26px;
+            color: #f43f5e;
+        }
+
+        .arsenal-stats {
+            font-size: 14px;
+            color: #a1a1aa;
+            margin-bottom: 25px;
+        }
+
+        .arsenal-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            justify-items: center;
+        }
+
+        .slot {
+            background-color: #27272a;
+            border: 2px solid #3f3f46;
+            border-radius: 8px;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: border-color 0.2s;
+        }
+
+        .slot:hover {
+            border-color: #71717a;
+        }
+
+        .slot-img {
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+            margin-bottom: 4px;
+        }
+
+        .slot-label {
+            font-size: 11px;
+            color: #a1a1aa;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .search-error {
+            color: #ef4444;
+            background-color: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            padding: 10px 20px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
@@ -240,9 +357,10 @@ header {
         <div class="main-tabs">
             <button class="main-tab-btn" onclick="switchTab('leaderboard', this)">🏆 Leaderboard</button>
             <button class="main-tab-btn active" onclick="switchTab('shop', this)">🛒 Item-Shop</button>
+            <button class="main-tab-btn" onclick="switchTab('arsenal', this)">🛡️ Charakter-Info</button>
         </div>
 
-<!-- LEADERBOARD SEKTION -->
+        <!-- LEADERBOARD SEKTION -->
         <div id="leaderboard-section" class="section">
             <h2>Ruhmeshalle</h2>
             <table>
@@ -260,63 +378,120 @@ header {
             </table>
         </div>
         
-<!-- ITEM-SHOP SEKTION -->
-<div id="shop-section" class="section active">
+        <!-- ITEM-SHOP SEKTION -->
+        <div id="shop-section" class="section active">
+            <div class="shop-header-box">
+                <h2>Ausrüstungsshop</h2>
+                <p style="color: var(--muted-color); font-size: 14px; margin-bottom: 20px;">Hier kannst du dich mit neuer Ausrüstung für deine nächsten Kämpfe eindecken!</p>
 
-    <div class="shop-header-box">
-        <h2>Ausrüstungsshop</h2>
-        <p style="color: var(--muted-color); font-size: 14px; margin-bottom: 20px;">Hier kannst du dich mit neuer Ausrüstung für deine nächsten Kämpfe eindecken!</p>
+                <div style="background: rgba(212, 172, 13, 0.08); border: 1px solid #d4ac0d; color: #e6b865; padding: 10px 15px; border-radius: 6px; font-size: 13px; margin-bottom: 20px;">
+                    ℹ️ <strong>Hinweis zum Shop:</strong> Ausrüstung muss der Reihe nach gekauft werden. Der Chat-Befehl erkennt automatisch dein aktuelles Item und kauft direkt das nächste verfügbare Upgrade!
+                </div>
 
-        <div style="background: rgba(212, 172, 13, 0.08); border: 1px solid #d4ac0d; color: #e6b865; padding: 10px 15px; border-radius: 6px; font-size: 13px; margin-bottom: 20px;">
-            ℹ️ <strong>Hinweis zum Shop:</strong> Ausrüstung muss der Reihe nach gekauft werden. Der Chat-Befehl erkennt automatisch dein aktuelles Item und kauft direkt das nächste verfügbare Upgrade!
+                <!-- Filter-Buttons -->
+                <div class="nav-buttons">
+                    <button class="shop-filter-btn active" onclick="filterShop('all', this)">✨ Alle</button>
+                    <button class="shop-filter-btn" onclick="filterShop('weapon', this)">⚔️ Waffen</button>
+                    <button class="shop-filter-btn" onclick="filterShop('helm', this)">👑 Helme</button>
+                    <button class="shop-filter-btn" onclick="filterShop('armor', this)">🛡️ Rüstungen</button>
+                    <button class="shop-filter-btn" onclick="filterShop('pants', this)">🦵 Beine</button>
+                </div>
+            </div>
+
+            <!-- Shop Grid -->
+            <div id="shop-grid"></div>
         </div>
 
-        <!-- Filter-Buttons -->
-        <div class="nav-buttons">
-            <button class="shop-filter-btn active" onclick="filterShop('all', this)">✨ Alle</button>
-            <button class="shop-filter-btn" onclick="filterShop('weapon', this)">⚔️ Waffen</button>
-            <button class="shop-filter-btn" onclick="filterShop('helm', this)">👑 Helme</button>
-            <button class="shop-filter-btn" onclick="filterShop('armor', this)">🛡️ Rüstungen</button>
-            <button class="shop-filter-btn" onclick="filterShop('pants', this)">🦵 Beine</button>
+        <!-- CHARAKTER-INFO SEKTION (ARSENAL) -->
+        <div id="arsenal-section" class="section">
+            <div class="arsenal-container">
+                <h2>Helden-Arsenal</h2>
+                <p style="color: var(--muted-color); font-size: 14px; margin-bottom: 20px;">Suche nach einem Twitch-Namen, um die aktuelle Ausrüstung zu inspizieren.</p>
+
+                <!-- Suchfeld -->
+                <div class="arsenal-search">
+                    <input 
+                        type="text" 
+                        id="charSearchInput" 
+                        placeholder="Twitch-Namen eingeben..." 
+                        onkeyup="if(event.key === 'Enter') searchCharacter()"
+                    >
+                    <button onclick="searchCharacter()">Held suchen</button>
+                </div>
+
+                <!-- Die Arsenal-Karte -->
+                <div id="arsenalCard" class="arsenal-card hidden">
+                    <h2 id="arsenalName">Hero Name</h2>
+                    <div class="arsenal-stats">
+                        <span id="arsenalLevel">Lvl 1</span> | 
+                        <span id="arsenalKills">⚔️ 0 Kills</span>
+                    </div>
+
+                    <div class="arsenal-grid">
+                        <!-- Ausrüstungsslots -->
+                        <div class="slot" title="Kopf">
+                            <img id="img-head" src="" alt="Kopf" class="slot-img">
+                            <span class="slot-label">Helm</span>
+                        </div>
+                        <div class="slot" title="Brust">
+                            <img id="img-chest" src="" alt="Brust" class="slot-img">
+                            <span class="slot-label">Rüstung</span>
+                        </div>
+                        <div class="slot" title="Beine">
+                            <img id="img-legs" src="" alt="Beine" class="slot-img">
+                            <span class="slot-label">Hose</span>
+                        </div>
+                        <div class="slot" title="Waffe">
+                            <img id="img-weapon" src="" alt="Waffe" class="slot-img">
+                            <span class="slot-label">Waffe</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fehlermeldung -->
+                <div id="searchNotFound" class="search-error hidden">
+                    <p>Kein Held mit diesem Twitch-Namen gefunden.</p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Shop Grid -->
-    <div id="shop-grid"></div>
-</div>
-
     <script>
         let allShopItems = [];
+        let allCharactersData = [];
 
-        // Tab-Umschaltung zwischen Leaderboard und Shop
+        // Tab-Umschaltung
         function switchTab(tabName, btnElement) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.querySelectorAll('.main-tab-btn').forEach(b => b.classList.remove('active'));
 
             if (tabName === 'leaderboard') {
                 document.getElementById('leaderboard-section').classList.add('active');
-            } else {
+            } else if (tabName === 'shop') {
                 document.getElementById('shop-section').classList.add('active');
+            } else if (tabName === 'arsenal') {
+                document.getElementById('arsenal-section').classList.add('active');
             }
             if (btnElement) btnElement.classList.add('active');
         }
 
-// Leaderboard Daten laden
+        // Leaderboard & Arsenal-Daten laden
         async function loadLeaderboardData() {
             try {
                 const response = await fetch('leaderboard.json?v=' + new Date().getTime());
                 if (!response.ok) return;
                 const data = await response.json();
                 
+                // Speichere die Daten auch direkt für die Arsenal-Suche ab
+                allCharactersData = Object.values(data);
+                
                 const tbody = document.getElementById('leaderboard-body');
                 if (!tbody) return;
                 tbody.innerHTML = "";
 
-                // Wandelt das JSON-Objekt in ein Array um und sortiert nach Level/Kills
-                const players = Object.values(data);
-                players.sort((a, b) => b.level - a.level || b.kills - a.kills);
+                allCharactersData.sort((a, b) => b.level - a.level || b.kills - a.kills);
 
-                players.forEach((player, index) => {
+                allCharactersData.forEach((player, index) => {
                     const row = document.createElement('tr');
                     row.innerHTML = `
                         <td><strong>#${index + 1}</strong></td>
@@ -330,6 +505,47 @@ header {
                 console.log("Fehler beim Laden der leaderboard.json", e);
             }
         }
+
+        // Charakter-Suche für das Arsenal
+        function searchCharacter() {
+            const query = document.getElementById('charSearchInput').value.trim().toLowerCase();
+            const card = document.getElementById('arsenalCard');
+            const errorBox = document.getElementById('searchNotFound');
+
+            if (!query) return;
+
+            // Suche nach dem Namen (case-insensitive)
+            const hero = allCharactersData.find(c => c.name && c.name.toLowerCase() === query);
+
+            if (hero) {
+                errorBox.classList.add('hidden');
+                card.classList.remove('hidden');
+
+                // Grunddaten eintragen
+                document.getElementById('arsenalName').innerText = hero.name;
+                document.getElementById('arsenalLevel').innerText = `Level ${hero.level || 1}`;
+                document.getElementById('arsenalKills').innerText = `⚔️ ${hero.kills || 0} Kills`;
+
+                // Ausrüstungsslots befüllen (prüft, ob equipped vorhanden ist)
+                const slots = ['head', 'chest', 'legs', 'weapon'];
+                slots.forEach(slot => {
+                    const imgElem = document.getElementById(`img-${slot}`);
+                    const itemPath = hero.equipped ? hero.equipped[slot] : "";
+
+                    if (itemPath) {
+                        imgElem.src = itemPath;
+                        imgElem.style.display = 'block';
+                    } else {
+                        imgElem.src = '';
+                        imgElem.style.display = 'none';
+                    }
+                });
+            } else {
+                card.classList.add('hidden');
+                errorBox.classList.remove('hidden');
+            }
+        }
+
         // Shop Daten laden
         async function loadShopData() {
             try {
@@ -343,62 +559,47 @@ header {
             }
         }
 
-// Rahmenfarben nach Farbgruppen (3 Tiers pro Farbe)
         function getTierColor(tier) {
-            if (tier <= 3) return "#9e9e9e";  // Tier 1-3: Grau (Gewöhnlich)
-            if (tier <= 6) return "#4caf50";  // Tier 4-6: Grün (Ungewöhnlich)
-            if (tier <= 9) return "#2196f3";  // Tier 7-9: Blau (Selten)
-            if (tier <= 12) return "#00bcd4"; // Tier 10-12: Cyan / Hellblau (Magisch)
-            if (tier <= 15) return "#9c27b0"; // Tier 13-15: Lila (Episch)
-            if (tier <= 18) return "#ffd700"; // Tier 16-18: Gold (Legendär)
-            return "#e91e63";                 // Ab Tier 19: Mythisch / Pink
+            if (tier <= 3) return "#9e9e9e";
+            if (tier <= 6) return "#4caf50";
+            if (tier <= 9) return "#2196f3";
+            if (tier <= 12) return "#00bcd4";
+            if (tier <= 15) return "#9c27b0";
+            if (tier <= 18) return "#ffd700";
+            return "#e91e63";
         }
 
-        // Rang-Namen nach Tier
         function getTierName(tier) {
-            // Gewöhnlich (Tier 1 - 3)
             if (tier === 1) return "Gewöhnlich I";
             if (tier === 2) return "Gewöhnlich II";
             if (tier === 3) return "Gewöhnlich III";
-
-            // Ungewöhnlich (Tier 4 - 6)
             if (tier === 4) return "Ungewöhnlich I";
             if (tier === 5) return "Ungewöhnlich II";
             if (tier === 6) return "Ungewöhnlich III";
-
-            // Selten (Tier 7 - 9)
             if (tier === 7) return "Selten I";
             if (tier === 8) return "Selten II";
             if (tier === 9) return "Selten III";
-
-            // Magisch (Tier 10 - 12)
             if (tier === 10) return "Magisch I";
             if (tier === 11) return "Magisch II";
             if (tier === 12) return "Magisch III";
-
-            // Episch (Tier 13 - 15)
             if (tier === 13) return "Episch I";
             if (tier === 14) return "Episch II";
             if (tier === 15) return "Episch III";
-
-            // Legendär (Tier 16 - 18)
             if (tier === 16) return "Legendär I";
             if (tier === 17) return "Legendär II";
             if (tier === 18) return "Legendär III";
-
-            return `Mythisch (Tier ${tier})`; // Falls du später noch höher gehst
+            return `Mythisch (Tier ${tier})`;
         }
 
-// Einzelne Item-Karte erstellen
         function appendItemCard(container, item) {
             const card = document.createElement('div');
             card.className = 'shop-item';
 
-let buyCommand = `!kaufen ${item.slot}`;
-        if (item.slot === 'weapon') buyCommand = `!kaufen waffe`;
-        if (item.slot === 'helm') buyCommand = `!kaufen helm`;       // Falls der Befehl im Chat "helm" heißt
-        if (item.slot === 'armor') buyCommand = `!kaufen ruestung`;
-        if (item.slot === 'pants') buyCommand = `!kaufen beine`;
+            let buyCommand = `!kaufen ${item.slot}`;
+            if (item.slot === 'weapon') buyCommand = `!kaufen waffe`;
+            if (item.slot === 'helm') buyCommand = `!kaufen helm`;
+            if (item.slot === 'armor') buyCommand = `!kaufen ruestung`;
+            if (item.slot === 'pants') buyCommand = `!kaufen beine`;
 
             const tierColor = getTierColor(item.tier);
             const tierName = getTierName(item.tier);
@@ -408,62 +609,57 @@ let buyCommand = `!kaufen ${item.slot}`;
 
             const imgSrc = item.image || 'https://via.placeholder.com/80?text=Item';
 
-   card.innerHTML = `
-        <img src="${imgSrc}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/80?text=Item'" style="width: 80px; height: 80px; object-fit: contain; margin-bottom: 10px;">
-        <h4 style="color: ${tierColor}; margin: 0 0 6px 0; font-size: 17px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;">${item.name}</h4>
-        <p style="margin: 0 0 10px 0; font-size: 13px; font-weight: 600; color: ${tierColor}; opacity: 0.9;">${tierName}</p>
-        <p style="margin: 0 0 10px 0; font-size: 14px; font-weight: bold;">
-            ${item.atk > 0 ? `⚔️ ATK: +${item.atk}` : ''}
-            ${item.def > 0 ? `🛡️ DEF: +${item.def}` : ''}
-        </p>
-        <p class="price" style="margin-top: 4px; font-size: 16px;">💰 ${item.price} Gold</p>
-        <p style="background: rgba(243, 156, 18, 0.1); border: 1px solid #f39c12; color: #f39c12; padding: 4px 8px; border-radius: 4px; font-family: monospace; font-size: 12px; margin-top: 8px;">${buyCommand}</p>
-    `;
+            card.innerHTML = `
+                <img src="${imgSrc}" alt="${item.name}" onerror="this.src='https://via.placeholder.com/80?text=Item'" style="width: 80px; height: 80px; object-fit: contain; margin-bottom: 10px;">
+                <h4 style="color: ${tierColor}; margin: 0 0 6px 0; font-size: 17px; font-weight: bold; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%;">${item.name}</h4>
+                <p style="margin: 0 0 10px 0; font-size: 13px; font-weight: 600; color: ${tierColor}; opacity: 0.9;">${tierName}</p>
+                <p style="margin: 0 0 10px 0; font-size: 14px; font-weight: bold;">
+                    ${item.atk > 0 ? `⚔️ ATK: +${item.atk}` : ''}
+                    ${item.def > 0 ? `🛡️ DEF: +${item.def}` : ''}
+                </p>
+                <p class="price" style="margin-top: 4px; font-size: 16px;">💰 ${item.price} Gold</p>
+                <p style="background: rgba(243, 156, 18, 0.1); border: 1px solid #f39c12; color: #f39c12; padding: 4px 8px; border-radius: 4px; font-family: monospace; font-size: 12px; margin-top: 8px;">${buyCommand}</p>
+            `;
 
             container.appendChild(card);
         }
 
-        // Shop-Items rendern (mit Kategorien)
         function renderShopItems(filterSlot) {
             const grid = document.getElementById('shop-grid');
             if (!grid) return;
 
             grid.innerHTML = "";
 
-const slotOrder = [
-            { key: 'weapon', title: '🗡️ Waffen' },
-            { key: 'helm',   title: '👑 Helme' },
-            { key: 'armor',  title: '🛡️ Rüstungen' },
-            { key: 'pants',  title: '🦿 Beine' }
-        ];
+            const slotOrder = [
+                { key: 'weapon', title: '🗡️ Waffen' },
+                { key: 'helm',   title: '👑 Helme' },
+                { key: 'armor',  title: '🛡️ Rüstungen' },
+                { key: 'pants',  title: '🦿 Beine' }
+            ];
 
-if (filterSlot === 'all') {
-            slotOrder.forEach(category => {
-                const categoryItems = allShopItems.filter(item => item.slot === category.key);
-                if (categoryItems.length === 0) return;
+            if (filterSlot === 'all') {
+                slotOrder.forEach(category => {
+                    const categoryItems = allShopItems.filter(item => item.slot === category.key);
+                    if (categoryItems.length === 0) return;
 
-                // Erstelle die Waffenkammer-Nische für diese Kategorie
-                const wrapper = document.createElement('div');
-                wrapper.className = 'shop-category-wrapper';
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'shop-category-wrapper';
 
-                // Erstelle das Schild / die Überschrift im Nischen-Look
-                const heading = document.createElement('div');
-                heading.className = 'shop-category-title';
-                heading.innerHTML = category.title;
-                wrapper.appendChild(heading);
+                    const heading = document.createElement('div');
+                    heading.className = 'shop-category-title';
+                    heading.innerHTML = category.title;
+                    wrapper.appendChild(heading);
 
-                // Erstelle das Grid für die Items in dieser Nische
-                const itemGrid = document.createElement('div');
-                itemGrid.className = 'shop-grid';
+                    const itemGrid = document.createElement('div');
+                    itemGrid.className = 'shop-grid';
 
-                categoryItems.forEach(item => {
-                    appendItemCard(itemGrid, item);
+                    categoryItems.forEach(item => {
+                        appendItemCard(itemGrid, item);
+                    });
+
+                    wrapper.appendChild(itemGrid);
+                    grid.appendChild(wrapper);
                 });
-
-                wrapper.appendChild(itemGrid);
-                grid.appendChild(wrapper);
-            });
-        
             } else {
                 const filtered = allShopItems.filter(item => item.slot === filterSlot);
                 if (filtered.length === 0) {
@@ -476,18 +672,16 @@ if (filterSlot === 'all') {
             }
         }
 
-        // Shop Filter Buttons
         function filterShop(slot, btnElement) {
             document.querySelectorAll('.shop-filter-btn').forEach(b => b.classList.remove('active'));
             if (btnElement) btnElement.classList.add('active');
             renderShopItems(slot);
         }
 
-        // Beim Laden der Seite beide Datenquellen abrufen
         window.onload = function() {
             loadLeaderboardData();
             loadShopData();
-            setInterval(loadLeaderboardData, 30000); // Aktualisiert das Leaderboard alle 30 Sek.
+            setInterval(loadLeaderboardData, 30000);
         };
     </script>
 </body>
