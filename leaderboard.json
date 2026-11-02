@@ -1,22 +1,22 @@
 {
   "474125863": {
     "id": "474125863",
-    "name": "solea_luna",
-    "level": 1,
+    "name": "474125863",
+    "level": 0,
+    "kills": 0,
+    "head": null,
+    "chest": null,
+    "legs": null,
+    "weapon": null
+  },
+  "479058025": {
+    "id": "479058025",
+    "name": "MatnorLP",
+    "level": 2,
     "kills": 0,
     "head": "Stoff-Kapuze",
     "chest": "Stoff-Hemd",
     "legs": "Stoff-Hose",
     "weapon": "Leder-Messer"
-  },
-  "479058025": {
-    "id": "479058025",
-    "name": "MatnorLP",
-    "level": 4,
-    "kills": 10,
-    "head": "Eisen-Helm",
-    "chest": "Kupfer-Brustschutz",
-    "legs": "Kupfer-Beinschiene",
-    "weapon": "Stahl-Großschwert"
   }
 }
