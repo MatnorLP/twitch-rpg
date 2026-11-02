@@ -3,12 +3,24 @@
     "id": "474125863",
     "name": "solea_luna",
     "level": 1,
-    "kills": 0
+    "kills": 0,
+    "equipped": {
+      "head": "images/items/Stoff_Kapuze_klein.png",
+      "chest": "images/items/Stoff_Ruestung_klein.png",
+      "legs": "images/items/Stoff_Hose_klein.png",
+      "weapon": "images/items/Stoff_Messer_klein.png"
+    }
   },
   "479058025": {
     "id": "479058025",
     "name": "MatnorLP",
     "level": 4,
-    "kills": 10
+    "kills": 10,
+    "equipped": {
+      "head": "images/items/Leder_Helm_klein.png",
+      "chest": "images/items/Leder_Ruestung_klein.png",
+      "legs": "images/items/Leder_Hose_klein.png",
+      "weapon": "images/items/Leder_Messer_klein.png"
+    }
   }
 }
