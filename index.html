@@ -206,10 +206,12 @@
             margin-bottom: 15px;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: space-between;
             gap: 12px;
             box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.05), 0 4px 8px rgba(0, 0, 0, 0.6);
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
+            cursor: pointer;
+user-select: none;
         }
 
         .shop-header-box {
@@ -698,28 +700,41 @@ function getTierName(tier) {
             ];
 
             if (filterSlot === 'all') {
-                slotOrder.forEach(category => {
-                    const categoryItems = allShopItems.filter(item => item.slot === category.key);
-                    if (categoryItems.length === 0) return;
+  slotOrder.forEach(category => {
+    const categoryItems = allShopItems.filter(item => item.slot === category.key);
+    if (categoryItems.length === 0) return;
 
-                    const wrapper = document.createElement('div');
-                    wrapper.className = 'shop-category-wrapper';
+    const wrapper = document.createElement('div');
+    wrapper.className = 'shop-category-wrapper';
 
-                    const heading = document.createElement('div');
-                    heading.className = 'shop-category-title';
-                    heading.innerHTML = category.title;
-                    wrapper.appendChild(heading);
+    const heading = document.createElement('div');
+    heading.className = 'shop-category-title';
+    // Titel + kleiner Pfeil rechts
+    heading.innerHTML = `<span>${category.title}</span><span class="toggle-arrow" style="font-size: 14px; opacity: 0.8;">▼</span>`;
 
-                    const itemGrid = document.createElement('div');
-                    itemGrid.className = 'shop-grid';
+    const itemGrid = document.createElement('div');
+    itemGrid.className = 'shop-grid';
 
-                    categoryItems.forEach(item => {
-                        appendItemCard(itemGrid, item);
-                    });
+    // Einklapp-Logik bei Klick auf die Überschrift
+    heading.onclick = () => {
+        const arrow = heading.querySelector('.toggle-arrow');
+        if (itemGrid.style.display === 'none') {
+            itemGrid.style.display = 'grid';
+            arrow.innerText = '▼';
+        } else {
+            itemGrid.style.display = 'none';
+            arrow.innerText = '▶';
+        }
+    };
 
-                    wrapper.appendChild(itemGrid);
-                    grid.appendChild(wrapper);
-                });
+    categoryItems.forEach(item => {
+        appendItemCard(itemGrid, item);
+    });
+
+    wrapper.appendChild(heading);
+    wrapper.appendChild(itemGrid);
+    grid.appendChild(wrapper);
+});
             } else {
                 const filtered = allShopItems.filter(item => item.slot === filterSlot);
                 if (filtered.length === 0) {
