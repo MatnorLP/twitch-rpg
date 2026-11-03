@@ -700,22 +700,14 @@ function searchCharacter() {
     }
 }
 
-// Shop & Arsenal Daten laden
+// Shop Daten laden
         async function loadShopData() {
             try {
                 const response = await fetch('shop.json?v=' + new Date().getTime());
                 if (!response.ok) return;
 
-                const rawData = await response.json();
-                
-                // 1. Das Arsenal bekommt ALLE Items (inklusive Startausrüstung für die Slots)
-                allShopItems = rawData;
-
-                // 2. Der Shop bekommt NUR gefilterte Items (Preise > 0)
-                const shopFilteredItems = rawData.filter(item => item.price > 0);
-
-                // Funktion zum Rendern des Shops mit den gefilterten Items aufrufen
-                renderShopWithItems(shopFilteredItems, 'all');
+                allShopItems = await response.json();
+                renderShopItems('all');
             } catch (e) {
                 console.log("Fehler beim Laden der shop.json", e);
             }
