@@ -598,6 +598,9 @@ function sortLeaderboard(column) {
                 if (!response.ok) return;
                 const data = await response.json();
                 
+                // WICHTIG: Aktuelle Seite zwischenspeichern, bevor die Daten neu verarbeitet werden!
+                const savedPage = currentPage || 1;
+                
                 allCharactersData = Object.values(data);
                 
                 // 1. Echten, permanenten Leistungs-Rang berechnen (Level -> Kills -> Name)
@@ -622,8 +625,8 @@ function sortLeaderboard(column) {
                 if (currentSortColumn !== 'rank') {
                     sortLeaderboard(currentSortColumn, true);
                 } else {
-                    // WICHTIG: currentPage nur initialisieren, wenn noch keine Seite gesetzt ist
-                    if (!currentPage) currentPage = 1;
+                    // Die gemerkte Seite wiederherstellen statt starr auf 1 zu springen!
+                    currentPage = savedPage;
                     renderLeaderboardPage();
                 }
 
