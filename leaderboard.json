@@ -14,10 +14,10 @@
   "479058025": {
     "id": "479058025",
     "name": "MatnorLP",
-    "level": 2,
+    "level": 3,
     "kills": 0,
-    "atk": 5,
-    "def": 7,
+    "atk": 8,
+    "def": 9,
     "head": "Leder-Helm",
     "chest": "Stoff-Hemd",
     "legs": "Stoff-Hose",
