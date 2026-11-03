@@ -592,96 +592,147 @@ function sortLeaderboard(column) {
         }
 
 // Leaderboard & Arsenal-Daten laden
-async function loadLeaderboardData() {
-    try {
-        const response = await fetch('leaderboard.json?v=' + new Date().getTime());
-        if (!response.ok) return;
-        const data = await response.json();
-        
-        // Speichere die Daten für das Arsenal und sortiere sie direkt nach Level/Kills
-        allCharactersData = Object.values(data);
-        allCharactersData.sort((a, b) => b.level - a.level || b.kills - a.kills);
-        
-        // Array für die Pagination kopieren
-        allCharactersArray = [...allCharactersData];
-        
-        // Erste Seite rendern
-        currentPage = 1;
-        renderLeaderboardPage();
+        async function loadLeaderboardData() {
+            try {
+                const response = await fetch('leaderboard.json?v=' + new Date().getTime());
+                if (!response.ok) return;
+                const data = await response.json();
+                
+                allCharactersData = Object.values(data);
+                
+                // 1. Echten, permanenten Leistungs-Rang berechnen (Level -> Kills -> Name)
+                allCharactersData.sort((a, b) => {
+                    let lvlDiff = (b.level || 0) - (a.level || 0);
+                    if (lvlDiff !== 0) return lvlDiff;
+                    let killDiff = (b.kills || 0) - (a.kills || 0);
+                    if (killDiff !== 0) return killDiff;
+                    return (a.name || "").localeCompare(b.name || "");
+                });
 
-    } catch (e) {
-        console.log("Fehler beim Laden der leaderboard.json", e);
-    }
-}
+                // Jedem Spieler seinen echten fixen Rang als Eigenschaft zuweisen
+                allCharactersData.forEach((player, idx) => {
+                    player.fixedRank = idx + 1;
+                });
 
-// Funktion zum Rendern der aktuellen Seite
-function renderLeaderboardPage() {
-    const tbody = document.getElementById('leaderboard-body');
-    if (!tbody) return;
-    tbody.innerHTML = "";
+                // Kopie für die Ansicht anlegen
+                allCharactersArray = [...allCharactersData];
+                originalSortedArray = [...allCharactersData];
 
-    const totalPages = Math.ceil(allCharactersArray.length / itemsPerPage) || 1;
-    
-    // Sicherheitshalber currentPage im Rahmen halten
-    if (currentPage > totalPages) currentPage = totalPages;
-    if (currentPage < 1) currentPage = 1;
+                // Aktive Sortierung beibehalten falls vorhanden
+                if (currentSortColumn !== 'rank') {
+                    sortLeaderboard(currentSortColumn, true);
+                } else {
+                    currentPage = 1;
+                    renderLeaderboardPage();
+                }
 
-    // Start- und Endindex für das Aufteilen berechnen
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const pageData = allCharactersArray.slice(startIndex, endIndex);
+            } catch (e) {
+                console.log("Fehler beim Laden der leaderboard.json", e);
+            }
+        }
 
-    pageData.forEach((player, index) => {
-        // Berechnet den echten globalen Rang (z.B. 51 auf Seite 2)
-        const globalRank = startIndex + index + 1;
+        // Funktion zum Umschalten der Sortierung beim Klick auf die Spaltenköpfe
+        function sortLeaderboard(column, keepDirection = false) {
+            if (!keepDirection) {
+                if (currentSortColumn === column) {
+                    sortDirection = (sortDirection === 'asc') ? 'desc' : 'asc';
+                } else {
+                    currentSortColumn = column;
+                    sortDirection = (column === 'name') ? 'asc' : 'desc';
+                }
+            }
 
-        const row = document.createElement('tr');
-        row.style.cursor = "pointer";
-        row.title = `${player.name} im Arsenal inspizieren`;
+            if (column === 'rank') {
+                allCharactersArray = [...originalSortedArray];
+                if (sortDirection === 'desc') {
+                    allCharactersArray.reverse();
+                }
+            } else {
+                allCharactersArray.sort((a, b) => {
+                    let valA = a[column];
+                    let valB = b[column];
 
-        row.innerHTML = `
-            <td><strong>#${globalRank}</strong></td>
-            <td><span style="color: #60a5fa; text-decoration: underline;">${player.name}</span></td>
-            <td>⭐ Level ${player.level}</td>
-            <td>⚔️ ${player.kills} Kills</td>
-        `;
+                    if (column === 'name') {
+                        valA = (valA || "").toLowerCase();
+                        valB = (valB || "").toLowerCase();
+                        if (valA < valB) return sortDirection === 'asc' ? -1 : 1;
+                        if (valA > valB) return sortDirection === 'asc' ? 1 : -1;
+                        return a.fixedRank - b.fixedRank;
+                    }
 
-        // Klick-Event für den Wechsel ins Arsenal
-        row.onclick = () => {
-            switchTab('arsenal', document.querySelectorAll('.main-tab-btn')[2]);
-            document.getElementById('charSearchInput').value = player.name;
-            searchCharacter();
-        };
+                    valA = valA || 0;
+                    valB = valB || 0;
+                    let diff = sortDirection === 'asc' ? valA - valB : valB - valA;
+                    if (diff !== 0) return diff;
+                    return a.fixedRank - b.fixedRank;
+                });
+            }
 
-        tbody.appendChild(row);
-    });
+            currentPage = 1;
+            renderLeaderboardPage();
+        }
 
-    // UI-Elemente für die Pagination aktualisieren
-    const pageInfo = document.getElementById('pageInfo');
-    const prevBtn = document.getElementById('prevPageBtn');
-    const nextBtn = document.getElementById('nextPageBtn');
-    const paginationContainer = document.getElementById('leaderboard-pagination');
+        // Funktion zum Rendern der aktuellen Seite
+        function renderLeaderboardPage() {
+            const tbody = document.getElementById('leaderboard-body');
+            if (!tbody) return;
+            tbody.innerHTML = "";
 
-    if (pageInfo) pageInfo.innerText = `Seite ${currentPage} von ${totalPages}`;
-    if (prevBtn) prevBtn.disabled = (currentPage === 1);
-    if (nextBtn) nextBtn.disabled = (currentPage >= totalPages);
+            const totalPages = Math.ceil(allCharactersArray.length / itemsPerPage) || 1;
+            
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
 
-    // Verstecken, wenn es nur 1 Seite gibt
-    if (paginationContainer) {
-        paginationContainer.style.display = (totalPages <= 1) ? 'none' : 'flex';
-    }
-}
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageData = allCharactersArray.slice(startIndex, endIndex);
 
-// Funktion zum Blättern per Button
-function changePage(direction) {
-    const totalPages = Math.ceil(allCharactersArray.length / itemsPerPage) || 1;
-    currentPage += direction;
-    
-    if (currentPage < 1) currentPage = 1;
-    if (currentPage > totalPages) currentPage = totalPages;
-    
-    renderLeaderboardPage();
-}
+            pageData.forEach((player) => {
+                const row = document.createElement('tr');
+                row.style.cursor = "pointer";
+                row.title = `${player.name} im Arsenal inspizieren`;
+
+                // WICHTIG: Zeigt nun immer den festen Leistungs-Rang (`player.fixedRank`) an!
+                row.innerHTML = `
+                    <td><strong>#${player.fixedRank}</strong></td>
+                    <td><span style="color: #60a5fa; text-decoration: underline;">${player.name}</span></td>
+                    <td>⭐ Level ${player.level || 0}</td>
+                    <td>⚔️ ${player.kills || 0} Kills</td>
+                `;
+
+                row.onclick = () => {
+                    switchTab('arsenal', document.querySelectorAll('.main-tab-btn')[2]);
+                    document.getElementById('charSearchInput').value = player.name;
+                    searchCharacter();
+                };
+
+                tbody.appendChild(row);
+            });
+
+            const pageInfo = document.getElementById('pageInfo');
+            const prevBtn = document.getElementById('prevPageBtn');
+            const nextBtn = document.getElementById('nextPageBtn');
+            const paginationContainer = document.getElementById('leaderboard-pagination');
+
+            if (pageInfo) pageInfo.innerText = `Seite ${currentPage} von ${totalPages}`;
+            if (prevBtn) prevBtn.disabled = (currentPage === 1);
+            if (nextBtn) nextBtn.disabled = (currentPage >= totalPages);
+
+            if (paginationContainer) {
+                paginationContainer.style.display = (totalPages <= 1) ? 'none' : 'flex';
+            }
+        }
+
+        // Funktion zum Blättern per Button
+        function changePage(direction) {
+            const totalPages = Math.ceil(allCharactersArray.length / itemsPerPage) || 1;
+            currentPage += direction;
+            
+            if (currentPage < 1) currentPage = 1;
+            if (currentPage > totalPages) currentPage = totalPages;
+            
+            renderLeaderboardPage();
+        }
 
 // Charakter-Suche für das Arsenal
 function searchCharacter() {
