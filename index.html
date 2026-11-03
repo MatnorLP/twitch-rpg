@@ -780,13 +780,13 @@ function getTierName(tier) {
         }
 
 function renderShopItems(filterSlot) {
-            // Greift auf den gefilterten Shop-Bereich zurück oder filtert direkt
-            const shopFilteredItems = allShopItems.filter(item => item.price > 0);
-            
             const grid = document.getElementById('shop-grid');
             if (!grid) return;
 
             grid.innerHTML = "";
+
+            // HIER FILTERN: Nur Items mit einem Preis > 0 für den Shop verwenden
+            const shopItemsOnly = allShopItems.filter(item => item.price > 0);
 
             const slotOrder = [
                 { key: 'weapon', title: '🗡️ Waffen' },
@@ -797,7 +797,7 @@ function renderShopItems(filterSlot) {
 
             if (filterSlot === 'all') {
                 slotOrder.forEach(category => {
-                    const categoryItems = shopFilteredItems.filter(item => item.slot === category.key);
+                    const categoryItems = shopItemsOnly.filter(item => item.slot === category.key);
                     if (categoryItems.length === 0) return;
 
                     const wrapper = document.createElement('div');
@@ -830,7 +830,7 @@ function renderShopItems(filterSlot) {
                     grid.appendChild(wrapper);
                 });
             } else {
-                const filtered = shopFilteredItems.filter(item => item.slot === filterSlot);
+                const filtered = shopItemsOnly.filter(item => item.slot === filterSlot);
                 if (filtered.length === 0) {
                     grid.innerHTML = "<p style='grid-column: 1 / -1; text-align: center;'>Keine Gegenstände in dieser Kategorie gefunden.</p>";
                     return;
