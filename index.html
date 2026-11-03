@@ -684,13 +684,17 @@ avatarElem.innerText = initials;
     }
 }
 
-        // Shop Daten laden
+// Shop Daten laden
         async function loadShopData() {
             try {
                 const response = await fetch('shop.json?v=' + new Date().getTime());
                 if (!response.ok) return;
 
-                allShopItems = await response.json();
+                const rawData = await response.json();
+                
+                // 🛑 HIER FILTERN: Nur Items mit einem Preis > 0 (also keine Startausrüstung) kommen in den Shop!
+                allShopItems = rawData.filter(item => item.price > 0);
+
                 renderShopItems('all');
             } catch (e) {
                 console.log("Fehler beim Laden der shop.json", e);
