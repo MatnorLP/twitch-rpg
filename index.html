@@ -621,14 +621,15 @@ function sortLeaderboard(column) {
                 allCharactersArray = [...allCharactersData];
                 originalSortedArray = [...allCharactersData];
 
-                // Aktive Sortierung beibehalten falls vorhanden
-                if (currentSortColumn !== 'rank') {
-                    sortLeaderboard(currentSortColumn, true);
-                } else {
-                    // Die gemerkte Seite wiederherstellen statt starr auf 1 zu springen!
-                    currentPage = savedPage;
-                    renderLeaderboardPage();
-                }
+       // Aktive Sortierung beibehalten falls vorhanden
+        if (currentSortColumn !== 'rank') {
+            sortLeaderboard(currentSortColumn, true);
+        } else {
+            // Seite erzwingen, die vor dem Laden aktiv war!
+            currentPage = savedPage;
+            allCharactersArray = [...originalSortedArray];
+            renderLeaderboardPage();
+        }
 
             } catch (e) {
                 console.log("Fehler beim Laden der leaderboard.json", e);
@@ -672,9 +673,12 @@ function sortLeaderboard(column) {
                 });
             }
 
-            currentPage = 1;
-            renderLeaderboardPage();
-        }
+// Nur bei echtem Klick auf 1 zurücksetzen, sonst aktuelle Seite behalten
+    if (!keepDirection) {
+        currentPage = 1;
+    }
+    renderLeaderboardPage();
+}
 
         // Funktion zum Rendern der aktuellen Seite
         function renderLeaderboardPage() {
