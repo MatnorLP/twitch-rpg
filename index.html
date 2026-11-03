@@ -433,6 +433,12 @@ user-select: none;
                     <tr><td colspan="4" style="text-align: center;">Lade Leaderboard...</td></tr>
                 </tbody>
             </table>
+            <!-- Seiten-Navigation für das Leaderboard -->
+        <div id="leaderboard-pagination" class="pagination-controls" style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 20px; margin-bottom: 20px;">
+          <button id="prevPageBtn" class="main-tab-btn" onclick="changePage(-1)">◀ Zurück</button>
+          <span id="pageInfo" style="color: #fff; font-weight: bold;">Seite 1 von 1</span>
+          <button id="nextPageBtn" class="main-tab-btn" onclick="changePage(1)">Weiter ▶</button>
+        </div>
         </div>
         
         <!-- ITEM-SHOP SEKTION -->
@@ -527,6 +533,9 @@ user-select: none;
     <script>
         let allShopItems = [];
         let allCharactersData = [];
+        let currentPage = 1;
+const itemsPerPage = 50;
+let allCharactersArray = [];
 
         // Tab-Umschaltung
         function switchTab(tabName, btnElement) {
@@ -543,52 +552,97 @@ user-select: none;
             if (btnElement) btnElement.classList.add('active');
         }
 
-        // Leaderboard & Arsenal-Daten laden
-        async function loadLeaderboardData() {
-            try {
-                const response = await fetch('leaderboard.json?v=' + new Date().getTime());
-                if (!response.ok) return;
-                const data = await response.json();
-                
-                // Speichere die Daten auch direkt für die Arsenal-Suche ab
-                allCharactersData = Object.values(data);
-                
-                const tbody = document.getElementById('leaderboard-body');
-                if (!tbody) return;
-                tbody.innerHTML = "";
+// Leaderboard & Arsenal-Daten laden
+async function loadLeaderboardData() {
+    try {
+        const response = await fetch('leaderboard.json?v=' + new Date().getTime());
+        if (!response.ok) return;
+        const data = await response.json();
+        
+        // Speichere die Daten für das Arsenal und sortiere sie direkt nach Level/Kills
+        allCharactersData = Object.values(data);
+        allCharactersData.sort((a, b) => b.level - a.level || b.kills - a.kills);
+        
+        // Array für die Pagination kopieren
+        allCharactersArray = [...allCharactersData];
+        
+        // Erste Seite rendern
+        currentPage = 1;
+        renderLeaderboardPage();
 
-                allCharactersData.sort((a, b) => b.level - a.level || b.kills - a.kills);
+    } catch (e) {
+        console.log("Fehler beim Laden der leaderboard.json", e);
+    }
+}
 
-   allCharactersData.forEach((player, index) => {
-    const row = document.createElement('tr');
-    row.style.cursor = "pointer"; // Zeigt an, dass man draufklicken kann
-    row.title = `${player.name} im Arsenal inspizieren`;
+// Funktion zum Rendern der aktuellen Seite
+function renderLeaderboardPage() {
+    const tbody = document.getElementById('leaderboard-body');
+    if (!tbody) return;
+    tbody.innerHTML = "";
+
+    const totalPages = Math.ceil(allCharactersArray.length / itemsPerPage) || 1;
     
-    row.innerHTML = `
-        <td><strong>#${index + 1}</strong></td>
-        <td><span style="color: #60a5fa; text-decoration: underline;">${player.name}</span></td>
-        <td>⭐ Level ${player.level}</td>
-        <td>⚔️ ${player.kills} Kills</td>
-    `;
+    // Sicherheitshalber currentPage im Rahmen halten
+    if (currentPage > totalPages) currentPage = totalPages;
+    if (currentPage < 1) currentPage = 1;
 
-    // Klick-Event für den Wechsel ins Arsenal
-    row.onclick = () => {
-        // 1. Zum Reiter "Charakter-Info" wechseln
-        switchTab('arsenal', document.querySelectorAll('.main-tab-btn')[2]);
-        
-        // 2. Namen in das Suchfeld eintragen
-        document.getElementById('charSearchInput').value = player.name;
-        
-        // 3. Suche direkt ausführen
-        searchCharacter();
-    };
+    // Start- und Endindex für das Aufteilen berechnen
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const pageData = allCharactersArray.slice(startIndex, endIndex);
 
-    tbody.appendChild(row);
-});
-            } catch (e) {
-                console.log("Fehler beim Laden der leaderboard.json", e);
-            }
-        }
+    pageData.forEach((player, index) => {
+        // Berechnet den echten globalen Rang (z.B. 51 auf Seite 2)
+        const globalRank = startIndex + index + 1;
+
+        const row = document.createElement('tr');
+        row.style.cursor = "pointer";
+        row.title = `${player.name} im Arsenal inspizieren`;
+
+        row.innerHTML = `
+            <td><strong>#${globalRank}</strong></td>
+            <td><span style="color: #60a5fa; text-decoration: underline;">${player.name}</span></td>
+            <td>⭐ Level ${player.level}</td>
+            <td>⚔️ ${player.kills} Kills</td>
+        `;
+
+        // Klick-Event für den Wechsel ins Arsenal
+        row.onclick = () => {
+            switchTab('arsenal', document.querySelectorAll('.main-tab-btn')[2]);
+            document.getElementById('charSearchInput').value = player.name;
+            searchCharacter();
+        };
+
+        tbody.appendChild(row);
+    });
+
+    // UI-Elemente für die Pagination aktualisieren
+    const pageInfo = document.getElementById('pageInfo');
+    const prevBtn = document.getElementById('prevPageBtn');
+    const nextBtn = document.getElementById('nextPageBtn');
+    const paginationContainer = document.getElementById('leaderboard-pagination');
+
+    if (pageInfo) pageInfo.innerText = `Seite ${currentPage} von ${totalPages}`;
+    if (prevBtn) prevBtn.disabled = (currentPage === 1);
+    if (nextBtn) nextBtn.disabled = (currentPage >= totalPages);
+
+    // Verstecken, wenn es nur 1 Seite gibt
+    if (paginationContainer) {
+        paginationContainer.style.display = (totalPages <= 1) ? 'none' : 'flex';
+    }
+}
+
+// Funktion zum Blättern per Button
+function changePage(direction) {
+    const totalPages = Math.ceil(allCharactersArray.length / itemsPerPage) || 1;
+    currentPage += direction;
+    
+    if (currentPage < 1) currentPage = 1;
+    if (currentPage > totalPages) currentPage = totalPages;
+    
+    renderLeaderboardPage();
+}
 
 // Charakter-Suche für das Arsenal
 function searchCharacter() {
