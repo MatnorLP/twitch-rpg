@@ -785,7 +785,7 @@ function renderShopItems(filterSlot) {
 
             grid.innerHTML = "";
 
-            // HIER FILTERN: Nur Items mit einem Preis > 0 für den Shop verwenden
+            // HIER DIE LÖSUNG: Nur Items für den Shop filtern, die teurer als 0 Gold sind
             const shopItemsOnly = allShopItems.filter(item => item.price > 0);
 
             const slotOrder = [
@@ -840,26 +840,7 @@ function renderShopItems(filterSlot) {
                 });
             }
         }
-
-    categoryItems.forEach(item => {
-        appendItemCard(itemGrid, item);
     });
-
-    wrapper.appendChild(heading);
-    wrapper.appendChild(itemGrid);
-    grid.appendChild(wrapper);
-});
-            } else {
-                const filtered = allShopItems.filter(item => item.slot === filterSlot);
-                if (filtered.length === 0) {
-                    grid.innerHTML = "<p style='grid-column: 1 / -1; text-align: center;'>Keine Gegenstände in dieser Kategorie gefunden.</p>";
-                    return;
-                }
-                filtered.forEach(item => {
-                    appendItemCard(grid, item);
-                });
-            }
-        }
 
         function filterShop(slot, btnElement) {
             document.querySelectorAll('.shop-filter-btn').forEach(b => b.classList.remove('active'));
