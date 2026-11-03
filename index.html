@@ -700,7 +700,7 @@ function searchCharacter() {
     }
 }
 
-// Shop Daten laden
+// Shop & Arsenal Daten laden
         async function loadShopData() {
             try {
                 const response = await fetch('shop.json?v=' + new Date().getTime());
@@ -708,10 +708,14 @@ function searchCharacter() {
 
                 const rawData = await response.json();
                 
-                // 🛑 HIER FILTERN: Nur Items mit einem Preis > 0 (also keine Startausrüstung) kommen in den Shop!
-                allShopItems = rawData.filter(item => item.price > 0);
+                // 1. Das Arsenal bekommt ALLE Items (inklusive Startausrüstung für die Slots)
+                allShopItems = rawData;
 
-                renderShopItems('all');
+                // 2. Der Shop bekommt NUR gefilterte Items (Preise > 0)
+                const shopFilteredItems = rawData.filter(item => item.price > 0);
+
+                // Funktion zum Rendern des Shops mit den gefilterten Items aufrufen
+                renderShopWithItems(shopFilteredItems, 'all');
             } catch (e) {
                 console.log("Fehler beim Laden der shop.json", e);
             }
@@ -783,7 +787,10 @@ function getTierName(tier) {
             container.appendChild(card);
         }
 
-        function renderShopItems(filterSlot) {
+function renderShopItems(filterSlot) {
+            // Greift auf den gefilterten Shop-Bereich zurück oder filtert direkt
+            const shopFilteredItems = allShopItems.filter(item => item.price > 0);
+            
             const grid = document.getElementById('shop-grid');
             if (!grid) return;
 
@@ -797,32 +804,50 @@ function getTierName(tier) {
             ];
 
             if (filterSlot === 'all') {
-  slotOrder.forEach(category => {
-    const categoryItems = allShopItems.filter(item => item.slot === category.key);
-    if (categoryItems.length === 0) return;
+                slotOrder.forEach(category => {
+                    const categoryItems = shopFilteredItems.filter(item => item.slot === category.key);
+                    if (categoryItems.length === 0) return;
 
-    const wrapper = document.createElement('div');
-    wrapper.className = 'shop-category-wrapper';
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'shop-category-wrapper';
 
-    const heading = document.createElement('div');
-    heading.className = 'shop-category-title';
-    // Titel + kleiner Pfeil rechts
-    heading.innerHTML = `<span>${category.title}</span><span class="toggle-arrow" style="font-size: 14px; opacity: 0.8;">▼</span>`;
+                    const heading = document.createElement('div');
+                    heading.className = 'shop-category-title';
+                    heading.innerHTML = `<span>${category.title}</span><span class="toggle-arrow" style="font-size: 14px; opacity: 0.8;">▼</span>`;
 
-    const itemGrid = document.createElement('div');
-    itemGrid.className = 'shop-grid';
+                    const itemGrid = document.createElement('div');
+                    itemGrid.className = 'shop-grid';
 
-    // Einklapp-Logik bei Klick auf die Überschrift
-    heading.onclick = () => {
-        const arrow = heading.querySelector('.toggle-arrow');
-        if (itemGrid.style.display === 'none') {
-            itemGrid.style.display = 'grid';
-            arrow.innerText = '▼';
-        } else {
-            itemGrid.style.display = 'none';
-            arrow.innerText = '▶';
+                    heading.onclick = () => {
+                        const arrow = heading.querySelector('.toggle-arrow');
+                        if (itemGrid.style.display === 'none') {
+                            itemGrid.style.display = 'grid';
+                            arrow.innerText = '▼';
+                        } else {
+                            itemGrid.style.display = 'none';
+                            arrow.innerText = '▶';
+                        }
+                    };
+
+                    categoryItems.forEach(item => {
+                        appendItemCard(itemGrid, item);
+                    });
+
+                    wrapper.appendChild(heading);
+                    wrapper.appendChild(itemGrid);
+                    grid.appendChild(wrapper);
+                });
+            } else {
+                const filtered = shopFilteredItems.filter(item => item.slot === filterSlot);
+                if (filtered.length === 0) {
+                    grid.innerHTML = "<p style='grid-column: 1 / -1; text-align: center;'>Keine Gegenstände in dieser Kategorie gefunden.</p>";
+                    return;
+                }
+                filtered.forEach(item => {
+                    appendItemCard(grid, item);
+                });
+            }
         }
-    };
 
     categoryItems.forEach(item => {
         appendItemCard(itemGrid, item);
