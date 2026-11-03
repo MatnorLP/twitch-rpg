@@ -610,10 +610,26 @@ function searchCharacter() {
         document.getElementById('arsenalLevel').innerText = `Level ${hero.level || 1}`;
         document.getElementById('arsenalKills').innerText = `⚔️ ${hero.kills || 0} Kills`;
 
-  // Automatisiertes RPG-Wappen mit den Initialen des Spielers
-const avatarElem = document.getElementById('arsenalAvatar');
-const initials = hero.name ? hero.name.substring(0, 2).toUpperCase() : "??";
-avatarElem.innerText = initials;
+// Liste für benutzerdefinierte Avatare (Name in Kleinbuchstaben -> Bildpfad)
+        const customAvatars = {
+            "matnorlp": "images/avatars/matnorlp.png"
+            // Hier künftig weitere User ergänzen
+        };
+
+        // Automatisiertes RPG-Wappen mit Avatar-Check
+        const avatarElem = document.getElementById('arsenalAvatar');
+        const heroKey = hero.name ? hero.name.toLowerCase() : "";
+
+        if (customAvatars[heroKey]) {
+            // 1. Eigenes Bild anzeigen
+            avatarElem.style.background = `url('${customAvatars[heroKey]}') center/cover no-repeat`;
+            avatarElem.innerText = "";
+        } else {
+            // 2. Fallback: Standard-Badge mit Initialen
+            const initials = hero.name ? hero.name.substring(0, 2).toUpperCase() : "??";
+            avatarElem.style.background = "linear-gradient(135deg, #2b1d11 0%, #3a2618 100%)";
+            avatarElem.innerText = initials;
+        }
 
         // Variablen für Gesamt-Stats auf 0 setzen
         let sumAtk = 0;
