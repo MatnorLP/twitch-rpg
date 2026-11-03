@@ -631,11 +631,12 @@ function searchCharacter() {
             avatarElem.innerText = initials;
         }
 
-        // Variablen für Gesamt-Stats auf 0 setzen
-        let sumAtk = 0;
-        let sumDef = 0;
+// Basis-Stats direkt aus den Charakter-Daten von Streamer.bot übernehmen (inkl. Level-Ups & Startwerten)
+        let sumAtk = hero.atk !== undefined ? hero.atk : 2;
+        let sumDef = hero.def !== undefined ? hero.def : 3;
 
-        // Ausrüstungsslots befüllen & Werte summieren
+        // Ausrüstungsslots befüllen & Tooltips für die einzelnen Items anzeigen 
+        // (Die Gesamt-Stats oben im Banner kommen fertig von Streamer.bot über hero.atk / hero.def)
         const slots = ['head', 'chest', 'legs', 'weapon'];
         const defaultLabels = { head: 'Helm', chest: 'Rüstung', legs: 'Hose', weapon: 'Waffe' };
 
@@ -664,11 +665,9 @@ function searchCharacter() {
                     let statsText = `${matchedItem.name} (${getTierName(matchedItem.tier)})`;
                     if (matchedItem.atk) {
                         statsText += `\n⚔️ ATK: +${matchedItem.atk}`;
-                        sumAtk += matchedItem.atk; // ATK aufaddieren
                     }
                     if (matchedItem.def) {
                         statsText += `\n🛡️ DEF: +${matchedItem.def}`;
-                        sumDef += matchedItem.def; // DEF aufaddieren
                     }
                     slotElem.title = statsText;
                 } else {
@@ -690,7 +689,7 @@ function searchCharacter() {
             }
         });
 
-        // NEU: Gesamtsummen in das Statistik-Banner schreiben
+        // Echte Gesamt-Stats (Charakter-Level + Ausrüstung lt. Streamer.bot) in das Banner schreiben
         document.getElementById('totalAtk').innerText = `⚔️ ATK: +${sumAtk}`;
         document.getElementById('totalDef').innerText = `🛡️ DEF: +${sumDef}`;
 
