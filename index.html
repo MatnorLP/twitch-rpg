@@ -622,7 +622,8 @@ function sortLeaderboard(column) {
                 if (currentSortColumn !== 'rank') {
                     sortLeaderboard(currentSortColumn, true);
                 } else {
-                    currentPage = 1;
+                    // WICHTIG: currentPage nur initialisieren, wenn noch keine Seite gesetzt ist
+                    if (!currentPage) currentPage = 1;
                     renderLeaderboardPage();
                 }
 
