@@ -34,5 +34,17 @@
     "chest": "Leder-Rüstung",
     "legs": "Leder-Hose",
     "weapon": "Leder-Messer"
+  },
+  "165217643": {
+    "id": "165217643",
+    "name": "Soulyr6_",
+    "level": 2,
+    "kills": 0,
+    "atk": 5,
+    "def": 5,
+    "head": "Stoff-Kapuze",
+    "chest": "Stoff-Hemd",
+    "legs": "Stoff-Hose",
+    "weapon": "Holz-Messer"
   }
 }
