@@ -2,14 +2,14 @@
   "479058025": {
     "id": "479058025",
     "name": "MatnorLP",
-    "level": 1,
+    "level": 2,
     "kills": 0,
-    "atk": 2,
-    "def": 3,
+    "atk": 8,
+    "def": 7,
     "head": "Stoff-Kapuze",
-    "chest": "Stoff-Hemd",
+    "chest": "Leder-Rüstung",
     "legs": "Stoff-Hose",
-    "weapon": "Holz-Messer"
+    "weapon": "Leder-Messer"
   },
   "146641414": {
     "id": "146641414",
@@ -40,11 +40,11 @@
     "name": "Soulyr6_",
     "level": 2,
     "kills": 0,
-    "atk": 5,
-    "def": 5,
+    "atk": 8,
+    "def": 7,
     "head": "Stoff-Kapuze",
-    "chest": "Stoff-Hemd",
+    "chest": "Leder-Rüstung",
     "legs": "Stoff-Hose",
-    "weapon": "Holz-Messer"
+    "weapon": "Leder-Messer"
   }
 }
