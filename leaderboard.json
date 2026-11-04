@@ -1,1 +1,26 @@
-{}
+{
+  "479058025": {
+    "id": "479058025",
+    "name": "MatnorLP",
+    "level": 1,
+    "kills": 0,
+    "atk": 2,
+    "def": 3,
+    "head": "Stoff-Kapuze",
+    "chest": "Stoff-Hemd",
+    "legs": "Stoff-Hose",
+    "weapon": "Holz-Messer"
+  },
+  "146641414": {
+    "id": "146641414",
+    "name": "knuddeldings_",
+    "level": 1,
+    "kills": 0,
+    "atk": 2,
+    "def": 3,
+    "head": "Stoff-Kapuze",
+    "chest": "Stoff-Hemd",
+    "legs": "Stoff-Hose",
+    "weapon": "Holz-Messer"
+  }
+}
