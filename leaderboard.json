@@ -22,5 +22,17 @@
     "chest": "Leder-Rüstung",
     "legs": "Leder-Hose",
     "weapon": "Leder-Messer"
+  },
+  "140996565": {
+    "id": "140996565",
+    "name": "ollisterhase",
+    "level": 2,
+    "kills": 0,
+    "atk": 5,
+    "def": 5,
+    "head": "Stoff-Kapuze",
+    "chest": "Stoff-Hemd",
+    "legs": "Stoff-Hose",
+    "weapon": "Holz-Messer"
   }
 }
