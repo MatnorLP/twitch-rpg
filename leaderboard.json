@@ -26,14 +26,14 @@
   "140996565": {
     "id": "140996565",
     "name": "ollisterhase",
-    "level": 2,
+    "level": 3,
     "kills": 0,
-    "atk": 8,
-    "def": 11,
+    "atk": 16,
+    "def": 16,
     "head": "Leder-Helm",
-    "chest": "Leder-Rüstung",
+    "chest": "Kupfer-Brustschutz",
     "legs": "Leder-Hose",
-    "weapon": "Leder-Messer"
+    "weapon": "Kupfer-Schwert"
   },
   "165217643": {
     "id": "165217643",
