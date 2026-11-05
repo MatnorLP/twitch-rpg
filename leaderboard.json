@@ -29,8 +29,8 @@
     "level": 3,
     "kills": 0,
     "atk": 16,
-    "def": 16,
-    "head": "Leder-Helm",
+    "def": 19,
+    "head": "Kupfer-Helm",
     "chest": "Kupfer-Brustschutz",
     "legs": "Leder-Hose",
     "weapon": "Kupfer-Schwert"
@@ -38,26 +38,26 @@
   "165217643": {
     "id": "165217643",
     "name": "Soulyr6_",
-    "level": 2,
+    "level": 3,
     "kills": 0,
-    "atk": 13,
-    "def": 7,
-    "head": "Stoff-Kapuze",
+    "atk": 16,
+    "def": 13,
+    "head": "Leder-Helm",
     "chest": "Leder-Rüstung",
-    "legs": "Stoff-Hose",
+    "legs": "Leder-Hose",
     "weapon": "Kupfer-Schwert"
   },
   "474125863": {
     "id": "474125863",
     "name": "solea_luna",
-    "level": 2,
+    "level": 3,
     "kills": 0,
-    "atk": 8,
-    "def": 11,
+    "atk": 16,
+    "def": 13,
     "head": "Leder-Helm",
     "chest": "Leder-Rüstung",
     "legs": "Leder-Hose",
-    "weapon": "Leder-Messer"
+    "weapon": "Kupfer-Schwert"
   },
   "246143645": {
     "id": "246143645",
