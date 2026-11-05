@@ -14,14 +14,14 @@
   "146641414": {
     "id": "146641414",
     "name": "knuddeldings_",
-    "level": 2,
+    "level": 3,
     "kills": 0,
-    "atk": 8,
-    "def": 11,
+    "atk": 16,
+    "def": 13,
     "head": "Leder-Helm",
     "chest": "Leder-Rüstung",
     "legs": "Leder-Hose",
-    "weapon": "Leder-Messer"
+    "weapon": "Kupfer-Schwert"
   },
   "140996565": {
     "id": "140996565",
@@ -40,11 +40,23 @@
     "name": "Soulyr6_",
     "level": 2,
     "kills": 0,
-    "atk": 8,
+    "atk": 13,
     "def": 7,
     "head": "Stoff-Kapuze",
     "chest": "Leder-Rüstung",
     "legs": "Stoff-Hose",
-    "weapon": "Leder-Messer"
+    "weapon": "Kupfer-Schwert"
+  },
+  "474125863": {
+    "id": "474125863",
+    "name": "solea_luna",
+    "level": 2,
+    "kills": 0,
+    "atk": 5,
+    "def": 5,
+    "head": "Stoff-Kapuze",
+    "chest": "Stoff-Hemd",
+    "legs": "Stoff-Hose",
+    "weapon": "Holz-Messer"
   }
 }
