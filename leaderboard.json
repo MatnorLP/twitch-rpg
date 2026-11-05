@@ -14,13 +14,13 @@
   "146641414": {
     "id": "146641414",
     "name": "knuddeldings_",
-    "level": 3,
+    "level": 4,
     "kills": 0,
-    "atk": 16,
-    "def": 13,
-    "head": "Leder-Helm",
-    "chest": "Leder-Rüstung",
-    "legs": "Leder-Hose",
+    "atk": 19,
+    "def": 24,
+    "head": "Kupfer-Helm",
+    "chest": "Kupfer-Brustschutz",
+    "legs": "Kupfer-Beinschiene",
     "weapon": "Kupfer-Schwert"
   },
   "140996565": {
