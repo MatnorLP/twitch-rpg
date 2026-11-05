@@ -58,5 +58,17 @@
     "chest": "Leder-Rüstung",
     "legs": "Leder-Hose",
     "weapon": "Leder-Messer"
+  },
+  "246143645": {
+    "id": "246143645",
+    "name": "actionanggg",
+    "level": 1,
+    "kills": 0,
+    "atk": 2,
+    "def": 3,
+    "head": "Stoff-Kapuze",
+    "chest": "Stoff-Hemd",
+    "legs": "Stoff-Hose",
+    "weapon": "Holz-Messer"
   }
 }
