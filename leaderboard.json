@@ -52,11 +52,11 @@
     "name": "solea_luna",
     "level": 2,
     "kills": 0,
-    "atk": 5,
+    "atk": 8,
     "def": 5,
     "head": "Stoff-Kapuze",
     "chest": "Stoff-Hemd",
     "legs": "Stoff-Hose",
-    "weapon": "Holz-Messer"
+    "weapon": "Leder-Messer"
   }
 }
