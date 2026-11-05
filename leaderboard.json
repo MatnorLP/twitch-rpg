@@ -53,10 +53,10 @@
     "level": 2,
     "kills": 0,
     "atk": 8,
-    "def": 5,
-    "head": "Stoff-Kapuze",
-    "chest": "Stoff-Hemd",
-    "legs": "Stoff-Hose",
+    "def": 11,
+    "head": "Leder-Helm",
+    "chest": "Leder-Rüstung",
+    "legs": "Leder-Hose",
     "weapon": "Leder-Messer"
   }
 }
