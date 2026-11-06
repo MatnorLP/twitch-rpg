@@ -17,22 +17,22 @@
     "level": 4,
     "kills": 0,
     "atk": 19,
-    "def": 24,
+    "def": 28,
     "head": "Kupfer-Helm",
     "chest": "Kupfer-Brustschutz",
-    "legs": "Kupfer-Beinschiene",
+    "legs": "Bronze-Beinschiene",
     "weapon": "Kupfer-Schwert"
   },
   "140996565": {
     "id": "140996565",
     "name": "ollisterhase",
-    "level": 3,
+    "level": 4,
     "kills": 0,
-    "atk": 16,
-    "def": 19,
+    "atk": 19,
+    "def": 24,
     "head": "Kupfer-Helm",
     "chest": "Kupfer-Brustschutz",
-    "legs": "Leder-Hose",
+    "legs": "Kupfer-Beinschiene",
     "weapon": "Kupfer-Schwert"
   },
   "165217643": {
@@ -50,14 +50,14 @@
   "474125863": {
     "id": "474125863",
     "name": "solea_luna",
-    "level": 3,
+    "level": 4,
     "kills": 1,
-    "atk": 16,
-    "def": 13,
+    "atk": 27,
+    "def": 15,
     "head": "Leder-Helm",
     "chest": "Leder-Rüstung",
     "legs": "Leder-Hose",
-    "weapon": "Kupfer-Schwert"
+    "weapon": "Bronze-Schwert"
   },
   "246143645": {
     "id": "246143645",
