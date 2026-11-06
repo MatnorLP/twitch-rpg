@@ -53,10 +53,10 @@
     "level": 4,
     "kills": 1,
     "atk": 27,
-    "def": 15,
+    "def": 21,
     "head": "Leder-Helm",
-    "chest": "Leder-Rüstung",
-    "legs": "Leder-Hose",
+    "chest": "Kupfer-Brustschutz",
+    "legs": "Kupfer-Beinschiene",
     "weapon": "Bronze-Schwert"
   },
   "246143645": {
