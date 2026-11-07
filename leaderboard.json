@@ -26,14 +26,14 @@
   "140996565": {
     "id": "140996565",
     "name": "ollisterhase",
-    "level": 4,
+    "level": 5,
     "kills": 0,
-    "atk": 19,
-    "def": 24,
+    "atk": 30,
+    "def": 26,
     "head": "Kupfer-Helm",
     "chest": "Kupfer-Brustschutz",
     "legs": "Kupfer-Beinschiene",
-    "weapon": "Kupfer-Schwert"
+    "weapon": "Bronze-Schwert"
   },
   "165217643": {
     "id": "165217643",
@@ -76,11 +76,11 @@
     "name": "MrsRussgranate",
     "level": 2,
     "kills": 0,
-    "atk": 5,
-    "def": 5,
-    "head": "Stoff-Kapuze",
-    "chest": "Stoff-Hemd",
-    "legs": "Stoff-Hose",
-    "weapon": "Holz-Messer"
+    "atk": 8,
+    "def": 11,
+    "head": "Leder-Helm",
+    "chest": "Leder-Rüstung",
+    "legs": "Leder-Hose",
+    "weapon": "Leder-Messer"
   }
 }
