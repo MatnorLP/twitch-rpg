@@ -5,10 +5,10 @@
     "level": 5,
     "kills": 1,
     "atk": 42,
-    "def": 15,
+    "def": 17,
     "head": "Leder-Helm",
     "chest": "Leder-Rüstung",
-    "legs": "Stoff-Hose",
+    "legs": "Leder-Hose",
     "weapon": "Eisen-Schwert"
   },
   "146641414": {
