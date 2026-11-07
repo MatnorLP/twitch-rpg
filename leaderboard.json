@@ -14,10 +14,10 @@
   "146641414": {
     "id": "146641414",
     "name": "knuddeldings_",
-    "level": 5,
+    "level": 6,
     "kills": 0,
-    "atk": 30,
-    "def": 30,
+    "atk": 33,
+    "def": 32,
     "head": "Kupfer-Helm",
     "chest": "Kupfer-Brustschutz",
     "legs": "Bronze-Beinschiene",
@@ -82,5 +82,17 @@
     "chest": "Leder-Rüstung",
     "legs": "Leder-Hose",
     "weapon": "Leder-Messer"
+  },
+  "1445491432": {
+    "id": "1445491432",
+    "name": "rollizone",
+    "level": 2,
+    "kills": 0,
+    "atk": 5,
+    "def": 5,
+    "head": "Stoff-Kapuze",
+    "chest": "Stoff-Hemd",
+    "legs": "Stoff-Hose",
+    "weapon": "Holz-Messer"
   }
 }
