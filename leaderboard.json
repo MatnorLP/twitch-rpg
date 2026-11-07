@@ -4,12 +4,12 @@
     "name": "MatnorLP",
     "level": 5,
     "kills": 1,
-    "atk": 30,
+    "atk": 42,
     "def": 15,
     "head": "Leder-Helm",
     "chest": "Leder-Rüstung",
     "legs": "Stoff-Hose",
-    "weapon": "Bronze-Schwert"
+    "weapon": "Eisen-Schwert"
   },
   "146641414": {
     "id": "146641414",
