@@ -76,12 +76,12 @@
     "name": "MrsRussgranate",
     "level": 3,
     "kills": 0,
-    "atk": 11,
+    "atk": 16,
     "def": 13,
     "head": "Leder-Helm",
     "chest": "Leder-Rüstung",
     "legs": "Leder-Hose",
-    "weapon": "Leder-Messer"
+    "weapon": "Kupfer-Schwert"
   },
   "1445491432": {
     "id": "1445491432",
@@ -90,6 +90,18 @@
     "kills": 0,
     "atk": 5,
     "def": 5,
+    "head": "Stoff-Kapuze",
+    "chest": "Stoff-Hemd",
+    "legs": "Stoff-Hose",
+    "weapon": "Holz-Messer"
+  },
+  "164290998": {
+    "id": "164290998",
+    "name": "Predator0035",
+    "level": 1,
+    "kills": 0,
+    "atk": 2,
+    "def": 3,
     "head": "Stoff-Kapuze",
     "chest": "Stoff-Hemd",
     "legs": "Stoff-Hose",
