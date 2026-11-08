@@ -106,5 +106,17 @@
     "chest": "Stoff-Hemd",
     "legs": "Stoff-Hose",
     "weapon": "Holz-Messer"
+  },
+  "826597659": {
+    "id": "826597659",
+    "name": "andreasandy30000",
+    "level": 2,
+    "kills": 0,
+    "atk": 5,
+    "def": 5,
+    "head": "Stoff-Kapuze",
+    "chest": "Stoff-Hemd",
+    "legs": "Stoff-Hose",
+    "weapon": "Holz-Messer"
   }
 }
