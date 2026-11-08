@@ -40,12 +40,12 @@
     "name": "Soulyr6_",
     "level": 4,
     "kills": 0,
-    "atk": 19,
+    "atk": 27,
     "def": 15,
     "head": "Leder-Helm",
     "chest": "Leder-Rüstung",
     "legs": "Leder-Hose",
-    "weapon": "Kupfer-Schwert"
+    "weapon": "Bronze-Schwert"
   },
   "474125863": {
     "id": "474125863",
@@ -62,10 +62,10 @@
   "246143645": {
     "id": "246143645",
     "name": "actionanggg",
-    "level": 2,
+    "level": 3,
     "kills": 0,
-    "atk": 5,
-    "def": 5,
+    "atk": 8,
+    "def": 7,
     "head": "Stoff-Kapuze",
     "chest": "Stoff-Hemd",
     "legs": "Stoff-Hose",
@@ -76,24 +76,24 @@
     "name": "MrsRussgranate",
     "level": 4,
     "kills": 0,
-    "atk": 19,
+    "atk": 27,
     "def": 24,
     "head": "Kupfer-Helm",
     "chest": "Kupfer-Brustschutz",
     "legs": "Kupfer-Beinschiene",
-    "weapon": "Kupfer-Schwert"
+    "weapon": "Bronze-Schwert"
   },
   "1445491432": {
     "id": "1445491432",
     "name": "rollizone",
     "level": 2,
     "kills": 0,
-    "atk": 5,
-    "def": 5,
-    "head": "Stoff-Kapuze",
-    "chest": "Stoff-Hemd",
-    "legs": "Stoff-Hose",
-    "weapon": "Holz-Messer"
+    "atk": 13,
+    "def": 11,
+    "head": "Leder-Helm",
+    "chest": "Leder-Rüstung",
+    "legs": "Leder-Hose",
+    "weapon": "Kupfer-Schwert"
   },
   "164290998": {
     "id": "164290998",
