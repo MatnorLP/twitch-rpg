@@ -2,10 +2,10 @@
   "479058025": {
     "id": "479058025",
     "name": "MatnorLP",
-    "level": 5,
+    "level": 6,
     "kills": 1,
-    "atk": 42,
-    "def": 17,
+    "atk": 45,
+    "def": 19,
     "head": "Leder-Helm",
     "chest": "Leder-Rüstung",
     "legs": "Leder-Hose",
@@ -14,10 +14,10 @@
   "146641414": {
     "id": "146641414",
     "name": "knuddeldings_",
-    "level": 6,
+    "level": 7,
     "kills": 0,
-    "atk": 33,
-    "def": 40,
+    "atk": 36,
+    "def": 42,
     "head": "Bronze-Helm",
     "chest": "Bronze-Brustschutz",
     "legs": "Bronze-Beinschiene",
@@ -26,13 +26,13 @@
   "140996565": {
     "id": "140996565",
     "name": "ollisterhase",
-    "level": 5,
+    "level": 6,
     "kills": 1,
-    "atk": 30,
-    "def": 30,
+    "atk": 33,
+    "def": 40,
     "head": "Bronze-Helm",
-    "chest": "Kupfer-Brustschutz",
-    "legs": "Kupfer-Beinschiene",
+    "chest": "Bronze-Brustschutz",
+    "legs": "Bronze-Beinschiene",
     "weapon": "Bronze-Schwert"
   },
   "165217643": {
@@ -53,8 +53,8 @@
     "level": 5,
     "kills": 1,
     "atk": 30,
-    "def": 30,
-    "head": "Kupfer-Helm",
+    "def": 34,
+    "head": "Bronze-Helm",
     "chest": "Bronze-Brustschutz",
     "legs": "Kupfer-Beinschiene",
     "weapon": "Bronze-Schwert"
@@ -86,14 +86,14 @@
   "1445491432": {
     "id": "1445491432",
     "name": "rollizone",
-    "level": 3,
+    "level": 4,
     "kills": 0,
-    "atk": 16,
-    "def": 19,
+    "atk": 27,
+    "def": 24,
     "head": "Kupfer-Helm",
     "chest": "Kupfer-Brustschutz",
-    "legs": "Leder-Hose",
-    "weapon": "Kupfer-Schwert"
+    "legs": "Kupfer-Beinschiene",
+    "weapon": "Bronze-Schwert"
   },
   "164290998": {
     "id": "164290998",
@@ -109,14 +109,26 @@
   },
   "826597659": {
     "id": "826597659",
-    "name": "andreasandy30000",
+    "name": "KageZetsuLive",
     "level": 2,
-    "kills": 0,
+    "kills": 1,
     "atk": 8,
     "def": 12,
     "head": "Leder-Helm",
     "chest": "Kupfer-Brustschutz",
     "legs": "Stoff-Hose",
     "weapon": "Leder-Messer"
+  },
+  "178998787": {
+    "id": "178998787",
+    "name": "Goldmagier",
+    "level": 2,
+    "kills": 0,
+    "atk": 5,
+    "def": 5,
+    "head": "Stoff-Kapuze",
+    "chest": "Stoff-Hemd",
+    "legs": "Stoff-Hose",
+    "weapon": "Holz-Messer"
   }
 }
