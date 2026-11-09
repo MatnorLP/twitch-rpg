@@ -53,10 +53,10 @@
     "level": 6,
     "kills": 1,
     "atk": 33,
-    "def": 36,
+    "def": 40,
     "head": "Bronze-Helm",
     "chest": "Bronze-Brustschutz",
-    "legs": "Kupfer-Beinschiene",
+    "legs": "Bronze-Beinschiene",
     "weapon": "Bronze-Schwert"
   },
   "246143645": {
