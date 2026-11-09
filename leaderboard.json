@@ -16,12 +16,12 @@
     "name": "knuddeldings_",
     "level": 7,
     "kills": 0,
-    "atk": 36,
+    "atk": 48,
     "def": 42,
     "head": "Bronze-Helm",
     "chest": "Bronze-Brustschutz",
     "legs": "Bronze-Beinschiene",
-    "weapon": "Bronze-Schwert"
+    "weapon": "Eisen-Schwert"
   },
   "140996565": {
     "id": "140996565",
@@ -50,10 +50,10 @@
   "474125863": {
     "id": "474125863",
     "name": "solea_luna",
-    "level": 5,
+    "level": 6,
     "kills": 1,
-    "atk": 30,
-    "def": 34,
+    "atk": 33,
+    "def": 36,
     "head": "Bronze-Helm",
     "chest": "Bronze-Brustschutz",
     "legs": "Kupfer-Beinschiene",
@@ -77,9 +77,9 @@
     "level": 5,
     "kills": 0,
     "atk": 30,
-    "def": 30,
+    "def": 34,
     "head": "Bronze-Helm",
-    "chest": "Kupfer-Brustschutz",
+    "chest": "Bronze-Brustschutz",
     "legs": "Kupfer-Beinschiene",
     "weapon": "Bronze-Schwert"
   },
@@ -110,14 +110,14 @@
   "826597659": {
     "id": "826597659",
     "name": "KageZetsuLive",
-    "level": 2,
+    "level": 3,
     "kills": 1,
-    "atk": 8,
+    "atk": 21,
     "def": 12,
     "head": "Leder-Helm",
     "chest": "Kupfer-Brustschutz",
     "legs": "Stoff-Hose",
-    "weapon": "Leder-Messer"
+    "weapon": "Bronze-Schwert"
   },
   "178998787": {
     "id": "178998787",
