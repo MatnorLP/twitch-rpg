@@ -3,7 +3,7 @@
     "id": "479058025",
     "name": "MatnorLP",
     "level": 7,
-    "kills": 2,
+    "kills": 3,
     "atk": 48,
     "def": 21,
     "head": "Leder-Helm",
@@ -50,14 +50,14 @@
   "474125863": {
     "id": "474125863",
     "name": "solea_luna",
-    "level": 6,
+    "level": 7,
     "kills": 1,
-    "atk": 33,
-    "def": 40,
+    "atk": 48,
+    "def": 42,
     "head": "Bronze-Helm",
     "chest": "Bronze-Brustschutz",
     "legs": "Bronze-Beinschiene",
-    "weapon": "Bronze-Schwert"
+    "weapon": "Eisen-Schwert"
   },
   "246143645": {
     "id": "246143645",
