@@ -28,12 +28,12 @@
     "name": "ollisterhase",
     "level": 7,
     "kills": 1,
-    "atk": 36,
+    "atk": 48,
     "def": 42,
     "head": "Bronze-Helm",
     "chest": "Bronze-Brustschutz",
     "legs": "Bronze-Beinschiene",
-    "weapon": "Bronze-Schwert"
+    "weapon": "Eisen-Schwert"
   },
   "165217643": {
     "id": "165217643",
