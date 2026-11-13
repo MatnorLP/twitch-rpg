@@ -76,12 +76,12 @@
     "name": "MrsRussgranate",
     "level": 6,
     "kills": 0,
-    "atk": 33,
+    "atk": 45,
     "def": 40,
     "head": "Bronze-Helm",
     "chest": "Bronze-Brustschutz",
     "legs": "Bronze-Beinschiene",
-    "weapon": "Bronze-Schwert"
+    "weapon": "Eisen-Schwert"
   },
   "1445491432": {
     "id": "1445491432",
@@ -89,9 +89,9 @@
     "level": 5,
     "kills": 1,
     "atk": 30,
-    "def": 30,
+    "def": 34,
     "head": "Bronze-Helm",
-    "chest": "Kupfer-Brustschutz",
+    "chest": "Bronze-Brustschutz",
     "legs": "Kupfer-Beinschiene",
     "weapon": "Bronze-Schwert"
   },
