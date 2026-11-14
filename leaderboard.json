@@ -86,13 +86,13 @@
   "1445491432": {
     "id": "1445491432",
     "name": "rollizone",
-    "level": 5,
+    "level": 6,
     "kills": 1,
-    "atk": 30,
-    "def": 34,
+    "atk": 33,
+    "def": 40,
     "head": "Bronze-Helm",
     "chest": "Bronze-Brustschutz",
-    "legs": "Kupfer-Beinschiene",
+    "legs": "Bronze-Beinschiene",
     "weapon": "Bronze-Schwert"
   },
   "164290998": {
